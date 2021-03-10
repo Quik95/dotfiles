@@ -1,0 +1,13 @@
+[Unit]
+Description=Starts Play-With-Mpv server
+After=graphical.target
+After=network.target network-online.target
+Wants=network.target network-online.target
+
+[Service]
+ExecStartPre=/bin/sleep 30
+ExecStart=/usr/bin/play-with-mpv
+Restart=on-failure
+
+[Install]
+RequiredBy=default.target

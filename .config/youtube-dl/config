@@ -1,0 +1,7 @@
+--cookies ~/.youtube-cookies.txt
+--mark-watched
+--no-playlist
+--ignore-errors
+--all-subs
+--format "bestvideo[height<=?1080][vcodec!=vp9][vcodec!*=av01]+bestaudio/best"
+

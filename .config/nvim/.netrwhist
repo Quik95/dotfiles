@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/seba/Documents/projects/chip-8/src'
+let g:netrw_dirhist_5='/home/seba/Documents/projects/chip-8'
+let g:netrw_dirhist_4='/home/seba/Documents/projects/chip-8/src'
+let g:netrw_dirhist_3='/home/seba/Documents/projects/chip-8'
+let g:netrw_dirhist_2='/home/seba/Documents/projects/chip-8/src'
+let g:netrw_dirhist_1='/home/seba/Documents/projects/chip-8'
+let g:netrw_dirhist_0='/home/seba/Documents/projects/golang/src/github.com/Quik95/book-keeper'
+let g:netrw_dirhist_9='/home/seba/Documents/projects/chip-8/src'
+let g:netrw_dirhist_8='/home/seba/Documents/projects/chip-8'
+let g:netrw_dirhist_7='/home/seba/Documents/projects/golang/src/github.com/Quik95/book-keeper'

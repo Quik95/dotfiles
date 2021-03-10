@@ -1,0 +1,10 @@
+[Unit]
+Description=Starts ashuffle
+After=sound.target mpd.service
+
+[Service]
+ExecStart=/usr/bin/ashuffle --queue-buffer 1 --tweak play-on-startup=false
+Restart=on-failure
+
+[Install]
+RequiredBy=default.target

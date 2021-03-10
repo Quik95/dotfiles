@@ -1,0 +1,35 @@
+{
+    "editor.semanticTokenColorCustomizations": {
+        "enabled": true
+    },
+    "python.languageServer": "Pylance",
+    "editor.fontSize": 17,
+    "editor.fontFamily": "Iosevka Term SS05",
+    "window.zoomLevel": 1,
+    "keyboard.dispatch": "keyCode",
+    "vim.sneak": true,
+    "editor.formatOnSave": true,
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "relative",
+    "explorer.confirmDragAndDrop": false,
+    "editor.suggestSelection": "first",
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.confirmDelete": false,
+    "workbench.colorTheme": "Nord",
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--fast"
+    ],
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.leader": "<space>",
+    "tabnine.experimentalAutoImports": true,
+    "vim.highlightedyank.enable": true,
+    "vim.camelCaseMotion.enable": true,
+    "editor.cursorSurroundingLines": 8,
+    "vim.easymotion": true,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.scrollBeyondLastLine": false,
+    "editor.tabCompletion": "on",
+}

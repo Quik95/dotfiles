@@ -1,0 +1,11 @@
+{
+    "coc.preferences.formatOnSaveFiletypes": [
+        "javascript",
+        "javascriptreact",
+        "typescriptreact",
+        "json",
+        "rust",
+        "python"
+    ],
+    "html.autoClosingTags": true
+}

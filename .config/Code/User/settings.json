@@ -2,10 +2,8 @@
     "editor.semanticTokenColorCustomizations": {
         "enabled": true
     },
-    "python.languageServer": "Pylance",
     "editor.fontSize": 17,
-    "editor.fontFamily": "Iosevka Term SS05",
-    "window.zoomLevel": 1,
+    "editor.fontFamily": "GoMono Nerd Font",
     "keyboard.dispatch": "keyCode",
     "vim.sneak": true,
     "editor.formatOnSave": true,
@@ -14,7 +12,6 @@
     "editor.lineNumbers": "relative",
     "explorer.confirmDragAndDrop": false,
     "editor.suggestSelection": "first",
-    "workbench.iconTheme": "vscode-icons",
     "explorer.confirmDelete": false,
     "workbench.colorTheme": "Nord",
     "go.lintTool": "golangci-lint",
@@ -23,10 +20,16 @@
     "vim.leader": "<space>",
     "tabnine.experimentalAutoImports": true,
     "vim.highlightedyank.enable": true,
-    "vim.camelCaseMotion.enable": true,
     "editor.cursorSurroundingLines": 8,
     "vim.easymotion": true,
     "editor.semanticHighlighting.enabled": true,
     "editor.scrollBeyondLastLine": false,
     "editor.tabCompletion": "on",
+    "workbench.iconTheme": "material-icon-theme",
+    "terminal.integrated.shell.linux": "/usr/bin/fish",
+    "go.lintFlags": [
+        "--enable-all",
+        "--new"
+    ],
+    "go.gopath": "/home/seba/Documents/projects/golang",
 }

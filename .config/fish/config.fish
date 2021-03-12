@@ -34,3 +34,4 @@ end
 set NPM_PACKAGES "$HOME/.npm-global"
 set PATH $PATH $NPM_PACKAGES/bin
 set MANPATH $NPM_PACKAGES/share/man $MANPATH
+set SHELL '/usr/bin/fish'

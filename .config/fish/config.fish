@@ -24,7 +24,7 @@ set -x GOPATH ~/Documents/projects/golang
 set PATH $PATH $GOPATH/bin
 
 function fish_prompt
-    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) -theme gruvbox
+    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox --shell bare
 end
 
 function fish_greeting

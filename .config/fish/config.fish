@@ -10,7 +10,6 @@ abbr weather	'curl wttr.in/Sępopol'
 abbr wlp	    'systemctl --user start wallpaper-changer.service'
 abbr du	        'du -sh'
 abbr lgscan	    'loudgain --tagmode=e --lowercase --track --noclip'
-abbr btm        'btm --battery --group --mem_as_value --color gruvbox'
 
 alias update-hosts 'cd ~/Documents/hosts-generator/ && python3 ./updateHostsFile.py --extensions fakenews --replace'
 alias config '/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

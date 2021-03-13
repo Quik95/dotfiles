@@ -18,7 +18,7 @@
 # Whether to set CPU% on a process to be based on the total CPU or just current usage.
 #current_usage = false
 # Whether to group processes with the same name together by default.
-#group_processes = false
+group_processes = true
 # Whether to make process searching case sensitive by default.
 #case_sensitive = false
 # Whether to make process searching look for matching the entire word by default.
@@ -28,7 +28,7 @@
 # Defaults to Celsius.  Temperature is one of:
 #temperature_type = "k"
 #temperature_type = "f"
-#temperature_type = "c"
+temperature_type = "c"
 #temperature_type = "kelvin"
 #temperature_type = "fahrenheit"
 #temperature_type = "celsius"
@@ -46,11 +46,11 @@
 # Remove space in tables
 #hide_table_gap = false
 # Disable mouse clicks
-#disable_click = false
+disable_click = true
 # Built-in themes.  Valid values are "default", "default-light", "gruvbox", "gruvbox-light"
-#color = "default"
+color = "gruvbox"
 # Show memory values in the processes widget as values by default
-#mem_as_value = false
+mem_as_value = true
 # Show tree mode by default in the processes widget.
 #tree = false
 
@@ -97,7 +97,7 @@
 # [[row.child.child]] represents a widget.
 #
 # All widgets must have the type value set to one of ["cpu", "mem", "proc", "net", "temp", "disk", "empty"].
-# All layout components have a ratio value - if this is not set, then it defaults to 1. 
+# All layout components have a ratio value - if this is not set, then it defaults to 1.
 # The default widget layout:
 #[[row]]
 #  ratio=30

@@ -1,0 +1,11 @@
+export EDITOR=nvim
+export SYSTEMD_EDITOR=nvim
+export PAGES=less
+export TERMINAL=alacritty
+export BROWSER=firefox
+export GOPATH=$HOME/Documents/projects/golang
+export GOBIN=$HOME/Documents/projects/golang/bin
+export SHELL=fish
+export NPM_PACKAGES="$HOME/.npm-globals"
+export MANPATH=$MANPATH:$NPM_PACKAGES/share/man
+export PATH=$PATH:${GOBIN}:${NPM_PACKAGES}/bin

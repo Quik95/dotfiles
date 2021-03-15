@@ -2,7 +2,7 @@
 Description=Run wallpaper-changer every day
 
 [Timer]
-OnCalendar=daily
+OnCalendar=weekly
 RandomizedDelaySec=1h
 Persistent=true
 

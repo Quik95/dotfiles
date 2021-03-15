@@ -6,7 +6,7 @@ Wants=network.target network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/seba/Documents/projects/golang/bin/wallpaper-changer --categories 011 --sorting toplist --output /home/seba/Pictures/Wallpapers/ --purity 111 --ratios "16x9,16x10" --pages 5 --api-key "NerYqzmcMXCponCgoucGXKWE12y0PEv2" --top-range "3M"
+ExecStart=/home/seba/Documents/projects/golang/bin/wallpaper-changer --categories 011 --sorting toplist --output /home/seba/Pictures/Wallpapers/ --purity 111 --ratios "16x9,16x10" --pages 3 --api-key "NerYqzmcMXCponCgoucGXKWE12y0PEv2" --top-range "6M"
 Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
 Restart=on-failure
 RestartSec=30s

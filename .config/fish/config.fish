@@ -15,13 +15,6 @@ alias update-hosts 'cd ~/Documents/hosts-generator/ && python3 ./updateHostsFile
 alias config '/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias cdm 'cd ~/Music/'
 
-set EDITOR "nvim"
-set BROWSER "firefox"
-set TERMINAL "alacritty"
-
-set -x GOPATH ~/Documents/projects/golang
-set PATH $PATH $GOPATH/bin
-
 function fish_prompt
     eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox --shell bare
 end
@@ -29,8 +22,3 @@ end
 function fish_greeting
     fortune
 end
-
-set NPM_PACKAGES "$HOME/.npm-global"
-set PATH $PATH $NPM_PACKAGES/bin
-set MANPATH $NPM_PACKAGES/share/man $MANPATH
-set SHELL '/usr/bin/fish'

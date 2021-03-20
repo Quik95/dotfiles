@@ -29,7 +29,8 @@
     "terminal.integrated.shell.linux": "/usr/bin/fish",
     "go.lintFlags": [
         "--enable-all",
-        "--new"
+        "--fast",
+        "--disable gofumpt"
     ],
     "go.gopath": "/home/seba/Documents/projects/golang",
 }

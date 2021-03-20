@@ -1,5 +1,5 @@
 abbr ytdm       'youtube-dl -f bestaudio -i --embed-thumbnail --no-playlist --add-metadata -x --audio-format mp3 -o "./%(title)s.%(ext)s"'
-abbr ytdv       'youtube-dl -f "bestvideo[height<=?1080][vcodec!=vp9, vcodec!*=av01]+bestaudio/best" -i --embed-thumbnail --add-metadata -o "./%(title)s.%(ext)s"'
+abbr ytdv       'youtube-dl -i --embed-thumbnail --add-metadata -o "./%(title)s.%(ext)s"'
 abbr vim        'nvim'
 abbr mkdir      'mkdir -p'
 abbr trash      'gio trash'

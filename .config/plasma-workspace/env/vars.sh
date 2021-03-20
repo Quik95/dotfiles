@@ -1,4 +1,5 @@
 export EDITOR=nvim
+export VISUAL=nvim
 export SYSTEMD_EDITOR=nvim
 export PAGES=less
 export TERMINAL=alacritty

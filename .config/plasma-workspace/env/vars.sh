@@ -9,4 +9,5 @@ export GOBIN=$HOME/Documents/projects/golang/bin
 export SHELL=fish
 export NPM_PACKAGES="$HOME/.npm-globals"
 export MANPATH=$MANPATH:$NPM_PACKAGES/share/man
-export PATH=$PATH:${GOBIN}:${NPM_PACKAGES}/bin
+export PIPBIN="$HOME/.local/bin"
+export PATH=$PATH:${GOBIN}:${NPM_PACKAGES}/bin:${PIPBIN}

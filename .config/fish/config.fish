@@ -16,7 +16,7 @@ alias config '/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias cdm 'cd ~/Music/'
 
 function fish_prompt
-    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox --shell bare
+    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox
 end
 
 function fish_greeting

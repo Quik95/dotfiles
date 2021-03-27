@@ -30,7 +30,18 @@
     "go.lintFlags": [
         "--enable-all",
         "--fast",
-        "--disable gofumpt"
     ],
     "go.gopath": "/home/seba/Documents/projects/golang",
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "python.showStartPage": false,
+    "python.autoComplete.addBrackets": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/usr/bin/black",
+    "python.linting.banditEnabled": true,
+    "python.linting.banditPath": "/home/seba/.local/bin/bandit",
 }

@@ -3,7 +3,7 @@
         "enabled": true
     },
     "editor.fontSize": 17,
-    "editor.fontFamily": "GoMono Nerd Font",
+    "editor.fontFamily": "JetBrains Mono, GoMono Nerd Font",
     "keyboard.dispatch": "keyCode",
     "vim.sneak": true,
     "editor.formatOnSave": true,
@@ -32,16 +32,20 @@
         "--fast",
     ],
     "go.gopath": "/home/seba/Documents/projects/golang",
+    "python.showStartPage": false,
+    "python.autoComplete.addBrackets": true,
     "workbench.editorAssociations": [
         {
             "viewType": "jupyter.notebook.ipynb",
             "filenamePattern": "*.ipynb"
         }
     ],
-    "python.showStartPage": false,
-    "python.autoComplete.addBrackets": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "/usr/bin/flake8",
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintPath": "/usr/bin/pylint",
+    "python.linting.banditEnabled": true,
+    "python.linting.banditPath": "/usr/bin/bandit",
     "python.formatting.provider": "black",
     "python.formatting.blackPath": "/usr/bin/black",
-    "python.linting.banditEnabled": true,
-    "python.linting.banditPath": "/home/seba/.local/bin/bandit",
 }

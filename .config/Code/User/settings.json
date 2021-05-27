@@ -2,7 +2,6 @@
     "editor.semanticTokenColorCustomizations": {
         "enabled": true
     },
-    "editor.fontSize": 17,
     "editor.fontFamily": "JetBrains Mono, GoMono Nerd Font",
     "keyboard.dispatch": "keyCode",
     "vim.sneak": true,
@@ -48,4 +47,7 @@
     "python.linting.banditPath": "/usr/bin/bandit",
     "python.formatting.provider": "black",
     "python.formatting.blackPath": "/usr/bin/black",
+    "python.analysis.completeFunctionParens": true,
+    "editor.fontSize": 16,
+    "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
 }

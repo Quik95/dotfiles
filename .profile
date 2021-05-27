@@ -11,3 +11,5 @@ export NPM_PACKAGES="$HOME/.npm-globals"
 export MANPATH=$MANPATH:$NPM_PACKAGES/share/man
 export PIPBIN="$HOME/.local/bin"
 export PATH=$PATH:${GOBIN}:${NPM_PACKAGES}/bin:${PIPBIN}
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_STYLE_OVERRIDE=""

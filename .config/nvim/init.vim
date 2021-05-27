@@ -52,8 +52,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
 Plug 'phaazon/hop.nvim'
+Plug 'cohama/lexima.vim'
 call plug#end()
 
 
@@ -93,8 +93,6 @@ augroup COMPLETION
     autocmd!
     autocmd BufEnter * lua require'completion'.on_attach()
 augroup END
-
-
 
 augroup highlight_yank
     autocmd!
@@ -176,3 +174,5 @@ let g:nvim_tree_icons = {
     \   }
     \ }
 
+"Auto close parentheses
+let g:lexima_enable_basic_rules = 1

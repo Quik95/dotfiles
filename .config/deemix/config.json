@@ -1,8 +1,8 @@
 {
-  "downloadLocation": "/home/seba/Music/deemix Music/awaiting_scanning",
+  "downloadLocation": "/home/seba/Music/deemix Music/MAIN",
   "tracknameTemplate": "%artist% - %title%",
   "albumTracknameTemplate": "%tracknumber% - %title%",
-  "playlistTracknameTemplate": "%position% - %artist% - %title%",
+  "playlistTracknameTemplate": "%artist% - %title%",
   "createPlaylistFolder": false,
   "playlistNameTemplate": "%playlist%",
   "createArtistFolder": false,

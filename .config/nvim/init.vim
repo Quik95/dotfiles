@@ -44,7 +44,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
@@ -56,15 +56,16 @@ Plug 'phaazon/hop.nvim'
 Plug 'cohama/lexima.vim'
 call plug#end()
 
-
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
-
 
 " colorscheme gruvbox         "aka the best colorscheme
 colorscheme nord
 
-let g:airline_theme='solarized'
-let g:airline_solarized_bg="dark"
+" let g:gruvbox_contrast_light = "hard"
+" set background="light"
+
+let g:airline_theme='nord'
+" let g:airline_solarized_bg="light"
 
 let g:rg_derive_root='true'
 
@@ -115,19 +116,19 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>bd :bd<CR>
 
 " LSP and completion stuff
-lua require'lspconfig'.gopls.setup{}
-lua require'lspconfig'.pyls.setup{}
+lua require'lspconfig'.gopls.setup{ on_attach=on_attach }
+lua require'lspconfig'.pyls.setup{ on_attach=on_attach }
+lua require'lspconfig'.rust_analyzer.setup{ on_attach=on_attach }
 
 set completeopt=menuone,noinsert,noselect
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 let g:completion_confirm_key = ""
 let g:completion_trigger_keyword_length = 2
-" Use <Tab> and <S-Tab> to navigate through popup menu
+" Use <Tab>dand <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "map <c-Space> to manually trigger completion
 imap <silent> <c-Space> <Plug>(completion_trigger)
-let g:completion_confirm_key = ""
 inoremap <expr> <cr>    pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<cr>"
 
 nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
@@ -148,7 +149,6 @@ nnoremap <leader>pf :lua require('telescope.builtin').find_files()<CR>
 nnoremap <leader>ww :HopWord<CR>
 nnoremap <leader>wp :HopPattern<CR>
 nnoremap <leader>wb :HopChar2<CR>
-nnoremap <leader>wl :HopLine<CR>
 
 " lua filetree
 let g:nvim_tree_quit_on_open = 1

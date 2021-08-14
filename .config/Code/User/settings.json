@@ -12,7 +12,7 @@
     "explorer.confirmDragAndDrop": false,
     "editor.suggestSelection": "first",
     "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Nord",
+    "workbench.colorTheme": "Gruvbox Light Soft",
     "go.lintTool": "golangci-lint",
     "vim.enableNeovim": true,
     "vim.neovimPath": "/usr/bin/nvim",
@@ -33,12 +33,9 @@
     "go.gopath": "/home/seba/Documents/projects/golang",
     "python.showStartPage": false,
     "python.autoComplete.addBrackets": true,
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Path": "/usr/bin/flake8",
     "python.linting.pylintEnabled": true,
@@ -50,4 +47,11 @@
     "python.analysis.completeFunctionParens": true,
     "editor.fontSize": 16,
     "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "editor.suggest.preview": true,
+    "workbench.editor.enablePreview": false,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
 }

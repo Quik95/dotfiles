@@ -1,4 +1,3 @@
---cookies ~/.youtube-cookies.txt
 --mark-watched
 --no-playlist
 --ignore-errors

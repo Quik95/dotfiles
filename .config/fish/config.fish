@@ -22,3 +22,5 @@ end
 function fish_greeting
     fortune
 end
+
+zoxide init fish | source

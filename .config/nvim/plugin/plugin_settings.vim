@@ -27,7 +27,6 @@ let linters = [
             \"forcetypeassert",
             \"funlen",
             \"gci",
-            \"gochecknoglobals",
             \"gocognit",
             \"goconst",
             \"gocritic",

@@ -1,7 +1,3 @@
-"LSP and completion stuff
-lua require'lspconfig'.gopls.setup{ on_attach=on_attach }
-lua require'lspconfig'.rust_analyzer.setup{ on_attach=on_attach }
-
 nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>vi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>vsh :lua vim.lsp.buf.signature_help()<CR>

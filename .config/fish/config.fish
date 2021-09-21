@@ -24,3 +24,4 @@ function fish_greeting
 end
 
 zoxide init fish | source
+alias cd '__zoxide_z'

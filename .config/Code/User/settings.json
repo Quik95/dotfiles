@@ -2,9 +2,8 @@
     "editor.semanticTokenColorCustomizations": {
         "enabled": true
     },
-    "editor.fontFamily": "JetBrains Mono, GoMono Nerd Font",
+    "editor.fontFamily": "GoMono Nerd Font",
     "keyboard.dispatch": "keyCode",
-    "vim.sneak": true,
     "editor.formatOnSave": true,
     "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
@@ -12,10 +11,8 @@
     "explorer.confirmDragAndDrop": false,
     "editor.suggestSelection": "first",
     "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Gruvbox Light Soft",
+    "workbench.colorTheme": "Nord",
     "go.lintTool": "golangci-lint",
-    "vim.enableNeovim": true,
-    "vim.neovimPath": "/usr/bin/nvim",
     "vim.leader": "<space>",
     "tabnine.experimentalAutoImports": true,
     "vim.highlightedyank.enable": true,
@@ -25,33 +22,16 @@
     "editor.scrollBeyondLastLine": false,
     "editor.tabCompletion": "on",
     "workbench.iconTheme": "material-icon-theme",
-    "terminal.integrated.shell.linux": "/usr/bin/fish",
     "go.lintFlags": [
         "--enable-all",
         "--fast",
     ],
-    "go.gopath": "/home/seba/Documents/projects/golang",
     "python.showStartPage": false,
     "python.autoComplete.addBrackets": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
-    },
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Path": "/usr/bin/flake8",
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintPath": "/usr/bin/pylint",
-    "python.linting.banditEnabled": true,
-    "python.linting.banditPath": "/usr/bin/bandit",
-    "python.formatting.provider": "black",
-    "python.formatting.blackPath": "/usr/bin/black",
     "python.analysis.completeFunctionParens": true,
     "editor.fontSize": 16,
     "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
     "rust-analyzer.checkOnSave.command": "clippy",
     "editor.suggest.preview": true,
     "workbench.editor.enablePreview": false,
-    "notebook.cellToolbarLocation": {
-        "default": "right",
-        "jupyter-notebook": "left"
-    },
 }

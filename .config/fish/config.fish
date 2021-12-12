@@ -10,14 +10,18 @@ abbr weather	'curl wttr.in/Sępopol'
 abbr wlp	    'systemctl --user start wallpaper-changer.service'
 abbr du	        'du -sh'
 abbr lgscan	    'loudgain --tagmode=e --lowercase --track --noclip'
+abbr paru       'paru --noconfirm'
+abbr flatpak   'flatpak --assumeyes'
 
-alias update-hosts 'cd ~/Documents/hosts-generator/ && python3 ./updateHostsFile.py --extensions fakenews --replace'
 alias config '/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias cdm 'cd ~/Music/'
+alias ls 'exa -aFhml --git --icons --no-permissions --no-user'
+alias ssh 'kitty +kitten ssh'
 
-function fish_prompt
-    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox
-end
+#function fish_prompt
+#    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox
+#end
+
+starship init fish | source
 
 function fish_greeting
     fortune

@@ -130,7 +130,7 @@ mem_as_value = true
 # hard to use as of now, and there is a planned interface for managing this in the future:
 [disk_filter]
 is_list_ignored = true
-list = ["/dev/sdb2"]
+list = ["/dev/sdb1"]
 #regex = true
 #case_sensitive = false
 

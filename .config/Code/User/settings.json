@@ -2,7 +2,7 @@
     "editor.semanticTokenColorCustomizations": {
         "enabled": true
     },
-    "editor.fontFamily": "GoMono Nerd Font",
+    "editor.fontFamily": "JetBrains Mono",
     "keyboard.dispatch": "keyCode",
     "editor.formatOnSave": true,
     "editor.fontLigatures": true,
@@ -34,4 +34,5 @@
     "rust-analyzer.checkOnSave.command": "clippy",
     "editor.suggest.preview": true,
     "workbench.editor.enablePreview": false,
+    "editor.inlineSuggest.enabled": true,
 }

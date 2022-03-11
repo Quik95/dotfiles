@@ -11,7 +11,7 @@
     "explorer.confirmDragAndDrop": false,
     "editor.suggestSelection": "first",
     "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Nord",
+    "workbench.colorTheme": "Kumux",
     "go.lintTool": "golangci-lint",
     "vim.leader": "<space>",
     "tabnine.experimentalAutoImports": true,

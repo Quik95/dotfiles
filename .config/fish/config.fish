@@ -11,17 +11,18 @@ abbr wlp	    'systemctl --user start wallpaper-changer.service'
 abbr du	        'du -sh'
 abbr lgscan	    'loudgain --tagmode=e --lowercase --track --noclip'
 abbr paru       'paru --noconfirm'
-abbr flatpak   'flatpak --assumeyes'
+abbr flatpaki    'flatpak --assumeyes install'
 
 alias config '/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias ls 'exa -aFhml --git --icons --no-permissions --no-user'
+#alias ls 'exa -aFhml --git --icons --no-permissions --no-user'
+alias ls 'lsd'
 alias ssh 'kitty +kitten ssh'
 
-#function fish_prompt
-#    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox
-#end
+function fish_prompt
+    eval /usr/bin/powerline-go -error $status -jobs (jobs -p | wc -l) --theme gruvbox
+end
 
-starship init fish | source
+#starship init fish | source
 
 function fish_greeting
     fortune

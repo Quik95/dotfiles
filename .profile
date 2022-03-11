@@ -1,9 +1,9 @@
-export EDITOR=nvim
-export VISUAL=nvim
-export SYSTEMD_EDITOR=nvim
+export EDITOR="emacsclient -c"
+export VISUAL="emacsclient -c"
+export SYSTEMD_EDITOR="emacsclient -c"
 export PAGES=bat
 export TERMINAL=kitty
-export BROWSER=firefox
+export BROWSER="flatpak run org.mozilla.firefox"
 # export BROWSER=brave
 export GOPATH=$HOME/Projects/golang
 export GOBIN=$HOME/Projects/golang/bin

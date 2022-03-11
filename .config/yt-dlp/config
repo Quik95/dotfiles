@@ -1,0 +1,5 @@
+--no-playlist
+--ignore-errors
+--sub-langs all
+--write-subs
+--format "bestvideo[height<=1080]+bestaudio"

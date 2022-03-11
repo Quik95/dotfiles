@@ -76,6 +76,9 @@
     "multiArtistSeparator": "default",
     "singleAlbumArtist": false,
     "coverDescriptionUTF8": false,
-    "rating": false
-  }
+    "rating": false,
+    "artists": true
+  },
+  "feelingLucky": false,
+  "fallbackISRC": false
 }

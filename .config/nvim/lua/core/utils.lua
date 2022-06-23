@@ -1,116 +1,317 @@
 local M = {}
 
-local g = vim.g
-local set = vim.opt
+local cmd = vim.cmd
+M.close_buffer = function(force)
+   -- This is a modification of a NeoVim plugin from
+   -- Author: ojroques - Olivier Roques
+   -- Src: https://github.com/ojroques/nvim-bufdel
+   -- (Author has okayed copy-paste)
 
-function M.bootstrap()
-  local fn = vim.fn
-  local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system {
-      "git",
-      "clone",
-      "--depth",
-      "1",
-      "https://github.com/wbthomason/packer.nvim",
-      install_path,
-    }
-    print "Cloning packer...\nSetup AstroVim"
-    vim.cmd [[packadd packer.nvim]]
-  end
+   -- Options
+   local opts = {
+      next = "cycle", -- how to retrieve the next buffer
+      quit = false, -- exit when last buffer is deleted
+      --TODO make this a chadrc flag/option
+   }
+
+   -- ----------------
+   -- Helper functions
+   -- ----------------
+
+   -- Switch to buffer 'buf' on each window from list 'windows'
+   local function switch_buffer(windows, buf)
+      local cur_win = vim.fn.winnr()
+      for _, winid in ipairs(windows) do
+         winid = tonumber(winid) or 0
+         vim.cmd(string.format("%d wincmd w", vim.fn.win_id2win(winid)))
+         vim.cmd(string.format("buffer %d", buf))
+      end
+      vim.cmd(string.format("%d wincmd w", cur_win)) -- return to original window
+   end
+
+   -- Select the first buffer with a number greater than given buffer
+   local function get_next_buf(buf)
+      local next = vim.fn.bufnr "#"
+      if opts.next == "alternate" and vim.fn.buflisted(next) == 1 then
+         return next
+      end
+      for i = 0, vim.fn.bufnr "$" - 1 do
+         next = (buf + i) % vim.fn.bufnr "$" + 1 -- will loop back to 1
+         if vim.fn.buflisted(next) == 1 then
+            return next
+         end
+      end
+   end
+
+   -- ----------------
+   -- End helper functions
+   -- ----------------
+
+   local buf = vim.fn.bufnr()
+   if vim.fn.buflisted(buf) == 0 then -- exit if buffer number is invalid
+      vim.cmd "close"
+      return
+   end
+
+   if #vim.fn.getbufinfo { buflisted = 1 } < 2 then
+      if opts.quit then
+         -- exit when there is only one buffer left
+         if force then
+            vim.cmd "qall!"
+         else
+            vim.cmd "confirm qall"
+         end
+         return
+      end
+
+      local chad_term, _ = pcall(function()
+         return vim.api.nvim_buf_get_var(buf, "term_type")
+      end)
+
+      if chad_term then
+         -- Must be a window type
+         vim.cmd(string.format("setlocal nobl", buf))
+         vim.cmd "enew"
+         return
+      end
+      -- don't exit and create a new empty buffer
+      vim.cmd "enew"
+      vim.cmd "bp"
+   end
+
+   local next_buf = get_next_buf(buf)
+   local windows = vim.fn.getbufinfo(buf)[1].windows
+
+   -- force deletion of terminal buffers to avoid the prompt
+   if force or vim.fn.getbufvar(buf, "&buftype") == "terminal" then
+      local chad_term, type = pcall(function()
+         return vim.api.nvim_buf_get_var(buf, "term_type")
+      end)
+
+      -- TODO this scope is error prone, make resilient
+      if chad_term then
+         if type == "wind" then
+            -- hide from bufferline
+            vim.cmd(string.format("%d bufdo setlocal nobl", buf))
+            -- switch to another buff
+            -- TODO switch to next buffer, this works too
+            vim.cmd "BufferLineCycleNext"
+         else
+            local cur_win = vim.fn.winnr()
+            -- we can close this window
+            vim.cmd(string.format("%d wincmd c", cur_win))
+            return
+         end
+      else
+         switch_buffer(windows, next_buf)
+         vim.cmd(string.format("bd! %d", buf))
+      end
+   else
+      switch_buffer(windows, next_buf)
+      vim.cmd(string.format("silent! confirm bd %d", buf))
+   end
+   -- revert buffer switches if user has canceled deletion
+   if vim.fn.buflisted(buf) == 1 then
+      switch_buffer(windows, buf)
+   end
 end
 
-function M.disabled_builtins()
-  g.loaded_gzip = false
-  g.loaded_netrwPlugin = false
-  g.loaded_netrwSettngs = false
-  g.loaded_netrwFileHandlers = false
-  g.loaded_tar = false
-  g.loaded_tarPlugin = false
-  g.zipPlugin = false
-  g.loaded_zipPlugin = false
-  g.loaded_2html_plugin = false
-  g.loaded_remote_plugins = false
-  set.shadafile = "NONE"
+-- hide statusline
+-- tables fetched from load_config function
+M.hide_statusline = function()
+   local hidden = require("core.utils").load_config().plugins.options.statusline.hidden
+   local shown = require("core.utils").load_config().plugins.options.statusline.shown
+   local api = vim.api
+   local buftype = api.nvim_buf_get_option(0, "ft")
+
+   -- shown table from config has the highest priority
+   if vim.tbl_contains(shown, buftype) then
+      api.nvim_set_option("laststatus", 2)
+      return
+   end
+
+   if vim.tbl_contains(hidden, buftype) then
+      api.nvim_set_option("laststatus", 0)
+      return
+   end
+
+   api.nvim_set_option("laststatus", 2)
 end
 
-function M.user_settings()
-  local default = require "core.defaults"
-  local user_status_ok, user_settings = pcall(require, "user.settings")
-  if user_status_ok then
-    default = vim.tbl_deep_extend("force", default, user_settings)
-  end
-  return default
+M.load_config = function()
+   local conf = require "core.default_config"
+
+   local chadrcExists, change = pcall(require, "custom.chadrc")
+
+   -- if chadrc exists , then merge its table into the default config's
+
+   if chadrcExists then
+      conf = vim.tbl_deep_extend("force", conf, change)
+   end
+
+   return conf
 end
 
-function M.impatient()
-  local impatient_ok, _ = pcall(require, "impatient")
-  if impatient_ok then
-    require("impatient").enable_profile()
-  end
+M.map = function(mode, keys, command, opt)
+   local options = { noremap = true, silent = true }
+   if opt then
+      options = vim.tbl_extend("force", options, opt)
+   end
+
+   -- all valid modes allowed for mappings
+   -- :h map-modes
+   local valid_modes = {
+      [""] = true,
+      ["n"] = true,
+      ["v"] = true,
+      ["s"] = true,
+      ["x"] = true,
+      ["o"] = true,
+      ["!"] = true,
+      ["i"] = true,
+      ["l"] = true,
+      ["c"] = true,
+      ["t"] = true,
+   }
+
+   -- helper function for M.map
+   -- can gives multiple modes and keys
+   local function map_wrapper(sub_mode, lhs, rhs, sub_options)
+      if type(lhs) == "table" then
+         for _, key in ipairs(lhs) do
+            map_wrapper(sub_mode, key, rhs, sub_options)
+         end
+      else
+         if type(sub_mode) == "table" then
+            for _, m in ipairs(sub_mode) do
+               map_wrapper(m, lhs, rhs, sub_options)
+            end
+         else
+            if valid_modes[sub_mode] and lhs and rhs then
+               vim.api.nvim_set_keymap(sub_mode, lhs, rhs, sub_options)
+            else
+               sub_mode, lhs, rhs = sub_mode or "", lhs or "", rhs or ""
+               print(
+                  "Cannot set mapping [ mode = '" .. sub_mode .. "' | key = '" .. lhs .. "' | cmd = '" .. rhs .. "' ]"
+               )
+            end
+         end
+      end
+   end
+
+   map_wrapper(mode, keys, command, options)
 end
 
-function M.compiled()
-  local compiled_ok, _ = pcall(require, "packer_compiled")
-  if compiled_ok then
-    require "packer_compiled"
-  end
+-- load plugin after entering vim ui
+M.packer_lazy_load = function(plugin, timer)
+   if plugin then
+      timer = timer or 0
+      vim.defer_fn(function()
+         require("packer").loader(plugin)
+      end, timer)
+   end
 end
 
+-- Highlights functions
 
-function M.list_registered_providers_names(filetype)
-  local s = require "null-ls.sources"
-  local available_sources = s.get_available(filetype)
-  local registered = {}
-  for _, source in ipairs(available_sources) do
-    for method in pairs(source.methods) do
-      registered[method] = registered[method] or {}
-      table.insert(registered[method], source.name)
-    end
-  end
-  return registered
+-- Define bg color
+-- @param group Group
+-- @param color Color
+
+M.bg = function(group, col)
+   cmd("hi " .. group .. " guibg=" .. col)
 end
 
-function M.list_registered_formatters(filetype)
-  local null_ls_methods = require "null-ls.methods"
-  local formatter_method = null_ls_methods.internal["FORMATTING"]
-  local registered_providers = M.list_registered_providers_names(filetype)
-  return registered_providers[formatter_method] or {}
+-- Define fg color
+-- @param group Group
+-- @param color Color
+M.fg = function(group, col)
+   cmd("hi " .. group .. " guifg=" .. col)
 end
 
-function M.list_registered_linters(filetype)
-  local null_ls_methods = require "null-ls.methods"
-  local formatter_method = null_ls_methods.internal["DIAGNOSTICS"]
-  local registered_providers = M.list_registered_providers_names(filetype)
-  return registered_providers[formatter_method] or {}
+-- Define bg and fg color
+-- @param group Group
+-- @param fgcol Fg Color
+-- @param bgcol Bg Color
+M.fg_bg = function(group, fgcol, bgcol)
+   cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
 end
 
-function M.update()
-  local Job = require('plenary.job')
-  local errors = {}
+-- Override default config of a plugin based on the path provided in the chadrc
+-- Arguments:
+--   1st - name of plugin
+--   2nd - default config path
+--   3rd - optional function name which will called from default_config path
+--   e.g: if given args - "telescope", "plugins.configs.telescope", "setup"
+--        then return "require('plugins.configs.telescope').setup()"
+--        if 3rd arg not given, then return "require('plugins.configs.telescope')"
+-- if override is a table, mark set the override flag for the default config to true
+-- override flag being true tells the plugin to call tbl_override_req as part of configuration
 
-  Job
-    :new({
-      command = "git",
-      args = { "pull", "--ff-only" },
-      cwd = vim.fn.stdpath('config'),
-      on_start = function()
-        print("Updating...")
-      end,
-      on_exit = function()
-        if vim.tbl_isempty(errors) then
-          print("Updated!")
-        else
-          table.insert(errors, 1, "Something went wrong! Please pull changes manually.")
-          table.insert(errors, 2, "")
-          print("Update failed!", { timeout = 30000 })
-        end
-      end,
-      on_stderr = function(_, err)
-        table.insert(errors, err)
-      end,
-    })
-    :sync()
+M.override_req = function(name, default_config, config_function)
+   local override, apply_table_override =
+      require("core.utils").load_config().plugins.default_plugin_config_replace[name], "false"
+   local result = default_config
+   if type(override) == "string" and override ~= "" then
+      return "require('" .. override .. "')"
+   elseif type(override) == "table" then
+      apply_table_override = "true"
+   elseif type(override) == "function" then
+      return override
+   end
+
+   result = "('" .. result .. "')"
+   if type(config_function) == "string" and config_function ~= "" then
+      -- add the . to call the functions and concatenate true or false as argument
+      result = result .. "." .. config_function .. "(" .. apply_table_override .. ")"
+   end
+
+   return "require" .. result
+end
+
+-- Override parts of default config of a plugin based on the table provided in the chadrc
+
+-- FUNCTION: tbl_override_req, use `chadrc` plugin config override to modify default config if present
+-- name = name inside `default_config` / `chadrc`
+-- default_table = the default configuration table of the plugin
+-- returns the modified configuration table
+M.tbl_override_req = function(name, default_table)
+   local override = require("core.utils").load_config().plugins.default_plugin_config_replace[name] or {}
+   return vim.tbl_deep_extend("force", default_table, override)
+end
+
+--provide labels to plugins instead of integers
+M.label_plugins = function(plugins)
+   local plugins_labeled = {}
+   for _, plugin in ipairs(plugins) do
+      plugins_labeled[plugin[1]] = plugin
+   end
+   return plugins_labeled
+end
+
+-- remove plugins specified by user from the plugins table
+M.remove_default_plugins = function(plugins)
+   local removals = require("core.utils").load_config().plugins.default_plugin_remove or {}
+   if not vim.tbl_isempty(removals) then
+      for _, plugin in pairs(removals) do
+         plugins[plugin] = nil
+      end
+   end
+   return plugins
+end
+
+-- append user plugins to default plugins
+M.add_user_plugins = function(plugins)
+   local user_Plugins = require("core.utils").load_config().plugins.install or {}
+   if type(user_Plugins) == "string"
+      then user_Plugins=require(user_Plugins)
+   end
+   if not vim.tbl_isempty(user_Plugins) then
+      for _, v in pairs(user_Plugins) do
+         plugins[v[1]] = v
+      end
+   end
+   return plugins
 end
 
 return M

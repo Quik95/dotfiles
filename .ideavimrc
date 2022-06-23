@@ -4,3 +4,4 @@ set visualbell
 set noerrorbells
 set relativenumber
 set easymotion
+set sneak

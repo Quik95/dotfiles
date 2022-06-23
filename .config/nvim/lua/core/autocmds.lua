@@ -1,45 +1,20 @@
-local M = {}
+local settings=require("core.utils").load_config().options.nvChad
+-- uncomment this if you want to open nvim with a dir
+-- vim.cmd [[ autocmd BufEnter * if &buftype != "terminal" | lcd %:p:h | endif ]]
 
-local utils = require "core.utils"
-local colorscheme = utils.user_settings().colorscheme
+-- Use relative & absolute line numbers in 'n' & 'i' modes respectively
+-- vim.cmd[[ au InsertEnter * set norelativenumber ]]
+-- vim.cmd[[ au InsertLeave * set relativenumber ]]
 
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]]
+-- Don't show any numbers inside terminals
+if not settings.terminal_numbers then
+   vim.cmd [[ au TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal ]]
+end
 
-vim.cmd [[
-  augroup cursor_off
-    autocmd!
-    autocmd WinLeave * set nocursorline
-    autocmd WinEnter * set cursorline
-  augroup end
-]]
+-- Don't show status line on certain windows
+vim.cmd [[ autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua require("core.utils").hide_statusline() ]]
 
-vim.cmd [[
-  augroup dashboard_settings
-    autocmd!
-    autocmd FileType dashboard set showtabline=0
-    autocmd BufWinLeave <buffer> set showtabline=2
-    autocmd BufEnter * if &ft is "dashboard" | set laststatus=0 | else | set laststatus=2 | endif
-    autocmd BufEnter * if &ft is "dashboard" | set nocursorline | endif
-  augroup end
-]]
-
-vim.cmd(string.format(
-  [[
-    augroup colorscheme
-      autocmd!
-      autocmd VimEnter * colorscheme %s
-    augroup end]],
-  colorscheme
-))
-
-
-vim.cmd [[
-  command! AstroUpdate lua require('core.utils').update()
-]]
-
-return M
+-- Open a file from its last left off position
+-- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+-- File extension specific tabbing
+-- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]

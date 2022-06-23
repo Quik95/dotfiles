@@ -1,9 +1,0 @@
-set selection-clipboard   	clipboard
-set window-title-basename 	true
-set scroll-page-aware 		true
-set smooth-scroll 		true
-
-set recolor-darkcolor     	"#282828"
-set recolor-lightcolor    	"#EBDBB2"
-set default-bg            	"#EBDBB2"
-set recolor               	true

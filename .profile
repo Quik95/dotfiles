@@ -12,4 +12,3 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 export MANPATH=$MANPATH:$NPM_PACKAGES/share/man
 export PIPBIN="$HOME/.local/bin"
 export PATH=$PATH:${GOBIN}:${NPM_PACKAGES}/bin:${PIPBIN}
-export PKGEXT=.pkg.tar

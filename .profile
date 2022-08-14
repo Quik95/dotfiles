@@ -1,6 +1,6 @@
-export EDITOR="emacsclient -c"
-export VISUAL="emacsclient -c"
-export SYSTEMD_EDITOR="emacsclient -c"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export SYSTEMD_EDITOR="nvim"
 export PAGES=bat
 export TERMINAL=kitty
 export BROWSER="flatpak run org.mozilla.firefox"
@@ -12,3 +12,4 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 export MANPATH=$MANPATH:$NPM_PACKAGES/share/man
 export PIPBIN="$HOME/.local/bin"
 export PATH=$PATH:${GOBIN}:${NPM_PACKAGES}/bin:${PIPBIN}
+export PATH="/home/seba/.local/bin:/usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin:/usr/local/sbin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/seba/Projects/golang/bin:/home/seba/.npm-packages/bin:/home/seba/.local/bin:/home/seba/.dotnet/tools"

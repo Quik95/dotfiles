@@ -2,10 +2,17 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
+
+**Checklist**
+Please confirm you have run the following commands and restarted Neovim and are encountering the issue with the current latest version of AstroNvim
+- [ ] `:PackerSync`
+- [ ] `:AstroUpdate`
+- [ ] restarted AstroNvim
+- [ ] Neovim version >= 0.7.0
 
 **Describe the bug**
 A clear and concise description of what the bug is.
@@ -21,12 +28,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - Operating System
- - Terminal
- - Version of Neovim
+If applicable, add screenshots or recording ([Asciinema](asciinema.org)) to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.

@@ -1,175 +1,126 @@
-<h1 align="center">NvChad</h1>
+<div align="center" id="madewithlua">
+    <img src="https://astronvim.github.io/img/logo/astronvim.svg" width="110", height="100">
+</div>
 
-<div align="center">
-	<a href="https://nvchad.github.io/">Home</a>
-  <span> • </span>
-    	<a href="https://nvchad.github.io/getting-started/setup">Install</a>
-  <span> • </span>
-       	<a href="https://nvchad.github.io/contribute">Contribute</a>
-  <span> • </span>
-	<a href="https://github.com/NvChad/NvChad#gift_heart-support">Support</a>
-  <span> • </span>
-        <a href="https://nvchad.github.io/Extras">Extras</a>
-  <p></p>
-</div> 
+<h1 align="center">AstroNvim</h1>
 
-<div align="center">
- 
-[![Super Linter](https://img.shields.io/github/workflow/status/NvChad/NvChad/Super-Linter/main?style=flat-square&logo=github&label=Build&color=8DBBE9)]()
-<a href="https://github.com/NvChad/NvChad/blob/main/LICENSE"
-        ><img
-            src="https://img.shields.io/github/license/NvChad/NvChad?style=flat-square&logo=GNU&label=License&color=df967f"
-            alt="License"
-    />
-[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.6.1-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
-[![GitHub Issues](https://img.shields.io/github/issues/NvChad/NvChad.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/NvChad/NvChad/issues)
-[![Discord](https://img.shields.io/discord/869557815780470834?color=738adb&label=Discord&logo=discord&logoColor=white&style=flat-square)](https://discord.gg/gADmkJb9Fb)
-[![Matrix](https://img.shields.io/badge/Matrix-40aa8b.svg?style=flat-square&logo=Matrix&logoColor=white)](https://matrix.to/#/#nvchad:matrix.org)
-[![Telegram](https://img.shields.io/badge/Telegram-blue.svg?style=flat-square&logo=Telegram&logoColor=white)](https://t.me/DE_WM)
+<div align="center"><p>
+    <a href="https://github.com/AstroNvim/AstroNvim/pulse">
+      <img src="https://img.shields.io/github/last-commit/AstroNvim/AstroNvim?color=%4dc71f&label=Last%20Commit&logo=github&style=flat-square"/>
+    </a>
+    <a href="https://github.com/AstroNvim/AstroNvim/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/AstroNvim/AstroNvim?label=License&logo=GNU&style=flat-square"/>
+	</a>
+    <a href="https://neovim.io/">
+      <img src="https://img.shields.io/badge/Neovim-0.7+-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=white"/>
+    </a>
+    <a href="https://discord.gg/UcZutyeaFW">
+      <img src="https://img.shields.io/badge/discord-Join-7289da?color=%235865F2%20&label=Discord&logo=discord&logoColor=%23ffffff&style=flat-square"/>
+    </a>
+</p>
+</div>
 
-  </div>
+<p align="center">
+AstroNvim is an aesthetic and feature-rich neovim config that is extensible and easy to use with a great set of plugins
+</p>
 
-## Showcase
+**_Notice:_** AstroNvim v1.4.0 has added `stable` and `nightly` update channels. For the time being we have kept the default update channel to `nightly` so that the behavior of AstroNvim doesn't change (this could be considered a breaking change to some). We are planning to make the `stable` channel the default update channel when Neovim v0.8 is released and we tag AstroNvim v2.0.0 to incorporate this "breaking" change.
 
-<img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/dashboard-nvim.png"><hr>
-<img src="https://cdn.discordapp.com/attachments/610012460828852229/853933487295299584/unknown.png"><hr>
-<img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/initialNvim1.png"><hr>
-<img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/initialNvim.png"><hr>
+## 🌟 Preview
 
-## Theme Showcase
+![Preview1](https://github.com/AstroNvim/astronvim.github.io/raw/main/static/img/dashboard.png)
+![Preview2](https://github.com/AstroNvim/astronvim.github.io/raw/main/static/img/overview.png)
+![Preview33](https://github.com/AstroNvim/astronvim.github.io/raw/main/static/img/lsp_hover.png)
 
-<details><summary> <b>Images (Click to expand!)</b></summary>
+## ✨ Features
 
-![onedark](https://user-images.githubusercontent.com/59060246/130129880-59ab1ad5-9aa6-4f50-9ddd-d8dde0c16257.png)
-![nord](https://user-images.githubusercontent.com/59060246/130129890-c01117df-ac3d-40dd-b95d-2681c2461bb4.png)
-![gruvchad](https://user-images.githubusercontent.com/59060246/130129897-a68b1585-f42d-4325-8482-102dd2fe1e9e.png)
-![everforest](https://user-images.githubusercontent.com/59060246/130129901-5e582f3e-b776-4d0c-9790-be5ae738b5a8.png)
+- File explorer with [Neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim)
+- Autocompletion with [Cmp](https://github.com/hrsh7th/nvim-cmp)
+- Git integration with [Gitsigns](https://github.com/lewis6991/gitsigns.nvim)
+- Statusline with [Feline](https://github.com/feline-nvim/feline.nvim)
+- Terminal with [Toggleterm](https://github.com/akinsho/toggleterm.nvim)
+- Fuzzy finding with [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+- Syntax highlighting with [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- Formatting and linting with [Null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
+- Language Server Protocol with [Native LSP](https://github.com/neovim/nvim-lspconfig)
+- Buffer Line with [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)
 
-</details>
+## ⚡ Requirements
 
-## Very useful plugins used
+- [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
+- [Neovim 0.7+](https://github.com/neovim/neovim/releases/tag/v0.7.0)
+- A clipboard tool is necessary for the integration with the system clipboard (see [`:help clipboard-tool`](https://neovim.io/doc/user/provider.html#clipboard-tool) for supported solutions)
+- Terminal with true color support (for the default theme, otherwise it is dependent on the theme you are using)
+- Optional Requirements:
+  - [ripgrep](https://github.com/BurntSushi/ripgrep) - live grep telescope search (`<leader>fw`)
+  - [lazygit](https://github.com/jesseduffield/lazygit) - git ui toggle terminal (`<leader>tl` or `<leader>gg`)
+  - [NCDU](https://dev.yorhel.nl/ncdu) - disk usage toggle terminal (`<leader>tu`)
+  - [Htop](https://htop.dev/) - process viewer toggle terminal (`<leader>tt`)
+  - [Python](https://www.python.org/) - python repl toggle terminal (`<leader>tp`)
+  - [Node](https://nodejs.org/en/) - node repl toggle terminal (`<leader>tn`)
 
-<details><summary> <b>Images (Click to expand!)</b></summary>
+> Note when using default theme: For MacOS, the default terminal does not have true color support. You wil need to use [iTerm2](https://iterm2.com/) or another [terminal emulator](https://gist.github.com/XVilka/8346728#terminal-emulators) that has true color support.
 
-<h3> Nvim-tree.lua </h3>
+> Note if you are still on Neovim v0.6: You can still install the previous version of AstroNvim that supported. After cloning the repository run `git checkout nvim-0.6` to check out this version. This will no longer be receiving updates.
 
-Fast file tree:
+## 🛠️ Installation
 
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/nvimtree.png"></kbd><hr>
+#### Make a backup of your current nvim folder
 
-<h3> Telescope-nvim </h3>
-
-A fuzzy file finder, picker, sorter, previewer and much more:
-
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/tel.png"></kbd>
-
-<h3> Indent-blankline.nvim </h3>
-
-Adds indentline:
-
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/blanklineNvim.png"></kbd><hr>
-
-<h3> Feline.nvim  </h3>
-
-Highly configurable statusline plugin:
-
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/statusline.png"></kbd><hr>
-
-<h3> Nvim-bufferline.lua </h3>
-
-Better tab implementation:
-
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/bufferline.png"></kbd><hr>
-
-<h3> Nvim-web-devicons </h3>
-
-Lua fork of Vim Devicons which offers more file icon customisability:
-
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/image.png"></kbd><hr>
-
-<h3> Nvim-treesitter </h3
-
-Better syntax highlighting for programming languages (NvChad by default comes with Lua/bash treesitter parsers).
-
-Without/with Treesitter:
-
-<kbd><img src="https://raw.githubusercontent.com/siduck/dotfiles/all/rice%20flex/woTree.png"></kbd><hr>
-
-</details>
-
-## Credits
-
-- [Elianiva](https://github.com/elianiva) helped me with NeoVim Lua related issues many times, NvChad wouldn't exist without his help at all.
-- @lorvethe for making the beautiful NvChad logo.
-
-## Features
-
-- Many beautiful themes to choose from.
-- Fast plugin loading.
-- File navigation with [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua).
-- Managing tabs, buffers with [bufferline.nvim](https://github.com/akinsho/bufferline.nvim).
-- Beautiful and configurable icons with [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons).
-- Pretty and functional statusline with [feline.nvim](https://github.com/Famiu/feline.nvim).
-- Git diffs and more with [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) .
-- NeoVim Lsp configuration with [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
-- Autocompletion with [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
-- File searching, previewing image and text files and more with [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
-- Syntax highlighting with [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
-- Autoclosing braces and html tags with [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
-- Indentlines with [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim).
-- Useful snippets with [LuaSnip](https://github.com/L3MON4D3/LuaSnip).
-
-## Bloat
-
-To everyone who thinks that NvChad is bloat: Bloat means different things to everyone.
-
-NvChad has 38 plugins installed by default, yet it is still very fast because it uses the Packer plugin manager. Packer.nvim allows you to lazy load plugins, meaning they only get loaded when absolutely required. Furthermore, you can disable plugins you don't use in `chadrc.lua`.
-
-<img src = "https://chadpaste.com/f/kdmxdabxbk.png">
-
-# TODO
-
-NvChad is focusing more on improving its already existing plugins and features instead of adding more plugins. Things you can do to help currently are:
-
-- Improving base plugins configurations
-- Debloating the config.
-- Adding more themes.
-
-## Try NvChad in a Docker container
-
-This will leave your current Neovim configuration untouched. Once you exit Neovim, the image is deleted.
-
-```zsh
-  docker run -w /root -it --rm alpine:edge sh -uelic '
-    apk add git nodejs neovim ripgrep alpine-sdk --update
-    git clone https://github.com/NvChad/NvChad ~/.config/nvim
-    nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"
-    nvim
-    '
+```
+mv ~/.config/nvim ~/.config/nvimbackup
 ```
 
-## Chadributors
+#### Clone the repository
 
-<a href="https://github.com/NvChad/NvChad/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=NvChad/NvChad"/>
-</a>
+```
+git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+nvim +PackerSync
+```
 
-## Warning
+## 📦 Basic Setup
 
-If you have an issue with a plugin in NvChad, first you should report it to NvChad to see if it's an issue with it.
+#### Install LSP
 
-## :gift_heart: Support
+Enter `:LspInstall` followed by the name of the server you want to install<br>
+Example: `:LspInstall pyright`
 
-I would happily accept donations but would feel awful since I'm not the only one who has worked on NvChad. The project has only been made possible by the many great contributors and plugin developers, thus taking the donations just for me feels unjustified. If you enjoy using NvChad and would like to show your support then try to be a better you! Help the people in need whenever possible and do charity work. Be nice to loved ones and strangers alike. Do not be rude, always try to be helpful and caring for one another. It's easy to hate but hard to care. Be respectful to any software/work done by other people rather than making fun of them. Do not compare software (In a bad way). I'm grateful to even be able to use NeoVim! But I still cannot be fully happy when I know that there are people who barely have any food to eat, starve for weeks, don't have access to proper education, computers, basic health care facilities and more. Here are some charities and gofundme links you can donate to instead:
+#### Install language parser
 
-- https://www.gofundme.com/f/WeCareAboutSyria
-- https://www.gofundme.com/f/Burundi-Nutrition
-- https://charity.gofundme.com/o/en/campaign/feedingyemen
-- https://www.gofundme.com/f/6p8ea-give-ghanaian-orphans-the-gift-of-a-ride-to-school
-- https://www.isupportmyanmar.com
-- https://www.justgiving.com/campaign/somaliawater
-- https://www.justgiving.com/crowdfunding/acaappeal
-- https://www.justgiving.com/fundraising/muslim-chat
-- https://www.gofundme.com/f/help-kids-in-mali-have-warm-clothing-in-winter
-- https://www.justgiving.com/crowdfunding/carevenezuela
-- https://www.justgiving.com/campaign/yemen
+Enter `:TSInstall` followed by the name of the language you want to install<br>
+Example: `:TSInstall python`
+
+#### Manage plugins
+
+Run `:PackerClean` to remove any disabled or unused plugins<br>
+Run `:PackerSync` to update and clean plugins<br>
+
+#### Update AstroNvim
+
+Run `:AstroUpdate` to get the latest updates from the repository<br>
+
+## 🗒️ Links
+
+[AstroNvim Documentation](https://astronvim.github.io/)
+
+- [Basic Usage](https://astronvim.github.io/usage/walkthrough) is given for basic usage
+- [Default Mappings](https://astronvim.github.io/usage/mappings) more about the default key bindings
+- [Default Plugin Configuration](https://astronvim.github.io/configuration/plugin_defaults) more about the provided plugin defaults
+- [Advanced Configuration](https://astronvim.github.io/configuration/config_options) more about advanced configuration
+
+[Watch](https://www.youtube.com/watch?v=JQLZ7NJRTEo&t=4s&ab_channel=JohnCodes) a review video to know about the out of the box experience
+
+## ⭐ Credits
+
+Sincere appreciation to the following repositories, plugin authors and the entire neovim community out there that made the development of AstroNvim possible.
+
+- [Plugins](https://astronvim.github.io/acknowledgements#plugins-used-in-astronvim)
+- [NvChad](https://github.com/NvChad/NvChad)
+- [LunarVim](https://github.com/LunarVim)
+- [CosmicVim](https://github.com/CosmicNvim/CosmicNvim)
+
+<div align="center" id="madewithlua">
+
+[![Lua](https://img.shields.io/badge/Made%20with%20Lua-blue.svg?style=for-the-badge&logo=lua)](https://lua.org)
+
+</div>

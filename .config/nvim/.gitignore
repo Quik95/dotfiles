@@ -1,3 +1,4 @@
 plugin
-custom
-spell
+lua/user
+lua/packer_compiled.lua
+ginit.vim

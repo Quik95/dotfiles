@@ -8,11 +8,9 @@ SETUVAR _fish_abbr_ffcut:ffmpeg\x20\x2di\x20in\x2emp4\x20\x2dss\x2000\x3a00\x3a0
 SETUVAR _fish_abbr_flatpaki:flatpak\x20\x2d\x2dassumeyes\x20install
 SETUVAR _fish_abbr_lgscan:loudgain\x20\x2d\x2dtagmode\x3de\x20\x2d\x2dlowercase\x20\x2d\x2dtrack\x20\x2d\x2dnoclip
 SETUVAR _fish_abbr_mkdir:mkdir\x20\x2dp
-SETUVAR _fish_abbr_nvim:lvim
 SETUVAR _fish_abbr_paru:paru\x20\x2d\x2dnoconfirm
 SETUVAR _fish_abbr_rm:rm\x20\x2dI
 SETUVAR _fish_abbr_trash:gio\x20trash
-SETUVAR _fish_abbr_vim:lvim
 SETUVAR _fish_abbr_weather:curl\x20wttr\x2ein/S\u0119popol
 SETUVAR _fish_abbr_wlp:systemctl\x20\x2d\x2duser\x20start\x20wallpaper\x2dchanger\x2eservice
 SETUVAR _fish_abbr_xbox_2D_pad:xboxdrv\x20\x2d\x2devdev\x20/dev/input/by\x2did/usb\x2dBDA_XB1_Spectra_Pro_000012812C2DD4AE\x2devent\x2djoystick\x20\x2d\x2dmimic\x2dxpad\x20\x2d\x2devdev\x2dabsmap\x20ABS_X\x3dx1\x2cABS_Y\x3dy1\x2cABS_RX\x3dx2\x2cABS_RY\x3dy2\x2cABS_Z\x3dlt\x2cABS_RZ\x3drt\x2cABS_HAT0X\x3ddpad_x\x2cABS_HAT0Y\x3ddpad_y\x20\x2d\x2devdev\x2dkeymap\x20BTN_A\x3da\x2cBTN_B\x3db\x2cBTN_X\x3dx\x2cBTN_Y\x3dy\x2cBTN_TL\x3dlb\x2cBTN_TR\x3drb\x2cBTN_THUMBL\x3dtl\x2cBTN_THUMBR\x3dtr\x2cBTN_MODE\x3dguide\x2cBTN_SELECT\x3dback\x2cBTN_START\x3dstart\x20\x2d\x2daxismap\x20\x2dY1\x3dY1\x2c\x2dY2\x3dY2\x20\x2d\x2ddetach\x2dkernel\x2ddriver\x20\x2d\x2dsilent
@@ -47,3 +45,4 @@ SETUVAR fish_pager_color_description:B3A06D
 SETUVAR fish_pager_color_prefix:cyan\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3dwhite
+SETUVAR fish_user_paths:/home/sebastian/\x2elocal/bin

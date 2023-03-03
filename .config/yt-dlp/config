@@ -2,4 +2,4 @@
 --ignore-errors
 --sub-langs all
 --write-subs
---format "bestvideo[height<=1080]+bestaudio/best"
+--format "(bv*[vcodec~='^((he|a)vc|h26[45])'][height<=1080]+ba) / (bv*+ba/b)"

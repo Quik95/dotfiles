@@ -1,5 +1,5 @@
 {
-  "downloadLocation": "/home/seba/Music/deemix Music/to_be_scanned",
+  "downloadLocation": "/home/sebastian/Music/deemix Music/to_be_scanned",
   "tracknameTemplate": "%artist% - %title%",
   "albumTracknameTemplate": "%tracknumber% - %title%",
   "playlistTracknameTemplate": "%artist% - %title%",

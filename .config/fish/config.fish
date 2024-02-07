@@ -5,6 +5,8 @@ abbr ffcut      'ffmpeg -i in.mp4 -ss 00:00:00 -to 00:00:00 -async 1 out.mp4'
 abbr du	        'du -sh'
 abbr copy       'xclip -selection clipboard'
 abbr xbox-pad   'xboxdrv --evdev /dev/input/by-id/usb-BDA_XB1_Spectra_Pro_000012812C2DD4AE-event-joystick --mimic-xpad --evdev-absmap ABS_X=x1,ABS_Y=y1,ABS_RX=x2,ABS_RY=y2,ABS_Z=lt,ABS_RZ=rt,ABS_HAT0X=dpad_x,ABS_HAT0Y=dpad_y --evdev-keymap BTN_A=a,BTN_B=b,BTN_X=x,BTN_Y=y,BTN_TL=lb,BTN_TR=rb,BTN_THUMBL=tl,BTN_THUMBR=tr,BTN_MODE=guide,BTN_SELECT=back,BTN_START=start --axismap -Y1=Y1,-Y2=Y2 --detach-kernel-driver --silent'
+abbr gcp        'github-copilot-cli what-the-shell'
+abbr plog       "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
 
 alias config '/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias ls 'exa -aFhm --git --icons --no-permissions --no-user'
@@ -64,3 +66,10 @@ fenv source ~/.profile
 set -gx PNPM_HOME "/home/sebastian/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
+
+set -gx DOCKER_HOST unix://$XDG_RUNTIME_DIR/docker.sock
+
+set -gx PATH "/home/sebastian/.cargo/bin" $PATH
+
+# opam configuration
+source /home/sebastian/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true

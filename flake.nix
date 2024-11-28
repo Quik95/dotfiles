@@ -55,21 +55,16 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main nixos configuration file <
-          nix-flatpak.nixosModules.nix-flatpak
+          # nix-flatpak.nixosModules.nix-flatpak
           ./nixos/configuration.nix
-        ];
-      };
-    };
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.sebastian = import ./home-manager/home.nix;
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "sebastian@sebastian-laptop-hp" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
+            home-manager.extraSpecialArgs = {inherit inputs nix-flatpak outputs;};
+          }
         ];
       };
     };

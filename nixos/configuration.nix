@@ -104,18 +104,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # services.flatpak.packages = [
-  #   "net.nokyan.Resources"
-  #   "com.github.tchx84.Flatseal"
-  #   "dev.vencord.Vesktop"
-  #   "com.microsoft.Edge"
-  # ];
-
-  # services.flatpak.update.auto = {
-  #   enable = true;
-  #   onCalendar = "weekly";
-  # };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sebastian = {
     isNormalUser = true;

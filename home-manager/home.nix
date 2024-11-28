@@ -5,6 +5,7 @@
   outputs,
   lib,
   config,
+  nix-flatpak,
   pkgs,
   ...
 }: {
@@ -18,6 +19,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
   home = {
@@ -29,8 +31,9 @@
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
   home.packages = with pkgs; [
-    fortune-kind
+    fortune
     ffmpeg-full
+    resources
 
     unstable.yt-dlp
   ];
@@ -90,13 +93,15 @@
 
       plog = "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
       gs = "git status";
+      ga = "git add .";
+      gc = "git commit -m";
     };
     shellAliases = {
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
     };
     interactiveShellInit = ''
       function fish_greeting
-        fortune-kind
+        fortune
       end
     '';
   };
@@ -273,6 +278,17 @@
 
   programs.neovim = {
     enable = true;
+  };
+
+  services.flatpak.packages = [
+    "com.github.tchx84.Flatseal"
+    "dev.vencord.Vesktop"
+    "com.microsoft.Edge"
+  ];
+
+  services.flatpak.update.auto = {
+    enable = true;
+    onCalendar = "weekly";
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

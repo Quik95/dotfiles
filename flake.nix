@@ -16,13 +16,13 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     nix-flatpak,
     home-manager,
     ...
-  } @ inputs: let
+  }: let
     inherit (self) outputs;
     # Supported systems for your flake packages, shell, etc.
     systems = [
@@ -55,8 +55,9 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main nixos configuration file <
-          # nix-flatpak.nixosModules.nix-flatpak
+          nix-flatpak.nixosModules.nix-flatpak
           ./nixos/configuration.nix
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

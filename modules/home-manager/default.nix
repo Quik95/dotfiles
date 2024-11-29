@@ -4,6 +4,10 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   imports = [
-    ./multimedia/mpv.nix
+    ./multimedia/default.nix
+    ./terminal/default.nix
+
+    ./env-vars.nix
+    ./flatpak.nix
   ];
 }

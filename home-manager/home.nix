@@ -6,6 +6,7 @@
   lib,
   config,
   nix-flatpak,
+  nixvim,
   pkgs,
   ...
 }: {
@@ -20,6 +21,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     nix-flatpak.homeManagerModules.nix-flatpak
+    nixvim.homeManagerModules.nixvim
 
     ../modules/home-manager/default.nix
   ];

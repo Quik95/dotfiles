@@ -24,6 +24,7 @@
     nixpkgs,
     nix-flatpak,
     home-manager,
+    nixvim,
     ...
   }: let
     inherit (self) outputs;
@@ -58,7 +59,6 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main nixos configuration file <
-          nix-flatpak.nixosModules.nix-flatpak
           ./nixos/configuration.nix
 
           home-manager.nixosModules.home-manager
@@ -70,7 +70,7 @@
               ./home-manager/home.nix
             ];
 
-            home-manager.extraSpecialArgs = {inherit inputs nix-flatpak outputs;};
+            home-manager.extraSpecialArgs = {inherit inputs nix-flatpak nixvim outputs;};
           }
         ];
       };

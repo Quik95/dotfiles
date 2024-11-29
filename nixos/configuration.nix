@@ -134,7 +134,6 @@
 
     # editors
     unstable.zed-editor
-    unstable.neovim
 
     # misc
     fastfetch

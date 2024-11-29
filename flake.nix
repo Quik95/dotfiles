@@ -62,7 +62,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.sebastian = import ./home-manager/home.nix;
+
+            home-manager.users.sebastian.imports = [
+              ./home-manager/home.nix
+            ];
 
             home-manager.extraSpecialArgs = {inherit inputs nix-flatpak outputs;};
           }

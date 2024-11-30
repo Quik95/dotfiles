@@ -46,7 +46,6 @@
             inherit pkgs;
             unstable = unstablePkgs;
           };
-
           modules = [
             ./nixos/configuration.nix
 

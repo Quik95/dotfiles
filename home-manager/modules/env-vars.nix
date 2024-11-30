@@ -5,5 +5,6 @@
     EDITOR = "nvim";
     PAGER = "bat";
     TERMINAL = "kitty";
+    FLAKE = "/home/sebastian/Documents/nix-config";
   };
 }

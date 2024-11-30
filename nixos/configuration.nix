@@ -2,10 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  inputs,
-  outputs,
-  config,
   pkgs,
+  unstable,
   ...
 }: {
   imports = [
@@ -13,7 +11,7 @@
     ./hardware-configuration.nix
   ];
 
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  # nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -114,16 +112,6 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Allow unfree packages
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      packageOverrides = pkgs: {
-        unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
-      };
-    };
-  };
-
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # List packages installed in system profile. To search, run:
@@ -210,5 +198,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 }

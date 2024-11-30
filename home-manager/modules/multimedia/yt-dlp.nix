@@ -1,6 +1,7 @@
-{
+{unstable, ...}: {
   programs.yt-dlp = {
     enable = true;
+    package = unstable.yt-dlp;
     settings = {
       no-playlist = true;
       ignore-errors = true;

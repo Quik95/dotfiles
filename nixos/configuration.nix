@@ -50,6 +50,13 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  programs.dconf.enable = true;
+  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+    [org.gnome.desktop.peripherals.keyboard]
+    repeat-interval=8
+    delay=150
+  '';
+
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour
     cheese
@@ -58,6 +65,7 @@
     gnome-contacts
     gnome-maps
     gnome-system-monitor
+    gnome-extension-manager
     gnome-weather
     yelp
     epiphany

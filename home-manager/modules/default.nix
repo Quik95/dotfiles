@@ -6,8 +6,10 @@
   imports = [
     ./multimedia/default.nix
     ./terminal/default.nix
+    ./wm/gnome/default.nix
 
     ./env-vars.nix
     ./flatpak.nix
+    ./default-apps.nix
   ];
 }

@@ -141,10 +141,12 @@
     kitty
     kitty-themes
 
-    # nix lsp stuff
+    # nix stuff
     nixd
     nil
     alejandra
+    nix-output-monitor
+    nvd
   ];
 
   services.flatpak.enable = true;
@@ -171,6 +173,13 @@
         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
       fi
     '';
+  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 5d --keep 3";
+    flake = "/home/sebastian/Documents/nix-config";
   };
 
   # Some programs need SUID wrappers, can be configured further or are

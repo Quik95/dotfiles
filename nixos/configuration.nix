@@ -130,6 +130,8 @@
     compsize
     bat
     wl-clipboard
+    ripgrep
+    fd
 
     # fonts
     nerdfonts

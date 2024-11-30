@@ -25,5 +25,6 @@
     fortune
     ffmpeg-full
     resources
+    tokei
   ];
 }

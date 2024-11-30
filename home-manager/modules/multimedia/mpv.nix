@@ -164,67 +164,13 @@
       autosubsync-mpv = {
         ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
       };
-      mpv-platlistmanager = {
-        dynamic_binds = true;
-        key_showplaylist = "SHIFT+ENTER";
-        key_moveup = "UP";
-        key_movedown = "DOWN";
-        key_movebegin = "HOME";
-        key_moveend = "END";
-        key_selectfile = "RIGHT LEFT";
-        key_playfile = "ENTER";
-        key_removefile = "BS";
-        key_closeplaylist = "ESC SHIRT+ENTER";
-
-        filename_replace = ''filename_replace=[{"protocol":{"all":true},"rules":[{"%%(%x%x)":"hex_to_char"}]}]'';
-        loadfiles_filetypes = ''loadfiles_filetypes=["jpg","jpeg","png","tif","tiff","gif","webp","svg","bmp","mp3","wav","ogm","flac","m4a","wma","ogg","opus","mkv","avi","mp4","ogv","webm","rmvb","flv","wmv","mpeg","mpg","m4v","3gp"]'';
-
-        loadfiles_on_start = false;
-        loadfiles_on_idle_start = false;
-        loadfiles_always_append = false;
-        sortplaylist_on_file_add = false;
-
-        system = "auto";
-
-        save_playlist_on_file_end = false;
-
-        sync_cursor_on_load = true;
-        loop_cursor = true;
-
-        reset_cursor_on_close = true;
-        reset_cursor_on_open = true;
-
-        prefer_title = "all";
-
+      memo = {
+        H = "script-binding memo-history";
+      };
+      playlistmanager = {
+        prefer_titles = "all";
         youtube_dl_executable = "${unstable.yt-dlp}/bin/yt-dlp";
-
         resolve_url_titles = true;
-        resolve_local_titles = false;
-        resolve_title_timeout = 15;
-        resolve_title_resolve_limit = 10;
-        playlist_display_timeout = 0;
-        showamount = -1;
-
-        border = 1;
-        style_ass_tags = ''{\q2\an7}'';
-        text_padding_x = 30;
-        text_padding_y = 60;
-
-        curtain_opacity = 0.0;
-        set_title_stripped = false;
-        title_suffix = " - mpv";
-        slice_longfilenames = false;
-        slice_longfilenames_amount = 70;
-
-        playlist_header = ''[%cursor/%plen]'';
-
-        normal_file = ''○ %name'';
-        hovered_file = ''● %name'';
-        selected_file = ''➔ %name'';
-        playing_file = ''▷ %name'';
-        playing_hovered_file = ''▶ %name'';
-        playing_selected_file = ''➤ %name'';
-        display_osd_feedback = true;
       };
     };
   };

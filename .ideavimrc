@@ -1,8 +1,0 @@
-let mapleader = " "
-
-set visualbell
-set noerrorbells
-set relativenumber
-set easymotion
-set sneak
-set ideajoin

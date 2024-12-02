@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./ignored-packages.nix
+  ];
+}

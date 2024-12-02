@@ -2,13 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  pkgs,
-  unstable,
-  ...
-}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    ./modules/default.nix
   ];
 
   # Bootloader.
@@ -42,40 +40,6 @@
     LC_TELEPHONE = "pl_PL.UTF-8";
     LC_TIME = "pl_PL.UTF-8";
   };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  programs.dconf.enable = true;
-  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-    [org.gnome.desktop.peripherals.keyboard]
-    repeat-interval=10
-    delay=175
-  '';
-
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    cheese
-    gnome-music
-    gnome-terminal
-    gnome-contacts
-    gnome-maps
-    gnome-system-monitor
-    gnome-extension-manager
-    gnome-weather
-    yelp
-    epiphany
-    geary
-    totem
-    tali
-    iagno
-    hitori
-    atomix
-  ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -115,47 +79,7 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    git
-
-    # editors
-    unstable.zed-editor
-
-    # misc
-    fastfetch
-    btop
-    gnome-tweaks
-    wget
-    tealdeer
-    compsize
-    bat
-    wl-clipboard
-    ripgrep
-    fd
-
-    # fonts
-    nerdfonts
-    powerline-fonts
-
-    # terminal
-    kitty
-    kitty-themes
-
-    # nix stuff
-    nixd
-    nil
-    alejandra
-    nix-output-monitor
-    nvd
-  ];
 
   services.flatpak.enable = true;
   environment.variables = {
@@ -163,31 +87,6 @@
     VISUAL = "nvim";
     TERMINAL = "kitty";
     PAGER = "bat";
-  };
-
-  programs.fish = {
-    enable = true;
-    vendor = {
-      config.enable = true;
-      completions.enable = true;
-    };
-  };
-
-  programs.bash = {
-    interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
-
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 5d --keep 3";
-    flake = "/home/sebastian/Documents/nix-config";
   };
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -7,6 +7,7 @@
     ./multimedia/default.nix
     ./terminal/default.nix
     ./wm/gnome/default.nix
+    ./ide/default.nix
 
     ./env-vars.nix
     ./flatpak.nix

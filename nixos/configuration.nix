@@ -53,8 +53,8 @@
   programs.dconf.enable = true;
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
     [org.gnome.desktop.peripherals.keyboard]
-    repeat-interval=8
-    delay=150
+    repeat-interval=10
+    delay=175
   '';
 
   environment.gnome.excludePackages = with pkgs; [

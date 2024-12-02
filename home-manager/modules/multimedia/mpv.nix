@@ -136,6 +136,9 @@
       tscale-clamp = 0.0;
 
       deinterlace = "no";
+
+      ytdl = true;
+      ytdl-format = "bestvideo[height<=?1080]+bestaudio/best";
     };
     profiles = {
       "protocol.http" = {

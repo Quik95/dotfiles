@@ -4,6 +4,11 @@
     "dev.vencord.Vesktop"
     "com.microsoft.Edge"
     "com.mattjakeman.ExtensionManager"
+    "com.github.flxzt.rnote"
+    "com.github.marhkb.Pods"
+    "com.spotify.Client"
+    "garden.jamie.Morphosis"
+    "it.mijorus.smile"
   ];
 
   services.flatpak.update.auto = {

@@ -26,5 +26,6 @@
     ffmpeg-full
     resources
     tokei
+    rustup
   ];
 }

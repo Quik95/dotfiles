@@ -9,9 +9,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -20,7 +17,6 @@
     nixpkgs-unstable,
     home-manager,
     nix-flatpak,
-    nixvim,
   } @ attrs: let
     system = "x86_64-linux";
   in {
@@ -56,7 +52,7 @@
               home-manager.users.sebastian = import ./home-manager/home.nix;
 
               home-manager.extraSpecialArgs = {
-                inherit pkgs nix-flatpak nixvim;
+                inherit pkgs nix-flatpak;
                 unstable = unstablePkgs;
               };
             }

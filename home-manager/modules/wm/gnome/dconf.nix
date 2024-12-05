@@ -8,6 +8,14 @@
       close = ["<Alt>q"];
     };
 
+    "org/gnome/desktop/default-applications" = {
+      terminal = "kitty";
+    };
+
+    "org/gnome/desktop/interface" = {
+      accent-color = "pink";
+    };
+
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
       workspaces-only-on-primary = true;

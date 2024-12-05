@@ -4,6 +4,7 @@
     cheese
     gnome-music
     gnome-terminal
+    gnome-console
     gnome-contacts
     gnome-maps
     gnome-system-monitor

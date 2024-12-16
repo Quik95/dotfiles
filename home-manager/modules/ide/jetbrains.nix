@@ -1,6 +1,9 @@
 {unstable, ...}: {
   home.packages = with unstable.jetbrains; [
-    rust-rover
+    (plugins.addPlugins rust-rover [
+      "github-copilot"
+      "ideavim"
+    ])
   ];
 
   home.file.".ideavimrc".source = ./.ideavimrc;

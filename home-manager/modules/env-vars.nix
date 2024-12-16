@@ -6,5 +6,7 @@
     PAGER = "bat";
     TERMINAL = "kitty";
     FLAKE = "/home/sebastian/Documents/nix-config";
+
+    NIXOS_OZONE_WL = "1";
   };
 }

@@ -13,7 +13,7 @@
   programs.dconf.enable = true;
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
     [org.gnome.desktop.peripherals.keyboard]
-    repeat-interval=10
-    delay=175
+    repeat-interval=15
+    delay=200
   '';
 }

@@ -5,5 +5,6 @@
     ./fish.nix
     ./nh.nix
     ./packages.nix
+    ./nixld.nix
   ];
 }

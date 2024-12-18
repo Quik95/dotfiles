@@ -22,7 +22,7 @@
         "just-perfection-desktop@just-perfection"
         "randomwallpaper@iflow.space"
         "smile-extension@mijorus.it"
-        "panel-corners@aunetx"
+        # "panel-corners@aunetx"
       ];
     };
 
@@ -48,7 +48,7 @@
     activate-window-by-title
     just-perfection
     clipboard-indicator
-    panel-corners
+    # panel-corners
     bluetooth-quick-connect
     caffeine
     fullscreen-hot-corner

@@ -13,6 +13,11 @@
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   home = {
     username = "sebastian";
     homeDirectory = "/home/sebastian";

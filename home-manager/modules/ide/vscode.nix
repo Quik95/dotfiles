@@ -13,6 +13,7 @@
       k--kato.intellij-idea-keybindings
       catppuccin.catppuccin-vsc
       usernamehw.errorlens
+      mkhl.direnv
 
       charliermarsh.ruff
       ms-toolsai.jupyter

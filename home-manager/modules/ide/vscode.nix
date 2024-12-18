@@ -1,8 +1,8 @@
-{pkgs, ...}: {
+{pkgs, unstable, ...}: {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode.fhs;
-    extensions = with pkgs.vscode-extensions; [
+    package = unstable.vscode.fhs;
+    extensions = with unstable.vscode-extensions; [
       vscodevim.vim
       jnoortheen.nix-ide
       github.copilot
@@ -15,6 +15,7 @@
       "editor.fontSize" = 16;
       "files.autoSave" = "onFocusChange";
       "editor.minimap.enabled" = false;
+      "editor.cursorSurroundingLines" = 3;
 
       "workbench.colorTheme" = "Catppuccin Mocha";
       "catppuccin.accentColor" = "pink";
@@ -71,7 +72,7 @@
         }
 
         {
-          before = ["<laeder>" "g" "e"];
+          before = ["<leader>" "g" "e"];
           commands = ["workbench.action.problems.next"];
         }
         {
@@ -87,6 +88,16 @@
         {
           before = ["<enter>" "<enter>"];
           commands = ["editor.action.quickFix"];
+        }
+
+        {
+          before = ["K"];
+          commands = ["editor.action.showHover"];
+        }
+
+        {
+          before = ["<leader>" "r" "e"];
+          commands = ["editor.action.rename"];
         }
       ];
     };

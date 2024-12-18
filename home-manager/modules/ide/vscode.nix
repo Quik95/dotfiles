@@ -1,4 +1,8 @@
-{pkgs, unstable, ...}: {
+{
+  pkgs,
+  unstable,
+  ...
+}: {
   programs.vscode = {
     enable = true;
     package = unstable.vscode.fhs;
@@ -9,6 +13,10 @@
       k--kato.intellij-idea-keybindings
       catppuccin.catppuccin-vsc
       usernamehw.errorlens
+
+      charliermarsh.ruff
+      ms-toolsai.jupyter
+      ms-python.python
     ];
     userSettings = {
       "keyboard.dispatch" = "keyCode";
@@ -16,6 +24,8 @@
       "files.autoSave" = "onFocusChange";
       "editor.minimap.enabled" = false;
       "editor.cursorSurroundingLines" = 3;
+      "editor.formatOnSave" = true;
+      "notebook.formatOnSave.enabled" = true;
 
       "workbench.colorTheme" = "Catppuccin Mocha";
       "catppuccin.accentColor" = "pink";
@@ -30,6 +40,10 @@
       "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
       "extensions.experimental.affinity" = {
         "vscodevim.vim" = 1;
+      };
+
+      "[python]" = {
+        "editor.defaultFormatter" = "charliermarsh.ruff";
       };
 
       "vim.incsearch" = true;

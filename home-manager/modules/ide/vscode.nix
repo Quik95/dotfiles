@@ -10,6 +10,7 @@
       vscodevim.vim
       jnoortheen.nix-ide
       github.copilot
+      github.copilot-chat
       k--kato.intellij-idea-keybindings
       catppuccin.catppuccin-vsc
       usernamehw.errorlens
@@ -20,6 +21,8 @@
       ms-python.python
     ];
     userSettings = {
+      "update.mode" = "none";
+
       "keyboard.dispatch" = "keyCode";
       "editor.fontSize" = 16;
       "files.autoSave" = "onFocusChange";
@@ -27,6 +30,8 @@
       "editor.cursorSurroundingLines" = 3;
       "editor.formatOnSave" = true;
       "notebook.formatOnSave.enabled" = true;
+      "git.allowForcePush" = true;
+      "git.autoFetch" = true;
 
       "workbench.colorTheme" = "Catppuccin Mocha";
       "catppuccin.accentColor" = "pink";

@@ -30,6 +30,9 @@
       sqlite
       litecli
 
+      # python
+      uv
+
       # fonts
       nerdfonts
       powerline-fonts

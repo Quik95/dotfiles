@@ -27,6 +27,8 @@
       wl-clipboard
       ripgrep
       fd
+      sqlite
+      litecli
 
       # fonts
       nerdfonts

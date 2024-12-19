@@ -1,7 +1,7 @@
 {
   programs.powerline-go = {
-    enable = false;
-    newline = false;
+    enable = true;
+    newline = true;
     modules = [
       "venv"
       "user"

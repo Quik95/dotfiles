@@ -1,6 +1,6 @@
 {
   programs.powerline-go = {
-    enable = true;
+    enable = false;
     newline = false;
     modules = [
       "venv"

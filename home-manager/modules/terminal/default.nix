@@ -11,6 +11,7 @@
     ./helix.nix
     ./neovim.nix
     ./powerline-go.nix
+    ./starship.nix
     ./zoxide.nix
   ];
 }

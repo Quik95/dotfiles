@@ -1,6 +1,6 @@
 {
   programs.kitty = {
-    enable = true;
+    enable = false;
     shellIntegration.enableFishIntegration = true;
     themeFile = "Catppuccin-Frappe";
     font = {

@@ -24,11 +24,15 @@
     stateVersion = "24.11";
   };
 
-  home.packages = with pkgs; [
-    fortune
-    ffmpeg-full
-    resources
-    tokei
-    rustup
-  ];
+  home.packages =
+    (with pkgs; [
+      fortune
+      ffmpeg-full
+      resources
+      tokei
+      rustup
+    ])
+    ++ (with unstable; [
+      ghostty
+    ]);
 }

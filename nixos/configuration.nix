@@ -85,7 +85,7 @@
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-    TERMINAL = "kitty";
+    TERMINAL = "ghostty";
     PAGER = "bat";
   };
 

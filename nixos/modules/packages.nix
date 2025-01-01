@@ -37,10 +37,6 @@
       nerdfonts
       powerline-fonts
 
-      # terminal
-      kitty
-      kitty-themes
-
       # nix stuff
       nixd
       nil

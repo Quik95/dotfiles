@@ -9,7 +9,7 @@
     };
 
     "org/gnome/desktop/default-applications" = {
-      terminal = "kitty";
+      terminal = "ghostty";
     };
 
     "org/gnome/desktop/interface" = {
@@ -25,7 +25,7 @@
     "org/gnome/shell" = {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
-        "kitty.desktop"
+        "ghostty.desktop"
         "com.microsoft.Edge.desktop"
         "net.nokyan.Resources.desktop"
         "org.gnome.TextEditor.desktop"

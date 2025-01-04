@@ -2,10 +2,12 @@
   pkgs,
   unstable,
   nix-flatpak,
+  nixvim,
   ...
 }: {
   imports = [
     nix-flatpak.homeManagerModules.nix-flatpak
+    nixvim.homeManagerModules.nixvim
 
     ./modules/default.nix
   ];

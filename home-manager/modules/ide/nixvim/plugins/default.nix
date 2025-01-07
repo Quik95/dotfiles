@@ -16,5 +16,6 @@
     lualine.enable = true;
     web-devicons.enable = true;
     todo-comments.enable = true;
+    luasnip.enable = true;
   };
 }

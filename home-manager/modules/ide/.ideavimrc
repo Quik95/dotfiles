@@ -77,6 +77,8 @@ nnoremap <leader>pi :action ParameterInfo<CR>
 nnoremap <leader>sw :SurroundWith<CR>
 nnoremap <CR><CR> :action ShowIntentionActions<CR>
 
+nnoremap s :action flash.search<CR>
+
 " CamelCase humps
 nnoremap L [w
 nnoremap H [b

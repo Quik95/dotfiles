@@ -1,14 +1,15 @@
 {
   imports = [
-    ./which-key.nix
-    ./treesitter.nix
-    ./gitsigns.nix
-    ./telescope.nix
-    ./neo-tree.nix
     ./autopairs.nix
-    ./nvim-cmp.nix
+    ./flash.nix
+    ./gitsigns.nix
     ./indent-blankline.nix
     ./lsp.nix
+    ./neo-tree.nix
+    ./nvim-cmp.nix
+    ./telescope.nix
+    ./treesitter.nix
+    ./which-key.nix
   ];
 
   programs.nixvim.plugins = {

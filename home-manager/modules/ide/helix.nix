@@ -1,8 +1,8 @@
 {pkgs, ...}: {
   programs.helix = {
-    enable = false;
+    enable = true;
     settings = {
-      theme = "catppuccin_frappe";
+      theme = "catppuccin_macchiato";
       editor = {
         line-number = "relative";
         lsp.display-messages = true;

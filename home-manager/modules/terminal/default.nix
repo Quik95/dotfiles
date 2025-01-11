@@ -8,7 +8,6 @@
     ./btop.nix
     ./eza.nix
     ./git.nix
-    ./helix.nix
     ./powerline-go.nix
     ./starship.nix
     ./zoxide.nix

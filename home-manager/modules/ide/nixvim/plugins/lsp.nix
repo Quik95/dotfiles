@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   programs.nixvim = {
     plugins = {
       cmp-nvim-lsp.enable = true;
@@ -13,6 +13,7 @@
 
     plugins.lsp = {
       enable = true;
+      inlayHints = true;
       servers = {
         lua_ls = {
           enable = true;
@@ -33,6 +34,10 @@
           enable = true;
           installCargo = false;
           installRustc = false;
+        };
+        texlab = {
+          enable = true;
+          cmd = ["${pkgs.texlab}/bin/texlab"];
         };
       };
       keymaps = {

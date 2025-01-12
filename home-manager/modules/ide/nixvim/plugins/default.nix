@@ -1,6 +1,7 @@
 {
   imports = [
     ./autopairs.nix
+    ./copilot.nix
     ./flash.nix
     ./gitsigns.nix
     ./indent-blankline.nix
@@ -18,5 +19,6 @@
     web-devicons.enable = true;
     todo-comments.enable = true;
     luasnip.enable = true;
+    auto-save.enable = true;
   };
 }

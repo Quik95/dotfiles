@@ -39,6 +39,9 @@
           enable = true;
           cmd = ["${pkgs.texlab}/bin/texlab"];
         };
+        zls = {
+          enable = true;
+        };
       };
       keymaps = {
         extra = [

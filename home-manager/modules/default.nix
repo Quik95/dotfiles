@@ -4,6 +4,7 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   imports = [
+    ./browsers/default.nix
     ./multimedia/default.nix
     ./terminal/default.nix
     ./wm/gnome/default.nix

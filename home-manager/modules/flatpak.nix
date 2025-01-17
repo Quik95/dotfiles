@@ -9,6 +9,7 @@
     "com.spotify.Client"
     "garden.jamie.Morphosis"
     "it.mijorus.smile"
+    "com.google.Chrome"
   ];
 
   services.flatpak.update.auto = {

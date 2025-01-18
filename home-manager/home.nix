@@ -1,6 +1,5 @@
 {
   pkgs,
-  unstable,
   nix-flatpak,
   nixvim,
   ...

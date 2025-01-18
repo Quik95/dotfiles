@@ -1,6 +1,5 @@
 {
   pkgs,
-  unstable,
   ...
 }: {
   programs.mpv = {
@@ -172,7 +171,7 @@
       };
       playlistmanager = {
         prefer_titles = "all";
-        youtube_dl_executable = "${unstable.yt-dlp}/bin/yt-dlp";
+        youtube_dl_executable = "${pkgs.yt-dlp}/bin/yt-dlp";
         resolve_url_titles = true;
       };
     };

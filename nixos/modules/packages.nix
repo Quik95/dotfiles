@@ -1,6 +1,5 @@
 {
   pkgs,
-  unstable,
   ...
 }: {
   # Install firefox.
@@ -34,7 +33,6 @@
       uv
 
       # fonts
-      nerdfonts
       powerline-fonts
 
       # nix stuff
@@ -43,8 +41,5 @@
       alejandra
       nix-output-monitor
       nvd
-    ])
-    ++ (with unstable; [
-      zed-editor
     ]);
-}
+    }

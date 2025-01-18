@@ -2,22 +2,20 @@
   description = "flake for yourHostNameGoesHere";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOs/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    nixvim.url = "github:nix-community/nixvim/nixos-24.11";
+    nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     home-manager,
     nix-flatpak,
     nixvim,
@@ -32,21 +30,10 @@
             allowUnfree = true;
           };
         };
-
-        unstablePkgs = import nixpkgs-unstable {
-          inherit system;
-          config = {
-            allowUnfree = true;
-          };
-        };
-      in
+              in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit pkgs;
-            unstable = unstablePkgs;
-          };
-          modules = [
+                    modules = [
             ./nixos/configuration.nix
 
             home-manager.nixosModules.home-manager
@@ -57,7 +44,6 @@
 
               home-manager.extraSpecialArgs = {
                 inherit pkgs nix-flatpak nixvim;
-                unstable = unstablePkgs;
               };
             }
           ];

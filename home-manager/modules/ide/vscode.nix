@@ -1,12 +1,11 @@
 {
   pkgs,
-  unstable,
   ...
 }: {
   programs.vscode = {
     enable = true;
-    package = unstable.vscode.fhs;
-    extensions = with unstable.vscode-extensions; [
+    package = pkgs.vscode.fhs;
+    extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
       jnoortheen.nix-ide
       github.copilot

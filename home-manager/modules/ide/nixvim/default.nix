@@ -17,5 +17,11 @@
     withPython3 = false;
     withPerl = false;
     withNodeJs = false;
+
+    performance.byteCompileLua = {
+      enable = true;
+      nvimRuntime = true;
+      plugins = true;
+    };
   };
 }

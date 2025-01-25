@@ -1,7 +1,6 @@
 {
   imports = [
     ./autopairs.nix
-    ./copilot.nix
     ./flash.nix
     ./gitsigns.nix
     ./indent-blankline.nix

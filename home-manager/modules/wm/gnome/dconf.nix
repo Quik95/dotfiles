@@ -26,7 +26,8 @@
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "ghostty.desktop"
-        "com.microsoft.Edge.desktop"
+        "com.google.Chrome.desktop"
+        "dev.zed.Zed.desktop"
         "net.nokyan.Resources.desktop"
         "org.gnome.TextEditor.desktop"
       ];

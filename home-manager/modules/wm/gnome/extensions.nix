@@ -4,7 +4,6 @@
       disable-user-extensions = false;
 
       disabled-extensions = [
-        "system-monitor@gnome-shell-extensions.gcampax.github.com" # idk doesn't seem to work
       ];
 
       enabled-extensions = [
@@ -22,7 +21,7 @@
         "just-perfection-desktop@just-perfection"
         "randomwallpaper@iflow.space"
         "smile-extension@mijorus.it"
-        # "panel-corners@aunetx"
+        "system-monitor@gnome-shell-extensions.gcampax.github.com"
       ];
     };
 

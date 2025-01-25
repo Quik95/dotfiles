@@ -31,5 +31,9 @@
     resources
     tokei
     rustup
+
+    gnome-system-monitor
+    lm_sensors
+    smartmontools
   ];
 }

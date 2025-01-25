@@ -23,8 +23,8 @@
       lsp = {
         nixd.settings.formatting.command = ["alejandra" "--"];
       };
-      format_on_save = "on";
       autosave = "on_focus_change";
+      format_on_save = "off";
       vertical_scroll_margin = 10;
       relative_line_numbers = true;
       base_keymap = "JetBrains";
@@ -50,7 +50,7 @@
 
     userKeymaps = [
       {
-        context = "Workspace";
+        context = "Workspace || EmptyPane || SharedScreen";
         bindings = {
           "ctrl-f" = "file_finder::Toggle";
           "shift shift" = "command_palette::Toggle";

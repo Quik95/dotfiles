@@ -6,11 +6,28 @@
 
     difftastic.enable = true;
 
+    aliases = {
+      df = "difftool";
+    };
+
     extraConfig = {
       init.defaultBranch = "master";
-      diff.colorMoved = "zebra";
       pull.rebase = true;
       push.autoSetupRemote = true;
+
+      diff = {
+        tool = "difftastic";
+        colorMoved = "zebra";
+      };
+
+      difftool = {
+        prompt = false;
+        difftastic = {
+          cmd = ''difft "$LOCAL" "$REMOTE"'';
+        };
+      };
+
+      pager.diftool = true;
     };
 
     ignores = [

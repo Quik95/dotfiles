@@ -32,6 +32,20 @@
         "W" = "w";
         "Wq" = "wq";
       };
+      indent_guides = {
+        enabled = true;
+        coloring = "indent_aware";
+      };
+      assistant = {
+        default_model = {
+          provider = "copilot_chat";
+          model = "claude-3-5-sonnet";
+        };
+        version = "2";
+      };
+      inlay_hints = {
+        enabled = true;
+      };
     };
 
     userKeymaps = [
@@ -39,7 +53,7 @@
         context = "Workspace";
         bindings = {
           "ctrl-f" = "file_finder::Toggle";
-          "shift shift" = "command_pallette::Toggle";
+          "shift shift" = "command_palette::Toggle";
         };
       }
       {
@@ -49,7 +63,14 @@
         };
       }
       {
-        context = "Editor && vim_mode != insert && vim_operator == none && !VimWaiting";
+        context = "vim_mode == normal || vim_mode == visual";
+        bindings = {
+          "s" = ["vim::PushOperator" {"Sneak" = {};}];
+          "S" = ["vim::PushOperator" {"SneakBackward" = {};}];
+        };
+      }
+      {
+        context = "VimControl && !menu";
         bindings = {
           "tab" = "pane::ActivateNextItem";
           "shift-tab" = "pane::ActivatePrevItem";
@@ -63,6 +84,8 @@
           "g i" = "editor::GoToImplementation";
           "g d" = "editor::GoToDeclaration";
           "e d" = "editor::Hover";
+          "ctrl-d" = "editor::HalfPageDown";
+          "ctrl-u" = "editor::HalfPageUp";
         };
       }
     ];

@@ -20,6 +20,7 @@
     };
     shellAliases = {
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
+      g = "git";
     };
     interactiveShellInit = ''
       function fish_greeting

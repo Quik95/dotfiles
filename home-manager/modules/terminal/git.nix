@@ -8,6 +8,10 @@
 
     aliases = {
       df = "difftool";
+      d = "diff";
+      s = "status";
+      a = "add";
+      c = "commit";
     };
 
     extraConfig = {

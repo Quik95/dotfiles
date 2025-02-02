@@ -7,7 +7,7 @@
       cp = "cp -riv";
       du = "du -sh";
       copy = "wl-copy <";
-      drsync = "rsync --archive --verbose --progress --partial --info=progress2 --human-readable --no-inc-search";
+      drsync = "rsync --archive --verbose --progress --partial --info=progress2 --human-readable";
       fP = "fish --private";
       icat = "kitty +kitten icat";
       ytt = "yt-dlp --format \'bestvideo[height<=?1080]+bestaudio/best\' -P /tmp/";

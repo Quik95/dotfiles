@@ -14,6 +14,7 @@
 
     "org/gnome/desktop/interface" = {
       accent-color = "pink";
+      "show-battery-percentage" = true;
     };
 
     "org/gnome/mutter" = {
@@ -25,7 +26,7 @@
     "org/gnome/shell" = {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
-        "ghostty.desktop"
+        "com.mitchellh.ghostty.desktop"
         "com.google.Chrome.desktop"
         "dev.zed.Zed.desktop"
         "net.nokyan.Resources.desktop"

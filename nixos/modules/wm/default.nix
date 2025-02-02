@@ -15,5 +15,7 @@
     [org.gnome.desktop.peripherals.keyboard]
     repeat-interval=15
     delay=200
+    numlock-state=true
+    remember-numlock-state=true
   '';
 }

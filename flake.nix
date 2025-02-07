@@ -21,33 +21,22 @@
     nixvim,
   } @ attrs: let
     system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
   in {
-    nixosConfigurations = {
-      sebastian-laptop-hp = let
-        pkgs = import nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
-          };
-        };
-              in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-                    modules = [
-            ./nixos/configuration.nix
+    nixosConfigurations.sebastian-laptop-hp = nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules = [./nixos/configuration.nix];
+    };
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.sebastian = import ./home-manager/home.nix;
-
-              home-manager.extraSpecialArgs = {
-                inherit pkgs nix-flatpak nixvim;
-              };
-            }
-          ];
-        };
+    homeConfigurations."sebastian" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [ ./home-manager/home.nix ];
+      extraSpecialArgs = {
+        inherit nix-flatpak nixvim;
+      };
     };
   };
 }

@@ -1,4 +1,6 @@
-{
+{pkgs, config, ...}: {
+  home.packages = [pkgs.grc];
+
   programs.fish = {
     enable = true;
     shellAbbrs = {
@@ -22,6 +24,12 @@
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
       g = "git";
     };
+    plugins = [
+      {
+        name = "grc";
+        src = pkgs.fishPlugins.grc.src;
+      }
+    ];
     interactiveShellInit = ''
       function fish_greeting
         fortune

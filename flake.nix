@@ -7,10 +7,10 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = {
@@ -33,7 +33,7 @@
 
     homeConfigurations."sebastian" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [ ./home-manager/home.nix ];
+      modules = [./home-manager/home.nix];
       extraSpecialArgs = {
         inherit nix-flatpak nixvim;
       };

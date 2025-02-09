@@ -20,7 +20,6 @@
       btop
       gnome-tweaks
       wget
-      tealdeer
       compsize
       bat
       wl-clipboard

@@ -10,9 +10,10 @@
     ./wm/gnome/default.nix
     ./ide/default.nix
 
+    ./default-apps.nix
     ./dropbox.nix
     ./env-vars.nix
     ./flatpak.nix
-    ./default-apps.nix
+    ./misc.nix
   ];
 }

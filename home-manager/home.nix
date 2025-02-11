@@ -5,8 +5,8 @@
   ...
 }: {
   imports = [
-    nix-flatpak.homeManagerModules.nix-flatpak
     nixvim.homeManagerModules.nixvim
+    nix-flatpak.homeManagerModules.nix-flatpak
 
     ./modules/default.nix
   ];

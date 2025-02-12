@@ -19,6 +19,8 @@
       pull.rebase = true;
       push.autoSetupRemote = true;
 
+      merge.ff = true;
+
       diff = {
         tool = "difftastic";
         colorMoved = "zebra";

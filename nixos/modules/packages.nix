@@ -30,6 +30,7 @@
       wl-clipboard
       sqlite
       litecli
+      ouch
 
       # fonts
       powerline-fonts

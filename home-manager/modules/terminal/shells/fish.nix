@@ -23,6 +23,7 @@
     shellAliases = {
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
       g = "git";
+      lg = "lazygit";
     };
     plugins = [
       {

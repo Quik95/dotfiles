@@ -14,7 +14,10 @@
       c = "commit";
     };
 
-    signing.format = "openpgp";
+    signing = {
+      signByDefault = true;
+      format = "openpgp";
+    };
 
     extraConfig = {
       init.defaultBranch = "master";

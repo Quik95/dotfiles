@@ -44,6 +44,7 @@
       sqlite
       litecli
       ouch
+      ntfs3g
 
       # fonts
       powerline-fonts

@@ -153,14 +153,15 @@
       };
     };
     scripts = with pkgs.mpvScripts; [
-      memo
-      autoload
       autocrop
-      inhibit-gnome
+      autoload
       autosubsync-mpv
-      mpv-playlistmanager
-      uosc
+      inhibit-gnome
+      memo
       mpris
+      mpv-playlistmanager
+      sponsorblock-minimal
+      uosc
     ];
     scriptOpts = {
       autosubsync-mpv = {

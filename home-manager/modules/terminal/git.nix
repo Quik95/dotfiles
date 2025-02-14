@@ -14,6 +14,8 @@
       c = "commit";
     };
 
+    signing.format = "openpgp";
+
     extraConfig = {
       init.defaultBranch = "master";
       pull.rebase = true;

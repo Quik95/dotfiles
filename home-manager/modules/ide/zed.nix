@@ -28,6 +28,7 @@
       vertical_scroll_margin = 10;
       relative_line_numbers = true;
       base_keymap = "JetBrains";
+      load_direnv = "shell_hook";
       command_aliases = {
         "W" = "w";
         "Wq" = "wq";
@@ -42,6 +43,9 @@
           model = "claude-3-5-sonnet";
         };
         version = "2";
+      };
+      features = {
+        inline_completion_provider = "zed";
       };
       inlay_hints = {
         enabled = true;

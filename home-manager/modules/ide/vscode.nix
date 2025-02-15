@@ -1,23 +1,27 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhs;
     extensions = with pkgs.vscode-extensions; [
-      vscodevim.vim
-      jnoortheen.nix-ide
+      catppuccin.catppuccin-vsc
       github.copilot
       github.copilot-chat
+      jnoortheen.nix-ide
       k--kato.intellij-idea-keybindings
-      catppuccin.catppuccin-vsc
-      usernamehw.errorlens
       mkhl.direnv
+      usernamehw.errorlens
+      vscodevim.vim
 
+      # python
       charliermarsh.ruff
-      ms-toolsai.jupyter
       ms-python.python
+      ms-toolsai.jupyter
+
+      # rust
+      rust-lang.rust-analyzer
+
+      # zig
+      ziglang.vscode-zig
     ];
     userSettings = {
       "update.mode" = "none";
@@ -27,6 +31,7 @@
       "files.autoSave" = "onFocusChange";
       "editor.minimap.enabled" = false;
       "editor.cursorSurroundingLines" = 3;
+      "editor.cursorSmoothCaretAnimation" = "on";
       "editor.formatOnSave" = true;
       "notebook.formatOnSave.enabled" = true;
       "git.allowForcePush" = true;

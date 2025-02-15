@@ -26,6 +26,7 @@
     resources
     tokei
     rustup
+    maestral
 
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor

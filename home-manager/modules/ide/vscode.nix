@@ -36,6 +36,7 @@
       "notebook.formatOnSave.enabled" = true;
       "git.allowForcePush" = true;
       "git.autoFetch" = true;
+      "diffEditor.renderSideBySide" = false;
 
       "workbench.colorTheme" = "Catppuccin Mocha";
       "catppuccin.accentColor" = "pink";
@@ -55,6 +56,11 @@
       "[python]" = {
         "editor.defaultFormatter" = "charliermarsh.ruff";
       };
+
+      "zig.buildOnSave" = true;
+      "zig.zls.enableBuildOnSave" = true;
+      "zig.zls.path" = "zls";
+      "zig.path" = "zig";
 
       "vim.incsearch" = true;
       "vim.hlsearch" = true;

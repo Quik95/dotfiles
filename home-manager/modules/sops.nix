@@ -17,6 +17,16 @@
         sopsFile = ../secrets/gitlab-ssh-key.yaml;
         path = "${config.home.homeDirectory}/.ssh/gitlab_key";
       };
+
+      github-public-key = {
+        sopsFile = ../secrets/github-ssh-key.yaml;
+        path = "${config.home.homeDirectory}/.ssh/github_key.pub";
+      };
+
+      github-private-key = {
+        sopsFile = ../secrets/github-ssh-key.yaml;
+        path = "${config.home.homeDirectory}/.ssh/github_key";
+      };
     };
   };
 }

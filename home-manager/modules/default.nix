@@ -15,6 +15,7 @@
     ./env-vars.nix
     ./flatpak.nix
     ./misc.nix
+    ./sops.nix
     ./ssh.nix
   ];
 }

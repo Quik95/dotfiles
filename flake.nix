@@ -10,6 +10,9 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
@@ -19,6 +22,8 @@
     home-manager,
     nix-flatpak,
     nixvim,
+    sops-nix,
+    ...
   } @ attrs: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -35,7 +40,7 @@
       inherit pkgs;
       modules = [./home-manager/home.nix];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim;
+        inherit nix-flatpak nixvim sops-nix;
       };
     };
   };

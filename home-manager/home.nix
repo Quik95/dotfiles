@@ -2,11 +2,13 @@
   pkgs,
   nix-flatpak,
   nixvim,
+  sops-nix,
   ...
 }: {
   imports = [
     nixvim.homeManagerModules.nixvim
     nix-flatpak.homeManagerModules.nix-flatpak
+    sops-nix.homeManagerModules.sops
 
     ./modules/default.nix
   ];
@@ -34,5 +36,6 @@
     smartmontools
 
     devenv
+    sops
   ];
 }

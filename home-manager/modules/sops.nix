@@ -27,6 +27,16 @@
         sopsFile = ../secrets/github-ssh-key.yaml;
         path = "${config.home.homeDirectory}/.ssh/github_key";
       };
+
+      master-public-gpg-key = {
+        sopsFile = ../secrets/master-gpg-key.yaml;
+        path = "${config.home.homeDirectory}/.gnupg/master-public-key.asc";
+      };
+
+      master-private-gpg-key = {
+        sopsFile = ../secrets/master-gpg-key.yaml;
+        path = "${config.home.homeDirectory}/.gnupg/master-private-key.asc";
+      };
     };
   };
 }

@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -9,7 +6,7 @@
   services.xserver.desktopManager.xterm.enable = false;
 
   programs.fish.enable = true;
-  environment.shells = [ pkgs.bashInteractive pkgs.fish ];
+  environment.shells = [pkgs.bashInteractive pkgs.fish];
   users.defaultUserShell = pkgs.fish;
   programs.bash = {
     interactiveShellInit = ''
@@ -21,39 +18,39 @@
     '';
   };
 
-  environment.systemPackages =
-    (with pkgs; [
-      git
-      clang
-      llvmPackages.bintools
+  environment.systemPackages = with pkgs; [
+    git
+    clang
+    llvmPackages.bintools
 
-      # terminal essencials
-      neovim
-      fish
-      ripgrep
-      fd
-      btop
-      bat
+    # terminal essencials
+    neovim
+    fish
+    ripgrep
+    fd
+    btop
+    bat
 
-      # misc
-      fastfetch
-      gnome-tweaks
-      wget
-      compsize
-      wl-clipboard
-      sqlite
-      litecli
-      ouch
-      ntfs3g
+    # misc
+    fastfetch
+    gnome-tweaks
+    wget
+    compsize
+    wl-clipboard
+    sqlite
+    litecli
+    ouch
+    ntfs3g
+    mtr
 
-      # fonts
-      powerline-fonts
+    # fonts
+    powerline-fonts
 
-      # nix stuff
-      nixd
-      nil
-      alejandra
-      nix-output-monitor
-      nvd
-    ]);
-    }
+    # nix stuff
+    nixd
+    nil
+    alejandra
+    nix-output-monitor
+    nvd
+  ];
+}

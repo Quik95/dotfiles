@@ -5,5 +5,6 @@
     ./btrfs.nix
     ./nh.nix
     ./packages.nix
+    ./virtualization.nix
   ];
 }

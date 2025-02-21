@@ -3,15 +3,15 @@
     enable = true;
 
     packages = [
-      "com.github.tchx84.Flatseal"
-      "dev.vencord.Vesktop"
-      "com.mattjakeman.ExtensionManager"
       "com.github.flxzt.rnote"
       "com.github.marhkb.Pods"
+      "com.github.tchx84.Flatseal"
+      "com.google.Chrome"
+      "com.mattjakeman.ExtensionManager"
       "com.spotify.Client"
+      "dev.vencord.Vesktop"
       "garden.jamie.Morphosis"
       "it.mijorus.smile"
-      "com.google.Chrome"
     ];
     uninstallUnmanaged = true;
 

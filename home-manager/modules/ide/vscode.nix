@@ -18,7 +18,7 @@
       ms-toolsai.jupyter
 
       # rust
-      rust-lang.rust-analyzer
+      # rust-lang.rust-analyzer
 
       # zig
       ziglang.vscode-zig

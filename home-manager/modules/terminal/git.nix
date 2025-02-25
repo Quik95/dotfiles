@@ -20,15 +20,22 @@
     };
 
     extraConfig = {
+      branch.sort = "-comitterdate";
+      column.ui = "auto";
+      commit.verbose = true;
+      help.autocorrect = true;
       init.defaultBranch = "master";
-      pull.rebase = true;
-      push.autoSetupRemote = true;
-
       merge.ff = true;
+      pager.diftool = true;
+      pull.ff = "only";
+      tag.sort = "version:refname";
 
       diff = {
         tool = "difftastic";
         colorMoved = "zebra";
+        algorithm = "histogram";
+        mnemonicPrefix = true;
+        renames = true;
       };
 
       difftool = {
@@ -38,7 +45,28 @@
         };
       };
 
-      pager.diftool = true;
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
+
+      push = {
+        default = "simple";
+        autoSetupRemote = true;
+        followTags = true;
+      };
+
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+        updateRefs = true;
+      };
+
+      rerere = {
+        enable = true;
+        autoupdate = true;
+      };
     };
 
     ignores = [

@@ -29,6 +29,7 @@
     tokei
     rustup
     maestral
+    vdhcoapp
 
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor

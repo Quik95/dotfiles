@@ -42,6 +42,7 @@
     ouch
     ntfs3g
     mtr
+    file
 
     # fonts
     powerline-fonts

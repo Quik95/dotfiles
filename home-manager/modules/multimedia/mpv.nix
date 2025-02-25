@@ -160,6 +160,7 @@
       memo
       mpris
       mpv-playlistmanager
+      quack
       sponsorblock-minimal
       uosc
     ];

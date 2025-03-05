@@ -19,7 +19,7 @@
         "clipboard-indicator@tudmotu.com"
         "fullscreen-hot-corner@sorrow.about.alice.pm.me"
         "just-perfection-desktop@just-perfection"
-        "randomwallpaper@iflow.space"
+        # "randomwallpaper@iflow.space"
         "smile-extension@mijorus.it"
         "system-monitor@gnome-shell-extensions.gcampax.github.com"
       ];

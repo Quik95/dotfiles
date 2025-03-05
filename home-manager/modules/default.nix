@@ -5,10 +5,11 @@
   # my-module = import ./my-module.nix;
   imports = [
     ./browsers/default.nix
+    ./ide/default.nix
     ./multimedia/default.nix
+    ./sdk/default.nix
     ./terminal/default.nix
     ./wm/gnome/default.nix
-    ./ide/default.nix
 
     ./default-apps.nix
     ./dropbox.nix

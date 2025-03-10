@@ -4,5 +4,6 @@
       ninja
       clang
       clang-tools
+      clang-analyzer
   ];
 }

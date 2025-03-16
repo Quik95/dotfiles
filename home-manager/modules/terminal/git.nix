@@ -23,6 +23,7 @@
       branch.sort = "-comitterdate";
       column.ui = "auto";
       commit.verbose = true;
+      core.autocrlf = "input";
       help.autocorrect = true;
       init.defaultBranch = "master";
       merge.ff = true;

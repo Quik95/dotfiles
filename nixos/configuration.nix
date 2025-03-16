@@ -79,6 +79,12 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
+  users.users.lab-sec-14 = {
+    isNormalUser = true;
+    description = "Komputer labowy";
+    extraGroups = ["networkmanager" "wheel"];
+  };
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.extraOptions = ''
     trusted-users = root sebastian

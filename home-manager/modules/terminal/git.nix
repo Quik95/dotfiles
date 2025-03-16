@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   programs.git = {
     enable = true;
     userName = "Sebastian Bartoszewicz";
@@ -72,6 +72,19 @@
     ignores = [
       "*~"
       ".DS_Store"
+    ];
+
+    includes = [
+      {
+        # FIXME: does not seem to work 😢
+        condition = "gitdir:${config.home.homeDirectory}/Projects/Studia/Magisterka";
+        contents = {
+          user = {
+            name = "Sebastian Bartoszewicz";
+            email = "sebastian.bartoszewicz@student.put.poznan.pl";
+          };
+        };
+      }
     ];
   };
 

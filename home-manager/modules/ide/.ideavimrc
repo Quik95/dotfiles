@@ -82,3 +82,6 @@ nnoremap s :action flash.search<CR>
 " CamelCase humps
 nnoremap L [w
 nnoremap H [b
+
+" handlers
+sethandler <c-\> a:ide

@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.helix = {
-    enable = false;
+    enable = true;
     settings = {
       theme = "catppuccin_macchiato";
       editor = {

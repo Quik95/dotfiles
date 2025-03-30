@@ -9,6 +9,9 @@
     ];
     userSettings = {
       vim_mode = true;
+      vim = {
+        use_system_clipboard = "never";
+      };
       buffer_font_size = 14;
       theme = {
         mode = "dark";
@@ -43,6 +46,9 @@
           model = "claude-3-7-sonnet";
         };
         version = "2";
+      };
+      edit_predictions = {
+        mode = "subtle";
       };
       features = {
         inline_completion_provider = "zed";

@@ -15,6 +15,9 @@
       enable = true;
       inlayHints = true;
       servers = {
+        clangd = {
+          enable = true;
+        };
         lua_ls = {
           enable = true;
           settings = {
@@ -45,12 +48,12 @@
       };
       keymaps = {
         extra = [
-          {mode = "n"; key = "gd"; action.__raw = "require('telescope.builtin').lsp_definitions"; options = {desc = "LSP: Goto Definition";};}  
-          {mode = "n"; key = "gi"; action.__raw = "require('telescope.builtin').lsp_implementations"; options = {desc = "LSP: Goto Implementation";};}  
-          {mode = "n"; key = "su"; action.__raw = "require('telescope.builtin').lsp_references"; options = {desc = "LSP: Show usages";};}  
-          {mode = "n"; key = "K"; action.__raw = "require('telescope.builtin').lsp_type_definitions"; options = {desc = "LSP: Type Definitions";};}  
-          {mode = "n"; key = "ds"; action.__raw = "require('telescope.builtin').lsp_document_symbols"; options = {desc = "LSP: Document Symbols";};}  
-          {mode = "n"; key = "ws"; action.__raw = "require('telescope.builtin').lsp_dynamic_workspace_symbols"; options = {desc = "LSP: Workspace Symbols";};}  
+          {mode = "n"; key = "gd"; action.__raw = "require('telescope.builtin').lsp_definitions"; options = {desc = "LSP: Goto Definition";};}
+          {mode = "n"; key = "gi"; action.__raw = "require('telescope.builtin').lsp_implementations"; options = {desc = "LSP: Goto Implementation";};}
+          {mode = "n"; key = "su"; action.__raw = "require('telescope.builtin').lsp_references"; options = {desc = "LSP: Show usages";};}
+          {mode = "n"; key = "K"; action.__raw = "require('telescope.builtin').lsp_type_definitions"; options = {desc = "LSP: Type Definitions";};}
+          {mode = "n"; key = "ds"; action.__raw = "require('telescope.builtin').lsp_document_symbols"; options = {desc = "LSP: Document Symbols";};}
+          {mode = "n"; key = "ws"; action.__raw = "require('telescope.builtin').lsp_dynamic_workspace_symbols"; options = {desc = "LSP: Workspace Symbols";};}
         ];
         lspBuf = {
           "<leader>rn" = {action = "rename"; desc = "LSP: Rename";};

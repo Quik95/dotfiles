@@ -38,7 +38,7 @@
       current-workspace-only = true;
     };
 
-    "org/gnome/settings-daemon/plugins/color/power" = {
+    "org/gnome/settings-daemon/plugins/power" = {
       power-saver-profile-on-low-battery = true;
       sleep-inactive-ac-type = "nothing";
       sleep-inactive-battery-timeout = 900;

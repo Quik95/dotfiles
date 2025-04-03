@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = [pkgs.grc];
 
   programs.fish = {
@@ -25,10 +29,14 @@
       g = "git";
       lg = "lazygit";
     };
-    plugins = [
+    plugins = with pkgs.fishPlugins; [
       {
         name = "grc";
-        src = pkgs.fishPlugins.grc.src;
+        src = grc.src;
+      }
+      {
+        name = "autopair";
+        src = autopair.src;
       }
     ];
     interactiveShellInit = ''

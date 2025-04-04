@@ -5,6 +5,7 @@ in {
     (jetbrains.plugins.addPlugins jetbrains.clion standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.pycharm-professional standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.webstorm standardPlugins)
+    (jetbrains.plugins.addPlugins jetbrains.rider standardPlugins)
   ];
 
   home.file.".ideavimrc".source = ./.ideavimrc;

@@ -22,6 +22,7 @@
         # "randomwallpaper@iflow.space"
         "smile-extension@mijorus.it"
         "system-monitor@gnome-shell-extensions.gcampax.github.com"
+        "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
       ];
     };
 

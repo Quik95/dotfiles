@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [rustc cargo];
+  home.packages = with pkgs; [rustup];
 }

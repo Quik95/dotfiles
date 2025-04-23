@@ -7,6 +7,7 @@ in {
     (jetbrains.plugins.addPlugins jetbrains.pycharm-professional standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.webstorm standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.rider standardPlugins)
+    (jetbrains.plugins.addPlugins jetbrains.rust-rover standardPlugins)
   ];
 
   home.file.".ideavimrc".source = ./.ideavimrc;

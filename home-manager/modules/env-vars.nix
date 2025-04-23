@@ -1,11 +1,11 @@
-{
+{config, ...}: {
   home.sessionVariables = {
-    BROWSER = "firefox";
+    BROWSER = "com.google.Chrome";
     VISUAL = "zeditor";
     EDITOR = "nvim";
     PAGER = "bat";
     TERMINAL = "ghostty";
-    FLAKE = "/home/sebastian/Documents/dotfiles";
+    FLAKE = "${config.home.homeDirectory}/Documents/dotfiles";
 
     NIXOS_OZONE_WL = 1;
     NIXPKGS_ALLOW_UNFREE = 1;

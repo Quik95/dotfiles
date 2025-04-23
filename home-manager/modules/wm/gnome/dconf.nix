@@ -34,6 +34,17 @@
       ];
     };
 
+    "org/gnome/desktop/search-providers" = {
+      disabled = [
+        "org.gnome.Software.desktop"
+        "org.gnome.seahorse.Application.desktop"
+        "org.gnome.clocks.desktop"
+        "org.gnome.Characters.desktop"
+        "org.gnome.Calendar.desktop"
+        "org.gnome.Nautilus.desktop"
+      ];
+    };
+
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
     };

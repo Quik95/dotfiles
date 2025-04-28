@@ -77,8 +77,7 @@
 
     includes = [
       {
-        # FIXME: does not seem to work 😢
-        condition = "gitdir:${config.home.homeDirectory}/Projects/Studia/Magisterka";
+        condition = "gitdir:${config.home.homeDirectory}/Projects/Studia/Magisterka/";
         contents = {
           user = {
             name = "Sebastian Bartoszewicz";

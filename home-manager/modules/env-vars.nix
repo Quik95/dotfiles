@@ -5,7 +5,7 @@
     EDITOR = "nvim";
     PAGER = "bat";
     TERMINAL = "ghostty";
-    FLAKE = "${config.home.homeDirectory}/Documents/dotfiles";
+    NH_FLAKE = "${config.home.homeDirectory}/Documents/dotfiles";
 
     NIXOS_OZONE_WL = 1;
     NIXPKGS_ALLOW_UNFREE = 1;

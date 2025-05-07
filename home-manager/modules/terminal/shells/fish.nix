@@ -28,6 +28,7 @@
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
       g = "git";
       lg = "lazygit";
+      sudo = "run0";
     };
     plugins = with pkgs.fishPlugins; [
       {

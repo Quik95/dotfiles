@@ -25,10 +25,10 @@
           };
         };
         nixd = {
-          enable = false;
+          enable = true;
         };
         nil_ls = {
-          enable = true;
+          enable = false;
         };
         ruff = {
           enable = true;

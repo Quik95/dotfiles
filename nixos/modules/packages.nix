@@ -23,7 +23,7 @@
     clang
     llvmPackages.bintools
 
-    # terminal essencials
+    # terminal essentials
     neovim
     fish
     ripgrep
@@ -43,6 +43,9 @@
     ntfs3g
     mtr
     file
+    iw
+    wirelesstools
+    gparted
 
     # fonts
     powerline-fonts

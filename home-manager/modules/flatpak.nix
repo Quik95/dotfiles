@@ -12,6 +12,8 @@
       "dev.vencord.Vesktop"
       "garden.jamie.Morphosis"
       "it.mijorus.smile"
+      "org.gnome.Fractal"
+      "page.tesk.Refine"
     ];
     uninstallUnmanaged = true;
 

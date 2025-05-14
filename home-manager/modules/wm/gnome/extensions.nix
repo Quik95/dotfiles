@@ -40,6 +40,10 @@
       search = false;
       workspace-wrap-around = false;
       window-demands-attention-focus = true;
+      background-menu = false;
+      window-preview-caption = false;
+      workspace-switcher-should-show = true;
+      workspace-switcher-size = 15;
     };
   };
 

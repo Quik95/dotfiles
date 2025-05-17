@@ -19,7 +19,7 @@
 
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
-      workspaces-only-on-primary = true;
+      workspaces-only-on-primary = false;
       edge-tiling = false;
     };
 

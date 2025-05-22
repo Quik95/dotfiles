@@ -29,8 +29,9 @@ map <leader>df :action ToggleFullScreen<CR>
 nnoremap <TAB> :action NextTab<CR>
 nnoremap <s-TAB> :action PreviousTab<CR>
 
-nnoremap <Leader>bd :action CloseEditor<CR>
-nnoremap <Leader>qa :action CloseAllEditors<CR>
+nnoremap <leader>bd :action CloseEditor<CR>
+nnoremap <leader>qa :action CloseAllEditors<CR>
+nnoremap <leader>qo :action CloseAllEditorsButActive<CR>
 
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
@@ -62,7 +63,6 @@ nnoremap gn :action Forward<CR>
 
 nnoremap <c-p> :action JumpToLastWindow<CR>
 nnoremap <c-x> :action HideAllWindows<CR>
-nnoremap <leader>co :action CloseAllEditorsButActive<CR>
 
 nnoremap <leader>ro :action Refactorings.QuickListPopupAction<CR>
 nnoremap <leader>re :action RenameElement<CR>

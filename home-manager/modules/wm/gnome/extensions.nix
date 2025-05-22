@@ -48,6 +48,7 @@
   };
 
   home.packages = with pkgs.gnomeExtensions; [
+    appindicator
     blur-my-shell
     activate-window-by-title
     just-perfection

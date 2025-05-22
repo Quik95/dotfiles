@@ -10,6 +10,7 @@
     ./git.nix
     ./powerline-go.nix
     ./starship.nix
+    ./yazi.nix
     ./zoxide.nix
   ];
 }

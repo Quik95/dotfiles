@@ -29,6 +29,11 @@
     tokei
     maestral
     vdhcoapp
+    fselect
+    just
+    mask
+    mprocs
+    kondo
 
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor

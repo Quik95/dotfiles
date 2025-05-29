@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   # standardPlugins = ["github-copilot" "ideavim" "nixidea" "which-key"];
-  standardPlugins = ["ideavim" "nixidea" "which-key"];
+  standardPlugins = ["ideavim" "nixidea"];
 in {
   home.packages = with pkgs; [
     (jetbrains.plugins.addPlugins jetbrains.clion standardPlugins)

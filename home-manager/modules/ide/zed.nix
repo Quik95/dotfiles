@@ -30,7 +30,7 @@
       format_on_save = "off";
       vertical_scroll_margin = 10;
       relative_line_numbers = true;
-      base_keymap = "JetBrains";
+      default_keymap = "JetBrains";
       load_direnv = "shell_hook";
       command_aliases = {
         "W" = "w";
@@ -40,7 +40,7 @@
         enabled = true;
         coloring = "indent_aware";
       };
-      assistant = {
+      agent = {
         default_model = {
           provider = "copilot_chat";
           model = "claude-3-7-sonnet";
@@ -50,8 +50,8 @@
       edit_predictions = {
         mode = "subtle";
       };
-      features = {
-        inline_completion_provider = "zed";
+      ai = {
+        completion_provider = "zed";
       };
       inlay_hints = {
         enabled = true;

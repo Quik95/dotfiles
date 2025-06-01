@@ -1,6 +1,12 @@
 {pkgs, ...}: {
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+
+    # Disable default browser check
+    preferences = {
+      "browser.shell.checkDefaultBrowser" = false;
+    };
+  };
 
   services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;

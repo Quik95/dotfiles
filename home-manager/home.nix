@@ -34,6 +34,7 @@
     mask
     mprocs
     kondo
+    appimage-run
 
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor

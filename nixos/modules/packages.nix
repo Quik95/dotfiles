@@ -37,6 +37,10 @@
     btop
     bat
 
+    # filesystems
+    ntfs3g
+    jmtpfs
+
     # misc
     fastfetch
     gnome-tweaks
@@ -46,12 +50,12 @@
     sqlite
     litecli
     ouch
-    ntfs3g
     mtr
     file
     iw
     wirelesstools
     gparted
+    usbutils
 
     # fonts
     powerline-fonts

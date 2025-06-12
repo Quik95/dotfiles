@@ -3,6 +3,7 @@
     enable = true;
 
     packages = [
+      "be.alexandervanhee.gradia"
       "com.github.flxzt.rnote"
       "com.github.marhkb.Pods"
       "com.github.tchx84.Flatseal"

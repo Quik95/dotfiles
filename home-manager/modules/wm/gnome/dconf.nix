@@ -8,13 +8,23 @@
       close = ["<Alt>q"];
     };
 
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      binding = "<Control>Delete";
+      command = "flatpak run be.alexandervanhee.gradia --screenshot=INTERACTIVE";
+      name = "Screenshot with gradia";
+    };
+
     "org/gnome/desktop/default-applications" = {
       terminal = "ghostty";
     };
 
     "org/gnome/desktop/interface" = {
       accent-color = "pink";
-      "show-battery-percentage" = true;
+      show-battery-percentage = true;
     };
 
     "org/gnome/mutter" = {

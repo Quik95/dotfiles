@@ -35,6 +35,7 @@
     mprocs
     kondo
     appimage-run
+    litecli
 
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor

@@ -41,11 +41,12 @@
         coloring = "indent_aware";
       };
       agent = {
+        version = "2";
+        enabled = true;
         default_model = {
           provider = "copilot_chat";
           model = "claude-3-7-sonnet";
         };
-        version = "2";
       };
       edit_predictions = {
         mode = "subtle";

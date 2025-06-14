@@ -4,7 +4,7 @@
     enableFishIntegration = true;
     installBatSyntax = true;
     settings = {
-      theme = "catppuccin-macchiato";
+      theme = "catppuccin-latte";
       scrollback-limit = "9999999999999999999";
       fullscreen = false;
       window-inherit-working-directory = true;

@@ -1,8 +1,16 @@
 {
   pkgs,
   config,
+  xdg,
   ...
-}: {
+}: let
+  catppuccin-fish = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "fish";
+    rev = "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed";
+    sha256 = "sha256-Oc0emnIUI4LV7QJLs4B2/FQtCFewRFVp7EDv8GawFsA=";
+  };
+in {
   home.packages = [pkgs.grc];
 
   programs.fish = {
@@ -23,6 +31,7 @@
       ga = "git add .";
       gc = "git commit -m";
       gd = "git diff";
+      nsf = "nix-shell --run fish";
     };
     shellAliases = {
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
@@ -39,6 +48,10 @@
         name = "autopair";
         src = autopair.src;
       }
+      {
+        name = "colored-man-pages";
+        src = colored-man-pages.src;
+      }
     ];
     interactiveShellInit = ''
       function fish_greeting
@@ -46,4 +59,6 @@
       end
     '';
   };
+
+  xdg.configFile."fish/themes/Catppuccin Latte.theme".source = "${catppuccin-fish}/themes/Catppuccin Latte.theme";
 }

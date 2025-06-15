@@ -45,7 +45,7 @@
         enabled = true;
         default_model = {
           provider = "copilot_chat";
-          model = "claude-3-7-sonnet";
+          model = "claude-3.7-sonnet";
         };
       };
       edit_predictions = {
@@ -76,21 +76,21 @@
       {
         context = "vim_mode == normal || vim_mode == visual";
         bindings = {
-          "s" = ["vim::PushOperator" {"Sneak" = {};}];
-          "S" = ["vim::PushOperator" {"SneakBackward" = {};}];
+          "s" = ["vim::PushSneak" {}];
+          "S" = ["vim::PushSneakBackward" {}];
         };
       }
       {
         context = "VimControl && !menu";
         bindings = {
           "tab" = "pane::ActivateNextItem";
-          "shift-tab" = "pane::ActivatePrevItem";
+          "shift-tab" = "pane::ActivatePreviousItem";
           "space b d" = "pane::CloseActiveItem";
           "space q a" = "pane::CloseAllItems";
           "space q o" = "pane::CloseInactiveItems";
           "= =" = "editor::Format";
           "g e" = "editor::GoToDiagnostic";
-          "g E" = "editor::GoToPrevDiagnostic";
+          "g E" = "editor::GoToPreviousDiagnostic";
           "space f u" = "editor::FindAllReferences";
           "g i" = "editor::GoToImplementation";
           "g d" = "editor::GoToDeclaration";

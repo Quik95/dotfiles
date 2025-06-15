@@ -3,12 +3,14 @@
   nix-flatpak,
   nixvim,
   sops-nix,
+  stylix,
   ...
 }: {
   imports = [
     nixvim.homeManagerModules.nixvim
     nix-flatpak.homeManagerModules.nix-flatpak
     sops-nix.homeManagerModules.sops
+    stylix.homeModules.stylix
 
     ./modules/default.nix
   ];
@@ -36,6 +38,7 @@
     kondo
     appimage-run
     litecli
+    zed-editor
 
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor

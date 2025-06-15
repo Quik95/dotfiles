@@ -13,6 +13,9 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
@@ -23,6 +26,7 @@
     nix-flatpak,
     nixvim,
     sops-nix,
+    stylix,
     ...
   } @ attrs: let
     system = "x86_64-linux";
@@ -40,7 +44,7 @@
       inherit pkgs;
       modules = [./home-manager/home.nix];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix;
+        inherit nix-flatpak nixvim sops-nix stylix;
       };
     };
   };

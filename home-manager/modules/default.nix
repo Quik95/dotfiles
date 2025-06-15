@@ -18,5 +18,6 @@
     ./misc.nix
     ./sops.nix
     ./ssh.nix
+    ./stylix.nix
   ];
 }

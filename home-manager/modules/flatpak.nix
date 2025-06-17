@@ -17,6 +17,7 @@
       "org.gnome.Fractal"
       "org.gnome.Papers"
       "org.gnome.gitlab.somas.Apostrophe"
+      "org.nickvision.money"
       "page.tesk.Refine"
     ];
     uninstallUnmanaged = true;

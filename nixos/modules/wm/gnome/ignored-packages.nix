@@ -1,22 +1,23 @@
 {pkgs, ...}: {
   environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
+    atomix
     cheese
-    gnome-music
-    gnome-terminal
+    epiphany
+    evince
+    geary
     gnome-console
     gnome-contacts
-    gnome-maps
-    gnome-system-monitor
     gnome-extension-manager
+    gnome-maps
+    gnome-music
+    gnome-system-monitor
+    gnome-terminal
+    gnome-tour
     gnome-weather
-    yelp
-    epiphany
-    geary
-    totem
-    tali
-    iagno
     hitori
-    atomix
+    iagno
+    tali
+    totem
+    yelp
   ];
 }

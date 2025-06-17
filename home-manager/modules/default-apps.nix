@@ -69,7 +69,7 @@ in {
         "web-browser" = browser;
         "x-scheme-handler/jetbrains" = ["jetbrains-toolbox.desktop"];
         "x-scheme-handler/fleet" = ["jetbrains-toolbox.desktop"];
-        "application/pdf" = ["org.gnome.Evince.desktop"];
+        "application/pdf" = ["org.gnome.Papers.desktop"];
         "inode/directory" = fileManager;
       };
   };

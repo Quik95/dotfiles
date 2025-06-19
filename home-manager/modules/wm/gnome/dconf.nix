@@ -71,5 +71,10 @@
       night-light-enabled = true;
       night-light-schedule-automatic = true;
     };
+
+    "org/gnome/TextEditor" = {
+      show-line-numbers = true;
+      highlight-current-line = true;
+    };
   };
 }

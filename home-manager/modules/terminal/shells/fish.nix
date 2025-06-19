@@ -19,13 +19,13 @@
       ga = "git add .";
       gc = "git commit -m";
       gd = "git diff";
-      nsf = "nix-shell --run fish";
     };
     shellAliases = {
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
       g = "git";
       lg = "lazygit";
       sudo = "run0";
+      nix-shell = "nix-shell --run fish";
     };
     plugins = with pkgs.fishPlugins; [
       {

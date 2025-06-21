@@ -137,7 +137,7 @@
       deinterlace = "no";
 
       ytdl = true;
-      ytdl-format = "bestvideo[height<=?1080]+bestaudio/best";
+      ytdl-format = "(bestvideo[height<=1080][vcodec*=h264]+bestaudio)/(bestvideo[height<=1080][vcodec!*=vp9]+bestaudio)/(bestvideo[height<=1080]+bestaudio)/best[height<=1080]";
     };
     profiles = {
       "protocol.http" = {

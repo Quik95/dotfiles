@@ -40,6 +40,14 @@
         name = "colored-man-pages";
         src = colored-man-pages.src;
       }
+      {
+        name = "sponge";
+        src = sponge.src;
+      }
+      {
+        name = "puffer";
+        src = puffer.src;
+      }
     ];
     interactiveShellInit = ''
       function fish_greeting

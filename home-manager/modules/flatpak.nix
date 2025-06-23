@@ -13,7 +13,6 @@
       "com.valvesoftware.Steam"
       "dev.vencord.Vesktop"
       "garden.jamie.Morphosis"
-      "it.mijorus.smile"
       "org.gnome.Fractal"
       "org.gnome.Papers"
       "org.gnome.gitlab.somas.Apostrophe"

@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       xkb-options = ["terminate:ctrl_alt_bksp" "caps:swapescape" "compose:prsc"];
@@ -9,13 +9,22 @@
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+      ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Control>Delete";
       command = "flatpak run be.alexandervanhee.gradia --screenshot=INTERACTIVE";
       name = "Screenshot with gradia";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>semicolon";
+      command = "${pkgs.smile}/bin/smile";
+      name = "Open emoji picker";
     };
 
     "org/gnome/desktop/default-applications" = {
@@ -75,6 +84,14 @@
     "org/gnome/TextEditor" = {
       show-line-numbers = true;
       highlight-current-line = true;
+    };
+
+    "it/mijorus/smile" = {
+      emoji-size-class = "emoji-button-xxl";
+      iconify-on-esc = false;
+      load-hidden-on-startup = true;
+      tags-locale = "pl";
+      use-localized-tags = true;
     };
   };
 }

@@ -18,6 +18,7 @@
         light = "One Light";
         dark = "Catppuccin Macchiato";
       };
+      auto_update = false;
       languages = {
         Nix = {
           language_servers = ["nixd"];

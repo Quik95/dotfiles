@@ -155,7 +155,7 @@
     scripts = with pkgs.mpvScripts; [
       autocrop
       autoload
-      autosubsync-mpv
+      # autosubsync-mpv
       inhibit-gnome
       memo
       mpris
@@ -165,9 +165,9 @@
       uosc
     ];
     scriptOpts = {
-      autosubsync-mpv = {
-        ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
-      };
+      # autosubsync-mpv = {
+      #   ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
+      # };
       memo = {
         H = "script-binding memo-history";
       };

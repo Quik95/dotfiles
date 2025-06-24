@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   programs.zed-editor = {
     enable = true;
     extensions = [
@@ -25,7 +25,7 @@
         };
       };
       lsp = {
-        nixd.settings.formatting.command = ["alejandra" "--"];
+        nixd.settings.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--"];
       };
       autosave = "on_focus_change";
       format_on_save = "off";

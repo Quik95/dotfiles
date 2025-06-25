@@ -46,7 +46,7 @@
         enabled = true;
         default_model = {
           provider = "copilot_chat";
-          model = "claude-3.7-sonnet";
+          model = "claude-sonnet-4";
         };
       };
       edit_predictions = {

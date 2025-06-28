@@ -40,6 +40,8 @@
     litecli
     zed-editor
 
+    gemini-cli
+
     # required for the gnome-system-monitor extension to work
     gnome-system-monitor
     lm_sensors

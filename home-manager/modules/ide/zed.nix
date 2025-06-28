@@ -25,7 +25,22 @@
         };
       };
       lsp = {
-        nixd.settings.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--"];
+        nixd = {
+          binary = {
+            path = "${pkgs.nixd}/bin/nixd";
+          };
+          settings.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--"];
+        };
+        pylsp = {
+          binary = {
+            path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
+          };
+        };
+        package-version-server = {
+          binary = {
+            path = "${pkgs.package-version-server}/bin/package-version-server";
+          };
+        };
       };
       autosave = "on_focus_change";
       format_on_save = "off";

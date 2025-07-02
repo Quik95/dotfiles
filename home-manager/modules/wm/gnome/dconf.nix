@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
-      xkb-options = ["terminate:ctrl_alt_bksp" "caps:swapescape" "compose:prsc"];
+      xkb-options = ["caps:swapescape" "compose:prsc"];
     };
 
     "org/gnome/desktop/wm/keybindings" = {

@@ -14,6 +14,10 @@ in {
       bat.enable = true;
       btop.enable = true;
       fish.enable = true;
+      firefox = {
+        enable = true;
+        profileNames = ["default"];
+      };
       ghostty.enable = true;
       helix.enable = true;
       kde.enable = true;

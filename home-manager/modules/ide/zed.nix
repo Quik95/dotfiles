@@ -41,6 +41,9 @@
             path = "${pkgs.package-version-server}/bin/package-version-server";
           };
         };
+        zls = {
+          binary.path = "${pkgs.zls}/bin/zls";
+        };
       };
       autosave = "on_focus_change";
       format_on_save = "off";

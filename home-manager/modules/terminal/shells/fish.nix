@@ -41,10 +41,6 @@
         src = colored-man-pages.src;
       }
       {
-        name = "sponge";
-        src = sponge.src;
-      }
-      {
         name = "puffer";
         src = puffer.src;
       }

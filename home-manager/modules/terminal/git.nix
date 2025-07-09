@@ -93,6 +93,4 @@
       git.overrideGpg = true;
     };
   };
-
-  programs.gitui.enable = true;
 }

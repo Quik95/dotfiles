@@ -11,6 +11,9 @@
         theme = "sepia";
         autohide-cursor = true;
       };
+      "viewer/font" = {
+        default-size = 18;
+      };
     };
   };
 }

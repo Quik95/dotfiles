@@ -23,7 +23,6 @@ in {
   home.packages = [
     (jetbrains.plugins.addPlugins jetbrains.clion standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.rust-rover standardPlugins)
-    (jetbrains.plugins.addPlugins jetbrains.idea-ultimate standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.datagrip standardPlugins)
   ];
 

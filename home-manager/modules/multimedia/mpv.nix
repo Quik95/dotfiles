@@ -73,6 +73,7 @@
       force-seekable = true;
 
       cache = true;
+      demuxer-max-bytes = "4096MiB";
 
       prefetch-playlist = true;
       drag-and-drop = "append";
@@ -109,6 +110,7 @@
       hwdec = "auto";
       vo = "gpu-next";
 
+      dither = "fruit";
       dither-depth = "auto";
 
       deband = "yes";
@@ -117,22 +119,15 @@
       deband-range = 16;
       deband-grain = 4;
 
-      scale = "ewa_lanczos";
-      scale-blur = 0.981251;
-
-      dscale = "catmull_rom";
       correct-downscaling = "yes";
-      linear-downscaling = "no";
 
-      cscale = "lanczos";
+      linear-upscaling = "no";
       sigmoid-upscaling = "yes";
+      linear-downscaling = "yes";
 
       video-sync = "display-resample";
       interpolation = "yes";
-      tscale = "sphinx";
-      tscale-blur = 0.6991556596428412;
-      tscale-radius = 1.05;
-      tscale-clamp = 0.0;
+      tscale = "mitchell";
 
       deinterlace = "no";
 
@@ -151,11 +146,22 @@
       "protocol.ytdlp" = {
         profile = "protocol.http";
       };
+
+      "high-res-output" = {
+        scale = "catmull_rom";
+        dscale = "hermite";
+        cscale = "catmull_rom";
+        temporal-dither = "yes";
+        dither = "fruit";
+        deband = "yes";
+        deband-iterations = 1;
+        deband-threshold = 32;
+      };
     };
     scripts = with pkgs.mpvScripts; [
       autocrop
       autoload
-      # autosubsync-mpv
+      autosubsync-mpv
       inhibit-gnome
       memo
       mpris
@@ -165,9 +171,9 @@
       uosc
     ];
     scriptOpts = {
-      # autosubsync-mpv = {
-      #   ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
-      # };
+      autosubsync-mpv = {
+        ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
+      };
       memo = {
         H = "script-binding memo-history";
       };

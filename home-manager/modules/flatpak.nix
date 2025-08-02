@@ -6,6 +6,7 @@
       "be.alexandervanhee.gradia"
       "com.github.flxzt.rnote"
       "com.github.marhkb.Pods"
+      "com.github.rafostar.Clapper"
       "com.github.tchx84.Flatseal"
       "com.google.Chrome"
       "com.mattjakeman.ExtensionManager"

@@ -62,5 +62,6 @@
     alejandra
     nix-output-monitor
     nvd
+    nurl
   ];
 }

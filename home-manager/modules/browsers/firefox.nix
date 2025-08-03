@@ -24,6 +24,9 @@
         force = true;
         engines = {
           "wikipedia" = {
+            name = "Wikipedia (EN)";
+            definedAliases = ["@wen"];
+            iconMapObj."16" = "https://mycroftproject.com/updateos.php/id0/wikipedia_en_ssl.ico";
             urls = [
               {
                 template = "https://en.wikipedia.org/wiki/Special:Search";
@@ -33,11 +36,13 @@
                     value = "{searchTerms}";
                   }
                 ];
-                definedAliases = ["@wen"];
               }
             ];
           };
           "youtube" = {
+            name = "YouTube";
+            definedAliases = ["@yt"];
+            iconMapObj."16" = "https://mycroftproject.com/updateos.php/id0/youtube.ico";
             urls = [
               {
                 template = "https://youtube.com/results";
@@ -47,14 +52,16 @@
                     value = "{searchTerms}";
                   }
                 ];
-                definedAliases = ["@yt"];
               }
             ];
           };
           "home-manager-options" = {
+            name = "Home Manager Options";
+            definedAliases = ["@hm"];
+            iconMapObj."16" = "https://home-manager-options.extranix.com/images/favicon.png";
             urls = [
               {
-                template = "https://home-manager-options.extranix.com/?query=firefox+search&release=master";
+                template = "https://home-manager-options.extranix.com";
                 params = [
                   {
                     name = "release";
@@ -65,7 +72,54 @@
                     value = "{searchTerms}";
                   }
                 ];
-                definedAliases = ["@hm"];
+              }
+            ];
+          };
+          "mycroft-project" = {
+            name = "Mycroft Project";
+            definedAliases = ["@mycroft"];
+            iconMapObj."16" = "https://mycroftproject.com/favicon.ico";
+            urls = [
+              {
+                template = "https://mycroftproject.com/search-engines.html?name={searchTerms}";
+                params = [
+                  {
+                    name = "name";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
+          "arch-wiki" = {
+            name = "Arch Wiki";
+            definedAliases = ["@arch"];
+            iconMapObj."16" = "https://mycroftproject.com/updateos.php/id0/archlinux_wiki_ssl.png";
+            urls = [
+              {
+                template = "https://wiki.archlinux.org/index.php/Special:Search?go=Go&amp;search={searchTerms}";
+                params = [
+                  {
+                    name = "search";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+          };
+          "github" = {
+            name = "GitHub";
+            definedAliases = ["@git"];
+            iconMapObj."16" = "https://mycroftproject.com/updateos.php/id0/github93het.ico";
+            urls = [
+              {
+                template = "https://github.com/search?q={searchTerms}";
+                params = [
+                  {
+                    name = "search";
+                    value = "{searchParams}";
+                  }
+                ];
               }
             ];
           };

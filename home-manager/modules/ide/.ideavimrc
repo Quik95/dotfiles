@@ -83,6 +83,10 @@ inoremap <A-l> :action InsertInlineCompletionAction<CR>
 
 nnoremap s :action flash.search<CR>
 
+" Visual mode mappings
+vnoremap v :action EditorSelectWord<CR>
+vnoremap V :action EditorUnSelectWord<CR>
+
 " CamelCase humps
 nnoremap L [w
 nnoremap H [b

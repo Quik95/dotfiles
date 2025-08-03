@@ -26,30 +26,25 @@
       };
       lsp = {
         nixd = {
-          binary = {
-            path = "${pkgs.nixd}/bin/nixd";
-          };
+          binary.path = "${pkgs.nixd}/bin/nixd";
           settings.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--"];
         };
-        pylsp = {
-          binary = {
-            path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
-          };
-        };
-        package-version-server = {
-          binary = {
-            path = "${pkgs.package-version-server}/bin/package-version-server";
-          };
-        };
-        zls = {
-          binary.path = "${pkgs.zls}/bin/zls";
-        };
+        rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+        pylsp.binary.path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
+        package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
+        zls.binary.path = "${pkgs.zls}/bin/zls";
+      };
+      completions = {
+        lsp_insert_mode = "replace";
+      };
+      features = {
+        edit_prediction_provider = "zed";
       };
       autosave = "on_focus_change";
       format_on_save = "off";
       vertical_scroll_margin = 10;
       relative_line_numbers = true;
-      default_keymap = "JetBrains";
+      base_keymap = "JetBrains";
       load_direnv = "shell_hook";
       command_aliases = {
         "W" = "w";
@@ -60,7 +55,6 @@
         coloring = "indent_aware";
       };
       agent = {
-        version = "2";
         enabled = true;
         default_model = {
           provider = "copilot_chat";
@@ -69,9 +63,6 @@
       };
       edit_predictions = {
         mode = "subtle";
-      };
-      ai = {
-        completion_provider = "zed";
       };
       inlay_hints = {
         enabled = true;
@@ -93,6 +84,13 @@
         };
       }
       {
+        context = "Editor && vim_mode == visual && !menu";
+        bindings = {
+          "v" = "editor::SelectLargerSyntaxNode";
+          "V" = "editor::SelectSmallerSyntaxNode";
+        };
+      }
+      {
         context = "vim_mode == normal || vim_mode == visual";
         bindings = {
           "s" = ["vim::PushSneak" {}];
@@ -100,7 +98,7 @@
         };
       }
       {
-        context = "VimControl && !menu";
+        context = "VimControl && !menu && vim_mode != operator";
         bindings = {
           "tab" = "pane::ActivateNextItem";
           "shift-tab" = "pane::ActivatePreviousItem";
@@ -116,6 +114,15 @@
           "e d" = "editor::Hover";
           "ctrl-d" = "editor::HalfPageDown";
           "ctrl-u" = "editor::HalfPageUp";
+          "shift-l" = "vim::NextSubwordStart";
+          "shift-h" = "vim::PreviousSubwordStart";
+        };
+      }
+      {
+        context = "vim_operator == a || vim_operator == i || vim_operator == cs";
+        bindings = {
+          "q" = "vim::MiniQuotes";
+          "b" = "vim::MiniBrackets";
         };
       }
     ];

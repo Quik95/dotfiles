@@ -4,12 +4,13 @@
   ...
 }: let
   jetbrains = (import
-    (builtins.fetchTarball {
-      # Date: 20250713
-      # https://github.com/NixOS/nixpkgs/issues/425328
-      url = "https://github.com/NixOS/nixpkgs/tarball/9807714d6944a957c2e036f84b0ff8caf9930bc0";
-      sha256 = "sha256:1g9qc3n5zx16h129dqs5ixfrsff0dsws9lixfja94r208fq9219g";
-    })
+    (pkgs.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "94def634a20494ee057c76998843c015909d6311";
+        hash = "sha256-K2ViRJfdVGE8tpJejs8Qpvvejks1+A4GQej/lBk5y7I=";
+      }
+    )
     {
       inherit (config.nixpkgs) config;
       localSystem = {

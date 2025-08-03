@@ -77,6 +77,7 @@
         "browser.startup.homepage" = "about:blank";
         "browser.urlbar.trimURLs" = true;
         "browser.search.suggest.enabled" = true;
+        "ui.key.menuAccessKey" = 0;
       };
     };
   };

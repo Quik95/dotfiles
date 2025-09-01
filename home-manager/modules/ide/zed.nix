@@ -1,7 +1,10 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [eslint];
+
   programs.zed-editor = {
     enable = true;
     extensions = [
+      "angular"
       "html"
       "catppuccin"
       "zig"
@@ -23,15 +26,26 @@
         Nix = {
           language_servers = ["nixd"];
         };
+        JavaScript = {
+          formatter = "prettier";
+        };
       };
       lsp = {
         nixd = {
           binary.path = "${pkgs.nixd}/bin/nixd";
           settings.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--"];
         };
+        json-language-server.binary = {
+          path = "${pkgs.vscode-json-languageserver}/bin/vscode-json-language-server";
+          arguments = ["--stdio"];
+        };
         rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
         pylsp.binary.path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
         package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
+        vtsls.binary = {
+          path = "${pkgs.vtsls}/bin/vtsls";
+          arguments = ["--stdio"];
+        };
         zls.binary.path = "${pkgs.zls}/bin/zls";
       };
       completions = {
@@ -56,9 +70,22 @@
       };
       agent = {
         enabled = true;
+        use_modifier_to_send = true;
         default_model = {
           provider = "copilot_chat";
           model = "claude-sonnet-4";
+        };
+      };
+      context_servers = {
+        eslint-mcp = {
+          source = "custom";
+          command = "${pkgs.eslint}/bin/eslint";
+          args = ["--mcp"];
+        };
+        angular-mcp = {
+          source = "custom";
+          command = "nix-shell";
+          args = ["-p" "nodejs" "--command" "npx -y @angular/cli mcp"];
         };
       };
       edit_predictions = {

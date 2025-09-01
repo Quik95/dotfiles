@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  services.xserver.excludePackages = [pkgs.xterm];
-  services.xserver.desktopManager.xterm.enable = false;
-
   programs.fish.enable = true;
   environment.shells = [pkgs.bashInteractive pkgs.fish];
   users.defaultUserShell = pkgs.fish;

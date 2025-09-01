@@ -41,12 +41,6 @@
     LC_TIME = "pl_PL.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "pl";
-    variant = "";
-  };
-
   # Configure console keymap
   console.keyMap = "pl2";
 

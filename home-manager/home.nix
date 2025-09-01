@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    nixvim.homeManagerModules.nixvim
+    nixvim.homeModules.nixvim
     nix-flatpak.homeManagerModules.nix-flatpak
     sops-nix.homeManagerModules.sops
     stylix.homeModules.stylix

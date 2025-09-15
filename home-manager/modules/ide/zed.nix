@@ -76,6 +76,12 @@
           model = "claude-sonnet-4";
         };
       };
+      agent-servers = {
+        "Gemini CLI" = {
+            command = "${pkgs.gemini-cli}/bin/gemini";
+            args = ["--experimental-acp"];
+        };
+      };
       context_servers = {
         eslint-mcp = {
           source = "custom";

@@ -1,9 +1,10 @@
 {
   config,
-  pkgs,
   lib,
+  pkgs,
   ...
-}: let
+}:
+with lib; let
   nautilusBookmarks = [
     { path = "${config.home.homeDirectory}/Documents"; name = "Documents"; }
     { path = "${config.home.homeDirectory}/Downloads"; name = "Downloads"; }
@@ -18,8 +19,10 @@
     lib.map formatBookmark nautilusBookmarks
   );
 in {
-  xdg.configFile."gtk-3.0/bookmarks" = {
-    force = true;
-    text = bookmarksFileContents;
+  config = mkIf config.myHomeManager.desktopEnvironment.gnome.enable {
+    xdg.configFile."gtk-3.0/bookmarks" = {
+      force = true;
+      text = bookmarksFileContents;
+    };
   };
 }

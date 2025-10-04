@@ -1,4 +1,10 @@
-{pkgs, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   tt-schemes = pkgs.fetchFromGitHub {
     owner = "tinted-theming";
     repo = "schemes";
@@ -6,7 +12,8 @@
     hash = "sha256-pDz3SALMXwLvqvVPKj2pQn1Cr6WsPTWICaUhWfmXAYI=";
   };
 in {
-  stylix = {
+  config = mkIf config.myHomeManager.system.stylix.enable {
+    stylix = {
     enable = true;
     autoEnable = false;
     base16Scheme = "${tt-schemes}/base24/purple-rain.yaml";
@@ -25,6 +32,7 @@ in {
       lazygit.enable = true;
       mpv.enable = true;
       neovim.enable = true;
+    };
     };
   };
 }

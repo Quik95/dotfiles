@@ -1,5 +1,12 @@
-{pkgs, ...}: {
-  dconf.settings = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
+  config = mkIf config.myHomeManager.desktopEnvironment.gnome.enable {
+    dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       xkb-options = ["caps:swapescape" "compose:prsc"];
     };
@@ -92,6 +99,7 @@
       load-hidden-on-startup = true;
       tags-locale = "pl";
       use-localized-tags = true;
+    };
     };
   };
 }

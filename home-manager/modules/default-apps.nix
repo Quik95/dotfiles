@@ -1,11 +1,27 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: let
+}:
+with lib; let
   browser = ["com.google.Chrome.desktop"];
-  fileManager = ["org.gnome.Nautilus.desktop"];
-  imageViewer = ["org.gnome.Loupe.desktop"];
+
+  # Desktop environment specific apps
+  fileManager =
+    if config.myHomeManager.desktopEnvironment.gnome.enable
+    then ["org.gnome.Nautilus.desktop"]
+    else if config.myHomeManager.desktopEnvironment.kde.enable
+    then ["org.kde.dolphin.desktop"]
+    else ["org.gnome.Nautilus.desktop"];
+
+  imageViewer =
+    if config.myHomeManager.desktopEnvironment.gnome.enable
+    then ["org.gnome.Loupe.desktop"]
+    else if config.myHomeManager.desktopEnvironment.kde.enable
+    then ["org.kde.gwenview.desktop"]
+    else ["org.gnome.Loupe.desktop"];
+
   mediaPlayer = ["mpv.desktop"];
   textEditor = ["dev.zed.Zed.desktop"];
 
@@ -58,7 +74,8 @@
       mimes
     );
 in {
-  xdg.mimeApps = {
+  config = mkIf config.myHomeManager.system.defaultApps.enable {
+    xdg.mimeApps = {
     enable = true;
     defaultApplications =
       (mkAssociations browserMimes browser)
@@ -69,8 +86,14 @@ in {
         "web-browser" = browser;
         "x-scheme-handler/jetbrains" = ["jetbrains-toolbox.desktop"];
         "x-scheme-handler/fleet" = ["jetbrains-toolbox.desktop"];
-        "application/pdf" = ["org.gnome.Papers.desktop"];
+        "application/pdf" =
+          if config.myHomeManager.desktopEnvironment.gnome.enable
+          then ["org.gnome.Papers.desktop"]
+          else if config.myHomeManager.desktopEnvironment.kde.enable
+          then ["org.kde.okular.desktop"]
+          else ["org.gnome.Papers.desktop"];
         "inode/directory" = fileManager;
       };
+    };
   };
 }

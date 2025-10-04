@@ -1,13 +1,15 @@
 {
-  pkgs,
-  lib,
   config,
+  lib,
+  pkgs,
   options,
   ...
-}: let
+}:
+with lib; let
   dropboxPath = "${config.home.homeDirectory}/Dropbox";
 in {
-  home.activation.setMaestralDropboxDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  config = mkIf config.myHomeManager.system.dropbox.enable {
+    home.activation.setMaestralDropboxDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${pkgs.maestral}/bin/maestral config set path ${dropboxPath}
   '';
 
@@ -26,5 +28,6 @@ in {
       Restart = "on-failure";
       Nice = 10;
     };
+  };
   };
 }

@@ -1,6 +1,13 @@
-{pkgs, ...}: {
-  programs.firefox = {
-    enable = true;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
+  config = mkIf (config.myHomeManager.browsers.enable && config.myHomeManager.browsers.firefox.enable) {
+    programs.firefox = {
+      enable = true;
     package = pkgs.firefox-beta;
     languagePacks = ["en-GB" "pl"];
     policies = {
@@ -134,5 +141,6 @@
         "ui.key.menuAccessKey" = 0;
       };
     };
+  };
   };
 }

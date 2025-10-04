@@ -1,5 +1,11 @@
-{config, ...}: {
-  sops = {
+{
+  config,
+  lib,
+  ...
+}:
+with lib; {
+  config = mkIf config.myHomeManager.system.sops.enable {
+    sops = {
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
     secrets = {
       eduroam-certificate = {
@@ -57,6 +63,7 @@
         sopsFile = ../secrets/master-gpg-key.yaml;
         path = "${config.home.homeDirectory}/.gnupg/master-private-key.asc";
       };
+    };
     };
   };
 }

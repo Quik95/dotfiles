@@ -1,5 +1,11 @@
 {
-  services.flatpak = {
+  config,
+  lib,
+  ...
+}:
+with lib; {
+  config = mkIf config.myHomeManager.system.flatpak.enable {
+    services.flatpak = {
     enable = true;
 
     packages = [
@@ -25,6 +31,7 @@
     update.auto = {
       enable = true;
       onCalendar = "weekly";
+    };
     };
   };
 }

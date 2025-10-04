@@ -1,5 +1,12 @@
-{pkgs, config, ...}: {
-  programs.ssh = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
+  config = mkIf config.myHomeManager.system.ssh.enable {
+    programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
     matchBlocks."*" = {
@@ -24,9 +31,10 @@
     enable = true;
   };
 
-  services.gpg-agent = {
-    enable = true;
-    enableFishIntegration = true;
-    pinentry.package = pkgs.pinentry-gnome3;
+    services.gpg-agent = {
+      enable = true;
+      enableFishIntegration = true;
+      pinentry.package = pkgs.pinentry-gnome3;
+    };
   };
 }

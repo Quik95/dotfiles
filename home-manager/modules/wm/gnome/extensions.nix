@@ -1,5 +1,12 @@
-{pkgs, ...}: {
-  dconf.settings = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
+  config = mkIf config.myHomeManager.desktopEnvironment.gnome.enable {
+    dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
 
@@ -47,18 +54,19 @@
     };
   };
 
-  home.packages = with pkgs.gnomeExtensions; [
-    appindicator
-    blur-my-shell
-    activate-window-by-title
-    just-perfection
-    clipboard-indicator
-    # panel-corners
-    bluetooth-quick-connect
-    caffeine
-    fullscreen-hot-corner
-    random-wallpaper
-    smile-complementary-extension
-    system-monitor
-  ];
+    home.packages = with pkgs.gnomeExtensions; [
+      appindicator
+      blur-my-shell
+      activate-window-by-title
+      just-perfection
+      clipboard-indicator
+      # panel-corners
+      bluetooth-quick-connect
+      caffeine
+      fullscreen-hot-corner
+      random-wallpaper
+      smile-complementary-extension
+      system-monitor
+    ];
+  };
 }

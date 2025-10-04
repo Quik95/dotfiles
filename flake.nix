@@ -40,9 +40,17 @@
       modules = [./nixos/configuration.nix];
     };
 
-    homeConfigurations."sebastian" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."sebastian@sebastian-laptop-hp" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home-manager/home.nix];
+      modules = [./home-manager/users/sebastian-gnome.nix];
+      extraSpecialArgs = {
+        inherit nix-flatpak nixvim sops-nix stylix;
+      };
+    };
+
+    homeConfigurations."sebastian@sebastian-kde" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./home-manager/users/sebastian-kde.nix];
       extraSpecialArgs = {
         inherit nix-flatpak nixvim sops-nix stylix;
       };

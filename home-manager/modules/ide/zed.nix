@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [eslint];
+  home.packages = with pkgs; [
+    eslint
+    claude-code
+  ] ;
 
   programs.zed-editor = {
     enable = true;

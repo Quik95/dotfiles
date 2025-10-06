@@ -10,7 +10,7 @@
     { path = "${config.home.homeDirectory}/Music"; name = "Music"; }
     { path = "${config.home.homeDirectory}/Pictures"; name = "Pictures"; }
     { path = "${config.home.homeDirectory}/Videos"; name = "Videos"; }
-    { path = "${config.home.homeDirectory}/Projects/Studia/Magisterka/Semestr_I"; name = "Semestr I"; }
+    { path = "${config.home.homeDirectory}/Projects/Studia/Magisterka/Semestr II"; name = "Semestr II"; }
     { path = "/tmp"; name = "Temp Dir"; }
   ];
   formatBookmark = bookmark: "file://${builtins.replaceStrings [" "] ["%20"] bookmark.path} ${bookmark.name}";

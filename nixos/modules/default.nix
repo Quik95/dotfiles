@@ -7,5 +7,6 @@
     ./packages.nix
     ./pam.nix
     ./virtualization.nix
+    ./wifi-manager.nix
   ];
 }

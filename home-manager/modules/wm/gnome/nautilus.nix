@@ -13,7 +13,7 @@
     { path = "${config.home.homeDirectory}/Projects/Studia/Magisterka/Semestr_I"; name = "Semestr I"; }
     { path = "/tmp"; name = "Temp Dir"; }
   ];
-  formatBookmark = bookmark: "file://${bookmark.path} ${bookmark.name}";
+  formatBookmark = bookmark: "file://${builtins.replaceStrings [" "] ["%20"] bookmark.path} ${bookmark.name}";
   bookmarksFileContents = lib.concatStringsSep "\n" (
     lib.map formatBookmark nautilusBookmarks
   );

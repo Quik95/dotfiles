@@ -91,6 +91,7 @@
     enable = true;
     settings = {
       git.overrideGpg = true;
+      useExternalDiffGitConfig = true;
     };
   };
 }

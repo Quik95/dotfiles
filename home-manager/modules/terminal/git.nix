@@ -1,4 +1,4 @@
-{config, ...}: {
+{pkgs, config, ...}: {
   programs.git = {
     enable = true;
     userName = "Sebastian Bartoszewicz";
@@ -22,7 +22,10 @@
     extraConfig = {
       branch.sort = "-comitterdate";
       column.ui = "auto";
-      core.autocrlf = "input";
+      core = {
+        editor = "${pkgs.neovim}/bin/nvim";
+        core.autocrlf = "input";
+      };
       help.autocorrect = true;
       init.defaultBranch = "master";
       merge.ff = true;

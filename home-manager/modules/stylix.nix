@@ -24,6 +24,7 @@ in {
       kitty.enable = true;
       lazygit.enable = true;
       mpv.enable = true;
+      neovim.enable = true;
     };
   };
 }

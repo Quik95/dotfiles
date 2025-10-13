@@ -1,6 +1,5 @@
 {pkgs, ...}: let
-  wifiManagerSync = pkgs.substituteAll {
-    src = ./wifi-manager-sync.sh;
+  wifiManagerSync = pkgs.replaceVars ./wifi-manager-sync.sh {
     nmcli = "${pkgs.networkmanager}/bin/nmcli";
   };
 in {

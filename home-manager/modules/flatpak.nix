@@ -17,10 +17,19 @@
       "org.gnome.Fractal"
       "org.gnome.Papers"
       "org.gnome.gitlab.somas.Apostrophe"
+      "org.libreoffice.LibreOffice"
       "org.nickvision.money"
       "page.tesk.Refine"
     ];
     uninstallUnmanaged = true;
+
+    overrides = {
+      "org.libreoffice.LibreOffice".Context = {
+        filesystems = [
+          "/tmp:rw"
+        ];
+      };
+    };
 
     update.auto = {
       enable = true;

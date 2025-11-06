@@ -30,7 +30,6 @@
     resources
     tokei
     maestral
-    vdhcoapp
     fselect
     just
     mask

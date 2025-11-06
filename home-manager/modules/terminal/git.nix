@@ -1,51 +1,43 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.git = {
     enable = true;
-    userName = "Sebastian Bartoszewicz";
-    userEmail = "quikstyletv@gmail.com";
 
-    difftastic.enable = true;
+    settings = {
+      user = {
+        name = "Sebastian Bartoszewicz";
+        email = "quikstyletv@gmail.com";
+      };
 
-    aliases = {
-      df = "difftool";
-      d = "diff";
-      s = "status";
-      a = "add";
-      c = "commit";
-    };
+      aliases = {
+        df = "difftool";
+        d = "diff";
+        s = "status";
+        a = "add";
+        c = "commit";
+      };
 
-    signing = {
-      signByDefault = true;
-      format = "openpgp";
-    };
-
-    extraConfig = {
-      branch.sort = "-comitterdate";
+      branch.sort = "-committerdate";
       column.ui = "auto";
       core = {
         editor = "${pkgs.neovim}/bin/nvim";
-        core.autocrlf = "input";
+        autocrlf = "input";
       };
       help.autocorrect = true;
       init.defaultBranch = "master";
       merge.ff = true;
-      pager.diftool = true;
+      pager.difftool = true;
       pull.ff = "only";
       tag.sort = "version:refname";
 
       diff = {
-        tool = "difftastic";
         colorMoved = "zebra";
         algorithm = "histogram";
         mnemonicPrefix = true;
         renames = true;
-      };
-
-      difftool = {
-        prompt = false;
-        difftastic = {
-          cmd = ''difft "$LOCAL" "$REMOTE"'';
-        };
       };
 
       fetch = {
@@ -72,6 +64,11 @@
       };
     };
 
+    signing = {
+      signByDefault = true;
+      format = "openpgp";
+    };
+
     ignores = [
       "*~"
       ".DS_Store"
@@ -95,6 +92,14 @@
     settings = {
       git.overrideGpg = true;
       useExternalDiffGitConfig = true;
+    };
+  };
+
+  programs.difftastic = {
+    enable = true;
+    git = {
+      enable = true;
+      diffToolMode = true;
     };
   };
 }

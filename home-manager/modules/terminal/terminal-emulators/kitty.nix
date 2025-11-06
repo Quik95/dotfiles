@@ -2,7 +2,6 @@
   programs.kitty = {
     enable = true;
     shellIntegration.enableFishIntegration = true;
-    enableGitIntegration = true;
     settings = {
       copy_on_select = "no";
       disable_ligatures = "never";

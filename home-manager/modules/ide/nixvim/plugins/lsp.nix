@@ -15,36 +15,7 @@
       enable = true;
       inlayHints = true;
       servers = {
-        clangd = {
-          enable = true;
-        };
-        lua_ls = {
-          enable = true;
-          settings = {
-            completion.callSnippet = "Replace";
-          };
-        };
-        nixd = {
-          enable = true;
-        };
-        nil_ls = {
-          enable = false;
-        };
-        ruff = {
-          enable = true;
-        };
-        rust_analyzer = {
-          enable = true;
-          installCargo = false;
-          installRustc = false;
-        };
-        texlab = {
-          enable = true;
-          cmd = ["${pkgs.texlab}/bin/texlab"];
-        };
-        zls = {
-          enable = true;
-        };
+
       };
       keymaps = {
         extra = [

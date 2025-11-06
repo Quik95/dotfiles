@@ -1,7 +1,7 @@
 {
   programs.nixvim.plugins.neo-tree = {
     enable = true;
-    filesystem.window.mappings = {
+    settings.filesystem.window.mappings = {
       "\\" = "close_window";
     };
   };

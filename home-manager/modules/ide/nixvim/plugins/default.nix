@@ -13,11 +13,9 @@
   ];
 
   programs.nixvim.plugins = {
-    sleuth.enable = true;
     lualine.enable = true;
     web-devicons.enable = true;
     todo-comments.enable = true;
-    luasnip.enable = true;
     auto-save.enable = true;
   };
 }

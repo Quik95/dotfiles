@@ -37,7 +37,6 @@
     kondo
     appimage-run
     litecli
-    zed-editor
 
     gemini-cli
 

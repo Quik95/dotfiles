@@ -3,6 +3,7 @@
     ./wm/default.nix
 
     ./btrfs.nix
+    ./laptop-power.nix
     ./nh.nix
     ./packages.nix
     ./pam.nix

@@ -16,4 +16,7 @@
       linux-cgroup = "always";
     };
   };
+
+  # Prevent ghostty from being restarted on home-manager switch
+  systemd.user.services.ghostty.Unit.X-RestartIfChanged = false;
 }

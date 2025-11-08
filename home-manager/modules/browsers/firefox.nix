@@ -58,6 +58,13 @@
         "browser.urlbar.suggest.engines" = true;
         "browser.urlbar.suggest.quicksuggest.sponsored" = false;
         "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
+
+        # Dark theme
+        "ui.systemUsesDarkTheme" = 1;
+        "browser.theme.dark-private-windows" = true;
+        "browser.theme.toolbar-theme" = 0;
+        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        "layout.css.prefers-color-scheme.content-override" = 0;
       };
     };
   };

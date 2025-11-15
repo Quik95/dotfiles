@@ -48,6 +48,7 @@
         "com.mitchellh.ghostty.desktop"
         "firefox.desktop"
         "com.google.Chrome.desktop"
+        "mpv.desktop"
         "dev.zed.Zed.desktop"
         "net.nokyan.Resources.desktop"
         "org.gnome.TextEditor.desktop"

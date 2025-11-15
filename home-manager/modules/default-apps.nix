@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  browser = ["com.google.Chrome.desktop"];
+  browser = ["firefox.desktop"];
   fileManager = ["org.gnome.Nautilus.desktop"];
   imageViewer = ["org.gnome.Loupe.desktop"];
   mediaPlayer = ["mpv.desktop"];

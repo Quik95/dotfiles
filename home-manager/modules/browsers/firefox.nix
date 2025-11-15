@@ -43,7 +43,7 @@
 
         # UI improvements
         "browser.tabs.loadInBackground" = true;
-        "browser.tabs.closeWindowWithLastTab" = false;
+        "browser.tabs.closeWindowWithLastTab" = true;
         "browser.tabs.warnOnClose" = false;
         "browser.tabs.warnOnCloseOtherTabs" = false;
         "browser.download.useDownloadDir" = false;

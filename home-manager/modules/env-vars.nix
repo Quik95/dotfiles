@@ -1,6 +1,6 @@
 {config, ...}: {
   home.sessionVariables = {
-    BROWSER = "com.google.Chrome";
+    BROWSER = "firefox";
     VISUAL = "zeditor";
     EDITOR = "nvim";
     PAGER = "bat";

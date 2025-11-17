@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.mpv = {
     enable = true;
     bindings = {
@@ -159,7 +156,6 @@
       };
     };
     scripts = with pkgs.mpvScripts; [
-      autocrop
       autoload
       autosubsync-mpv
       inhibit-gnome
@@ -167,7 +163,9 @@
       mpris
       mpv-playlistmanager
       quack
+      reload
       sponsorblock-minimal
+      thumbfast
       uosc
     ];
     scriptOpts = {
@@ -181,6 +179,9 @@
         prefer_titles = "all";
         youtube_dl_executable = "${pkgs.yt-dlp}/bin/yt-dlp";
         resolve_url_titles = true;
+      };
+      reload = {
+        demuxer_cache_timer_enabled = "no";
       };
     };
   };

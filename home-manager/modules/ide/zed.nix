@@ -17,6 +17,9 @@
       vim_mode = true;
       vim = {
         use_system_clipboard = "never";
+        use_smartcase_find = true;
+        toggle_relative_line_numbers = false;
+        highlight_on_yank_duration = 200;
       };
       buffer_font_size = 14;
       theme = {
@@ -107,16 +110,11 @@
 
     userKeymaps = [
       {
-        context = "Workspace || EmptyPane || SharedScreen";
-        bindings = {
-          "ctrl-f" = "file_finder::Toggle";
-          "shift shift" = "command_palette::Toggle";
-        };
-      }
-      {
         context = "Editor";
         bindings = {
           "ctrl-\\" = "assistant::InlineAssist";
+          "ctrl-u" = ["workspace::SendKeystrokes" "1 5 k z z"];
+          "ctrl-d" = ["workspace::SendKeystrokes" "1 5 j z z"];
         };
       }
       {
@@ -140,18 +138,29 @@
           "shift-tab" = "pane::ActivatePreviousItem";
           "space b d" = "pane::CloseActiveItem";
           "space q a" = "pane::CloseAllItems";
-          "space q o" = "pane::CloseInactiveItems";
+          "space q o" = "pane::CloseOtherItems";
           "= =" = "editor::Format";
+          "- -" = "editor::OrganizeImports";
           "g e" = "editor::GoToDiagnostic";
           "g E" = "editor::GoToPreviousDiagnostic";
           "space f u" = "editor::FindAllReferences";
+          "space s u" = "editor::FindAllReferences";
+          "space s s" = "editor::Hover";
+          "space f s" = "outline::Toggle";
           "g i" = "editor::GoToImplementation";
           "g d" = "editor::GoToDeclaration";
+          "g t" = "editor::GoToTypeDefinition";
+          "g b" = "pane::GoBack";
+          "g n" = "pane::GoForward";
           "e d" = "editor::Hover";
-          "ctrl-d" = "editor::HalfPageDown";
-          "ctrl-u" = "editor::HalfPageUp";
+          "space r e" = "editor::Rename";
+          "space r o" = "editor::ToggleCodeActions";
+          "enter enter" = "editor::ToggleCodeActions";
           "shift-l" = "vim::NextSubwordStart";
           "shift-h" = "vim::PreviousSubwordStart";
+          "ctrl-f" = "file_finder::Toggle";
+          "ctrl-a" = "command_palette::Toggle";
+          "shift shift" = "command_palette::Toggle";
         };
       }
       {

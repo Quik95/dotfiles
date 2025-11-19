@@ -1,64 +1,103 @@
-{pkgs, ...}: {
-  dconf.settings = {
-    "org/gnome/shell" = {
-      disable-user-extensions = false;
-
-      disabled-extensions = [
-      ];
-
-      enabled-extensions = [
-        # built-in
-        "appindicatorsupport@rgcjonas.gmail.com"
-        "drive-menu@gnome-shell-extensions.gcampax.github.com"
-        "status-icons@gnome-shell-extensions.gcampax.github.com"
-
-        # additional
-        "blur-my-shell@aunetx"
-        "bluetooth-quick-connect@bjarosze.gmail.com"
-        "caffeine@patapon.info"
-        "clipboard-indicator@tudmotu.com"
-        "fullscreen-hot-corner@sorrow.about.alice.pm.me"
-        "just-perfection-desktop@just-perfection"
-        # "randomwallpaper@iflow.space"
-        "smile-extension@mijorus.it"
-        "system-monitor@gnome-shell-extensions.gcampax.github.com"
-        "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-      ];
-    };
-
-    "org/gnome/shell/extensions/bluetooth-quick-connect" = {
-      keep-menu-on-toggle = true;
-      show-battery-value-on = true;
-    };
-
-    "org/gnome/shell/extensions/caffeine" = {
-      show-notifications = false;
-    };
-
-    "org/gnome/shell/extensions/just-perfection" = {
-      activities-button = false;
-      search = false;
-      workspace-wrap-around = false;
-      window-demands-attention-focus = true;
-      background-menu = false;
-      window-preview-caption = false;
-      workspace-switcher-should-show = true;
-      workspace-switcher-size = 15;
-    };
-  };
-
-  home.packages = with pkgs.gnomeExtensions; [
-    appindicator
-    blur-my-shell
-    activate-window-by-title
-    just-perfection
-    clipboard-indicator
-    # panel-corners
-    bluetooth-quick-connect
-    caffeine
-    fullscreen-hot-corner
-    random-wallpaper
-    smile-complementary-extension
-    system-monitor
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  extensions = with pkgs.gnomeExtensions; [
+    {
+      pkg = activate-window-by-title;
+      enabled = false;
+    }
+    {
+      pkg = appindicator;
+      enabled = true;
+    }
+    {
+      pkg = bluetooth-quick-connect;
+      enabled = true;
+      dconfPath = "bluetooth-quick-connect";
+      settings = {
+        keep-menu-on-toggle = true;
+        show-battery-value-on = true;
+      };
+    }
+    {
+      pkg = blur-my-shell;
+      enabled = true;
+    }
+    {
+      pkg = caffeine;
+      enabled = true;
+      dconfPath = "caffeine";
+      settings = {
+        show-notifications = false;
+      };
+    }
+    {
+      pkg = clipboard-indicator;
+      enabled = true;
+    }
+    {
+      pkg = fullscreen-hot-corner;
+      enabled = true;
+    }
+    {
+      pkg = just-perfection;
+      enabled = true;
+      dconfPath = "just-perfection";
+      settings = {
+        activities-button = false;
+        search = false;
+        workspace-wrap-around = false;
+        window-demands-attention-focus = true;
+        background-menu = false;
+        window-preview-caption = false;
+        workspace-switcher-should-show = true;
+        workspace-switcher-size = 15;
+      };
+    }
+    {
+      pkg = launch-new-instance;
+      enabled = true;
+    }
+    {
+      pkg = random-wallpaper;
+      enabled = false;
+    }
+    {
+      pkg = removable-drive-menu;
+      enabled = true;
+    }
+    {
+      pkg = smile-complementary-extension;
+      enabled = true;
+    }
+    {
+      pkg = system-monitor;
+      enabled = true;
+    }
   ];
+
+  mkDconfSettings = exts:
+    lib.foldl' (
+      acc: ext:
+        if ext ? "settings" && ext ? "dconfPath"
+        then acc // {"org/gnome/shell/extensions/${ext.dconfPath}" = ext.settings;}
+        else acc
+    ) {}
+    exts;
+in {
+  dconf.settings =
+    mkDconfSettings extensions
+    // {
+      "org/gnome/shell" = {
+        disable-user-extensions = false;
+        disabled-extensions = [];
+        enabled-extensions =
+          lib.map (ext: ext.pkg.extensionUuid)
+          (lib.filter (ext: ext.enabled) extensions);
+      };
+    };
+
+  home.packages = lib.map (ext: ext.pkg) extensions;
 }

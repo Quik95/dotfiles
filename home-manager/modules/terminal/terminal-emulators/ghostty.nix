@@ -3,23 +3,21 @@
     enable = true;
     enableFishIntegration = true;
     installBatSyntax = true;
+    systemd.enable = true;
     settings = {
-      scrollback-limit = "9999999999999999999";
-      fullscreen = false;
-      window-inherit-working-directory = true;
-      window-decoration = true;
-      window-theme = "ghostty";
-      window-save-state = "always";
-      copy-on-select = false;
       confirm-close-surface = false;
-      quit-after-last-window-closed = false;
+      copy-on-select = false;
+      fullscreen = false;
+      link-previews = true;
+      link-url = true;
       linux-cgroup = "always";
+      maximize = true;
+      quit-after-last-window-closed = false;
+      scrollback-limit = "9999999999999999999";
+      window-decoration = true;
+      window-inherit-working-directory = true;
+      window-save-state = "always";
+      window-theme = "ghostty";
     };
-  };
-
-  # Prevent ghostty from being restarted on home-manager switch
-  systemd.user.services.ghostty = {
-    Unit.X-RestartIfChanged = false;
-    Unit.X-StopIfChanged = false;
   };
 }

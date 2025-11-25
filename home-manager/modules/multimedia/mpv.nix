@@ -50,8 +50,8 @@
 
       f = ''cycle fullscreen ; show-text "Scale: ''${window-scale}"'';
 
-      n = "add audio-delay +0.10";
-      N = "add audio-delay -0.10";
+      # n = "add audio-delay +0.10";
+      # N = "add audio-delay -0.10";
 
       m = "add sub-delay +0.10";
       M = "add sub-delay -0.10";
@@ -171,6 +171,8 @@
     scriptOpts = {
       autosubsync-mpv = {
         ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";
+        ffsubsync_path = "${pkgs.ffsubsync}/bin/ffsubsync";
+        audio_subsync_tool = "ffsubsync";
       };
       memo = {
         H = "script-binding memo-history";

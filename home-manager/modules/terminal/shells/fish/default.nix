@@ -31,6 +31,7 @@
       lg = "lazygit";
       sudo = "run0";
       nix-shell = "nix-shell --run fish";
+      wlcopy = "wl-copy";
     };
 
     plugins = with pkgs.fishPlugins; [

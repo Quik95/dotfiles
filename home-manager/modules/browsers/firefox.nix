@@ -41,6 +41,12 @@
         "dom.security.https_only_mode" = true;
         "dom.security.https_only_mode_ever_enabled" = true;
 
+        # Network
+        "network.trr.mode" = 2;
+        "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+        "network.trr.bootstrapAddress" = "1.1.1.1";
+        "network.dns.echconfig.enabled" = true;
+
         # UI improvements
         "browser.tabs.loadInBackground" = true;
         "browser.tabs.closeWindowWithLastTab" = true;

@@ -107,12 +107,17 @@
       hwdec = "auto";
       vo = "gpu-next";
 
+      scale = "catmull_rom";
+      dscale = "hermite";
+      cscale = "catmull_rom";
+      temporal-dither = "yes";
+
       dither = "fruit";
       dither-depth = "auto";
 
       deband = "yes";
-      deband-iterations = 4;
-      deband-threshold = 35;
+      deband-iterations = 1;
+      deband-threshold = 32;
       deband-range = 16;
       deband-grain = 4;
 
@@ -144,16 +149,7 @@
         profile = "protocol.http";
       };
 
-      "high-res-output" = {
-        scale = "catmull_rom";
-        dscale = "hermite";
-        cscale = "catmull_rom";
-        temporal-dither = "yes";
-        dither = "fruit";
-        deband = "yes";
-        deband-iterations = 1;
-        deband-threshold = 32;
-      };
+
     };
     scripts = with pkgs.mpvScripts; [
       autoload

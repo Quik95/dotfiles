@@ -13,5 +13,5 @@ in {
     (jetbrains.plugins.addPlugins jetbrains.datagrip standardPlugins)
   ];
 
-  home.file.".ideavimrc".source = ./.ideavimrc;
+  home.file."${config.xdg.configHome}/ideavim/ideavimrc".source = ./.ideavimrc;
 }

@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = [
     pkgs.grc
   ];
@@ -32,6 +36,7 @@
       sudo = "run0";
       nix-shell = "nix-shell --run fish";
       wlcopy = "wl-copy";
+      wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
     };
 
     plugins = with pkgs.fishPlugins; [

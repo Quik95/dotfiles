@@ -76,7 +76,11 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    use-xdg-base-directories = true;
+  };
+
   nix.extraOptions = ''
     trusted-users = root sebastian
     extra-substituters = https://devenv.cachix.org
@@ -92,7 +96,7 @@
   };
 
   # MTP stuff
-  services.gvfs.enable =  true;
+  services.gvfs.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

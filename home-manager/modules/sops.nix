@@ -1,4 +1,10 @@
-{config, ...}: {
+{
+  config,
+  options,
+  ...
+}: let
+  gpgHome = config.custom.gpg.homedirLocation;
+in {
   sops = {
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
     secrets = {
@@ -30,13 +36,15 @@
 
       gitlab-cs-put-gpg-public-key = {
         sopsFile = ../secrets/gitlab-cs-put-gpg-key.yaml;
-        path = "${config.home.homeDirectory}/.gnupg/gitlab-cs-put-public-key.asc";
+        path = "${gpgHome}/gitlab-cs-put-public-key.asc";
       };
 
       gitlab-cs-put-gpg-private-key = {
         sopsFile = ../secrets/gitlab-cs-put-gpg-key.yaml;
-        path = "${config.home.homeDirectory}/.gnupg/gitlab-cs-put-private-key.asc";
+        path = "${gpgHome}/gitlab-cs-put-private-key.asc";
       };
+
+
 
       github-public-key = {
         sopsFile = ../secrets/github-ssh-key.yaml;
@@ -50,12 +58,12 @@
 
       master-public-gpg-key = {
         sopsFile = ../secrets/master-gpg-key.yaml;
-        path = "${config.home.homeDirectory}/.gnupg/master-public-key.asc";
+        path = "${gpgHome}/master-public-key.asc";
       };
 
       master-private-gpg-key = {
         sopsFile = ../secrets/master-gpg-key.yaml;
-        path = "${config.home.homeDirectory}/.gnupg/master-private-key.asc";
+        path = "${gpgHome}/master-private-key.asc";
       };
     };
   };

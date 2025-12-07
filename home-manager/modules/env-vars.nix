@@ -24,7 +24,6 @@
     NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
     NPM_CONFIG_TMP = "/run/user/1000/npm"; # HACK or $XDG_RUNTIME_DIR
-    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
     RUSTUP_HOME ="${config.xdg.dataHome}/rustup";
   };

@@ -53,7 +53,8 @@ nnoremap <leader>ss :action QuickJavaDoc<CR>
 nnoremap <leader>fs :action FileStructurePopup<CR>
 nnoremap <leader>rf :action GotoRelated<CR>
 
-nnoremap <leader>a :action ngxQuickSwitch.QuickSwitch<CR>
+" nnoremap <leader>a :action ngxQuickSwitch.QuickSwitch<CR>
+nnoremap <leader>a :action GotoRelated<CR>
 
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gd :action GotoDeclaration<CR>
@@ -93,3 +94,11 @@ nnoremap H [b
 
 " handlers
 sethandler <c-\> a:ide
+sethandler <c-f> a:vim
+sethandler <c-a> a:vim
+sethandler <c-r> a:vim
+sethandler <A-l> a:ide
+sethandler <c-o> a:vim
+sethandler <A-s-\> a:vim
+sethandler <c-d> a:vim
+sethandler <c-u> a:vim

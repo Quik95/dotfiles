@@ -1,6 +1,5 @@
 {
   config,
-  options,
   ...
 }: let
   gpgHome = config.custom.gpg.homedirLocation;

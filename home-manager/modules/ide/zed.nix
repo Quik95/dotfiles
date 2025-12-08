@@ -63,7 +63,7 @@
       autosave = "on_focus_change";
       format_on_save = "off";
       vertical_scroll_margin = 10;
-      relative_line_numbers = true;
+      relative_line_numbers = "enabled";
       base_keymap = "JetBrains";
       load_direnv = "shell_hook";
       command_aliases = {
@@ -90,12 +90,10 @@
       };
       context_servers = {
         eslint-mcp = {
-          source = "custom";
           command = "${pkgs.eslint}/bin/eslint";
           args = ["--mcp"];
         };
         angular-mcp = {
-          source = "custom";
           command = "nix-shell";
           args = ["-p" "nodejs" "--command" "npx -y @angular/cli mcp"];
         };

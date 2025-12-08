@@ -8,10 +8,11 @@
     enable = true;
     extensions = [
       "angular"
-      "html"
       "catppuccin"
-      "zig"
+      "csharp"
+      "html"
       "nix"
+      "zig"
     ];
     userSettings = {
       vim_mode = true;
@@ -45,6 +46,7 @@
           path = "${pkgs.vscode-json-languageserver}/bin/vscode-json-language-server";
           arguments = ["--stdio"];
         };
+        omnisharp.binary.path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
         rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
         pylsp.binary.path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
         package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";

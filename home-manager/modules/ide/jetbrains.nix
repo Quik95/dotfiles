@@ -8,9 +8,8 @@
   standardPlugins = ["ideavim" "nixidea"];
 in {
   home.packages = [
-    (jetbrains.plugins.addPlugins jetbrains.webstorm standardPlugins)
     (jetbrains.plugins.addPlugins jetbrains.rust-rover standardPlugins)
-    (jetbrains.plugins.addPlugins jetbrains.datagrip standardPlugins)
+    (jetbrains.plugins.addPlugins jetbrains.rider standardPlugins)
   ];
 
   home.file."${config.xdg.configHome}/ideavim/ideavimrc".source = ./.ideavimrc;

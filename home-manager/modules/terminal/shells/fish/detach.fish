@@ -17,16 +17,28 @@ end
 set -l cmd_name (string replace -a ' ' '-' -- $argv[1])
 set -l unit_name "detach-$cmd_name-"(date +%s)
 
+# Collect environment variables to pass through (excluding shell-specific ones)
+set -l env_args
+set -l excluded_vars FISH_VERSION SHLVL _ OLDPWD PWD
+for var in (set --names --export)
+    if not contains $var $excluded_vars
+        set -a env_args -E $var
+    end
+end
+
 # Use systemd-run to create a transient user service (NOT scope)
 # --user: run as user service (no root required)
 # --unit: custom name for easy identification
 # --description: human-readable description
 # --collect: automatically clean up the unit after it exits
+# --working-directory: preserve the current working directory
 # Service mode runs asynchronously and returns immediately
 systemd-run --user \
             --unit="$unit_name" \
             --description="Detached: $argv" \
             --collect \
+            --working-directory="$PWD" \
+            $env_args \
             $argv >/dev/null 2>&1
 
 if test $status -eq 0

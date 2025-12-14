@@ -103,19 +103,5 @@ in {
         }
       ];
     };
-
-    "nixpkgs-pr" = mkSearchEngine {
-      name = "NixOS nixpkgs Pull Requests";
-      alias = "nixpr";
-      icon = "https://mycroftproject.com/updateos.php/id0/github93het.ico";
-      template = "https://github.com/NixOS/nixpkgs/pulls";
-      queryParam = "q";
-      extraParams = [
-        {
-          name = "q";
-          value = "sort:updated-desc is:pr is:open {searchTerms}";
-        }
-      ];
-    };
   };
 }

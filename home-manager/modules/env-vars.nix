@@ -1,14 +1,12 @@
-{
-  config,
-  options,
-  ...
-}: {
+{config, ...}: let
+  env = import ../../shared/env.nix;
+in {
   home.sessionVariables = {
-    BROWSER = "firefox";
-    VISUAL = "zeditor";
-    EDITOR = "nvim";
-    PAGER = "bat";
-    TERMINAL = "ghostty";
+    BROWSER = env.browser;
+    VISUAL = env.visual;
+    EDITOR = env.editor;
+    PAGER = env.pager;
+    TERMINAL = env.terminal;
     NH_FLAKE = "${config.home.homeDirectory}/Documents/dotfiles";
 
     NIXOS_OZONE_WL = 1;
@@ -25,6 +23,6 @@
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
     NPM_CONFIG_TMP = "/run/user/1000/npm"; # HACK or $XDG_RUNTIME_DIR
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
-    RUSTUP_HOME ="${config.xdg.dataHome}/rustup";
+    RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
   };
 }

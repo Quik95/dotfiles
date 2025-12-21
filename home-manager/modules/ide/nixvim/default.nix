@@ -7,9 +7,11 @@
     ./plugins/default.nix
   ];
 
-  programs.nixvim = {
+  programs.nixvim = let
+    env = import ../../../../shared/env.nix;
+  in {
     enable = true;
-    defaultEditor = true;
+    defaultEditor = env.editor == "nvim";
     plugins.lualine.enable = true;
 
     withRuby = false;

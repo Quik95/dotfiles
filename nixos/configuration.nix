@@ -1,9 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-{
+let
+  env = import ../shared/env.nix;
+in {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
     ./modules/default.nix
@@ -89,10 +87,10 @@
 
   services.flatpak.enable = true;
   environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    TERMINAL = "ghostty";
-    PAGER = "bat";
+    EDITOR = env.editor;
+    VISUAL = env.visual;
+    TERMINAL = env.terminal;
+    PAGER = env.pager;
   };
 
   # MTP stuff

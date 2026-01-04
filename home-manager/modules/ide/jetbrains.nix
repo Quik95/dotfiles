@@ -1,15 +1,15 @@
 {
   pkgs,
   config,
+  nix-jetbrains-plugins,
   ...
 }: let
-  jetbrains = pkgs.jetbrains;
-  # standardPlugins = ["github-copilot" "ideavim" "nixidea" "which-key"];
-  standardPlugins = ["ideavim" "nixidea"];
+  inherit (nix-jetbrains-plugins.lib.${pkgs.system}) buildIdeWithPlugins;
+  standardPlugins = ["IdeaVIM" "nix-idea"];
 in {
   home.packages = [
-    (jetbrains.plugins.addPlugins jetbrains.rust-rover standardPlugins)
-    (jetbrains.plugins.addPlugins jetbrains.rider standardPlugins)
+    (buildIdeWithPlugins pkgs.jetbrains "rust-rover" standardPlugins)
+    (buildIdeWithPlugins pkgs.jetbrains "rider" standardPlugins)
   ];
 
   home.file."${config.xdg.configHome}/ideavim/ideavimrc".source = ./.ideavimrc;

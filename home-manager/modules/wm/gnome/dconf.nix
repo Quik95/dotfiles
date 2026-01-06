@@ -47,7 +47,6 @@
         "org.gnome.Nautilus.desktop"
         "com.mitchellh.ghostty.desktop"
         "firefox.desktop"
-        "com.google.Chrome.desktop"
         "mpv.desktop"
         "dev.zed.Zed.desktop"
         "net.nokyan.Resources.desktop"

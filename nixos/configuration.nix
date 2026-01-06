@@ -71,7 +71,7 @@ in {
   users.users.sebastian = {
     isNormalUser = true;
     description = "Sebastian Bartoszewicz";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "i2c"];
   };
 
   nix.settings = {

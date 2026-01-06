@@ -22,6 +22,10 @@
       };
     }
     {
+      pkg = control-monitor-brightness-and-volume-with-ddcutil;
+      enabled = true;
+    }
+    {
       pkg = blur-my-shell;
       enabled = true;
     }
@@ -99,5 +103,5 @@ in {
       };
     };
 
-  home.packages = lib.map (ext: ext.pkg) extensions;
+  home.packages = (lib.map (ext: ext.pkg) extensions) ++ (with pkgs; [ddcutil]);
 }

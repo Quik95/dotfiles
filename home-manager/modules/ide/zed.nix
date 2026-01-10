@@ -10,7 +10,7 @@
 
   programs.zed-editor = {
     enable = true;
-    package = nixpkgs-zed.legacyPackages.${pkgs.system}.zed-editor;
+    package = nixpkgs-zed.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zed-editor;
     extensions = [
       "angular"
       "catppuccin"

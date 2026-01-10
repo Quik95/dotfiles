@@ -4,13 +4,11 @@
   nix-jetbrains-plugins,
   ...
 }: let
-  inherit (nix-jetbrains-plugins.lib.${pkgs.system}) buildIdeWithPlugins;
+  buildIde = nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs;
   standardPlugins = ["IdeaVIM" "nix-idea"];
+  ides = ["rust-rover" "rider"];
 in {
-  home.packages = [
-    (buildIdeWithPlugins pkgs.jetbrains "rust-rover" standardPlugins)
-    (buildIdeWithPlugins pkgs.jetbrains "rider" standardPlugins)
-  ];
+  home.packages = builtins.map (name: buildIde name standardPlugins) ides;
 
   home.file."${config.xdg.configHome}/ideavim/ideavimrc".source = ./.ideavimrc;
 }

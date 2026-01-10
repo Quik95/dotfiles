@@ -25,6 +25,7 @@ in {
       lazygit.enable = true;
       mpv.enable = true;
       neovim.enable = true;
+      opencode.enable = true;
     };
   };
 }

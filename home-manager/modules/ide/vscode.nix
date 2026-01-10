@@ -24,6 +24,9 @@
         # zig
         ziglang.vscode-zig
       ];
+
+      enableMcpIntegration = true;
+
       userSettings = {
         "update.mode" = "none";
 

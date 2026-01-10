@@ -4,6 +4,7 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   imports = [
+    ./ai/default.nix
     ./browsers/default.nix
     ./ide/default.nix
     ./multimedia/default.nix

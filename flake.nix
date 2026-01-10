@@ -52,5 +52,7 @@
         inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins nixpkgs-zed;
       };
     };
+
+    formatter.${system} = pkgs.alejandra;
   };
 }

@@ -1,11 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  nixpkgs-zed,
+  ...
+}: {
   home.packages = with pkgs; [
     eslint
     claude-code
-  ] ;
+  ];
 
   programs.zed-editor = {
     enable = true;
+    package = nixpkgs-zed.legacyPackages.${pkgs.system}.zed-editor;
     extensions = [
       "angular"
       "catppuccin"

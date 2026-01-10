@@ -24,6 +24,11 @@ in {
   # DNS configuration
   networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
 

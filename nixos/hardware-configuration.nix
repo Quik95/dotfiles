@@ -12,6 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelParams = [
     "mitigations=off"
+    "acpi_osi='Linux'"
   ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];

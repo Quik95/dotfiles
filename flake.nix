@@ -19,7 +19,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
-    nixpkgs-zed.url = "github:NixOS/nixpkgs/5912c1772a44e31bf1c63c0390b90501e5026886";
   };
 
   outputs = {
@@ -31,7 +30,6 @@
     sops-nix,
     stylix,
     nix-jetbrains-plugins,
-    nixpkgs-zed,
     ...
   } @ attrs: let
     system = "x86_64-linux";
@@ -49,7 +47,7 @@
       inherit pkgs;
       modules = [./home-manager/home.nix];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins nixpkgs-zed;
+        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins;
       };
     };
 

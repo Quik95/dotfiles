@@ -1,6 +1,5 @@
 {
   pkgs,
-  nixpkgs-zed,
   ...
 }: {
   home.packages = with pkgs; [
@@ -10,7 +9,6 @@
 
   programs.zed-editor = {
     enable = true;
-    package = nixpkgs-zed.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zed-editor;
     extensions = [
       "angular"
       "catppuccin"
@@ -84,15 +82,12 @@
       agent = {
         enabled = true;
         use_modifier_to_send = true;
+        play_sound_when_done = true;
+        enable_feedback = false;
+        single_file_review = false;
         default_model = {
           provider = "copilot_chat";
-          model = "claude-sonnet-4";
-        };
-      };
-      agent-servers = {
-        "Gemini CLI" = {
-            command = "${pkgs.gemini-cli}/bin/gemini";
-            args = ["--experimental-acp"];
+          model = "gemini-3-flash-preview";
         };
       };
       context_servers = {

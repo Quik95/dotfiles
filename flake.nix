@@ -40,7 +40,10 @@
   in {
     nixosConfigurations.sebastian-laptop-hp = nixpkgs.lib.nixosSystem {
       inherit system;
-      modules = [./nixos/configuration.nix];
+      modules = [
+        sops-nix.nixosModules.sops
+        ./nixos/configuration.nix
+      ];
     };
 
     homeConfigurations."sebastian" = home-manager.lib.homeManagerConfiguration {

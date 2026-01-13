@@ -8,6 +8,7 @@
     ./nh.nix
     ./packages.nix
     ./pam.nix
+    ./sops.nix
     ./virtualization.nix
     ./wifi-manager.nix
   ];

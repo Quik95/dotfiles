@@ -7,24 +7,14 @@ in {
   sops = {
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
     secrets = {
-      gitlab-public-key = {
-        sopsFile = ../secrets/gitlab-ssh-key.yaml;
-        path = "${config.home.homeDirectory}/.ssh/gitlab_key.pub";
+      identity-public-key = {
+        sopsFile = ../secrets/id_ed25519.yaml;
+        path = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
       };
 
-      gitlab-private-key = {
-        sopsFile = ../secrets/gitlab-ssh-key.yaml;
-        path = "${config.home.homeDirectory}/.ssh/gitlab_key";
-      };
-
-      gitlab-cs-put-public-key = {
-        sopsFile = ../secrets/gitlab-cs-put-ssh-key.yaml;
-        path = "${config.home.homeDirectory}/.ssh/gitlab_cs_put_key.pub";
-      };
-
-      gitlab-cs-put-private-key = {
-        sopsFile = ../secrets/gitlab-cs-put-ssh-key.yaml;
-        path = "${config.home.homeDirectory}/.ssh/gitlab_cs_put_key";
+      identity-private-key = {
+        sopsFile = ../secrets/id_ed25519.yaml;
+        path = "${config.home.homeDirectory}/.ssh/id_ed25519";
       };
 
       gitlab-cs-put-gpg-public-key = {
@@ -35,18 +25,6 @@ in {
       gitlab-cs-put-gpg-private-key = {
         sopsFile = ../secrets/gitlab-cs-put-gpg-key.yaml;
         path = "${gpgHome}/gitlab-cs-put-private-key.asc";
-      };
-
-
-
-      github-public-key = {
-        sopsFile = ../secrets/github-ssh-key.yaml;
-        path = "${config.home.homeDirectory}/.ssh/github_key.pub";
-      };
-
-      github-private-key = {
-        sopsFile = ../secrets/github-ssh-key.yaml;
-        path = "${config.home.homeDirectory}/.ssh/github_key";
       };
 
       master-public-gpg-key = {

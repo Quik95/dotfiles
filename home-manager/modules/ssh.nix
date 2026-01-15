@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  options,
   lib,
   ...
 }: {
@@ -19,7 +18,7 @@
       enableDefaultConfig = false;
       matchBlocks."*" = {
         forwardAgent = false;
-        addKeysToAgent = "ask";
+        addKeysToAgent = "yes";
         compression = false;
         serverAliveInterval = 0;
         serverAliveCountMax = 3;
@@ -31,10 +30,6 @@
       };
     };
 
-    services.ssh-agent = {
-      enable = true;
-    };
-
     programs.gpg = {
       enable = true;
       homedir = config.custom.gpg.homedirLocation;
@@ -43,6 +38,7 @@
     services.gpg-agent = {
       enable = true;
       enableFishIntegration = true;
+      enableSshSupport = true;
       pinentry.package = pkgs.pinentry-gnome3;
     };
   };

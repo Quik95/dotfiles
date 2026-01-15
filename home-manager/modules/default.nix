@@ -8,6 +8,7 @@
     ./browsers/default.nix
     ./ide/default.nix
     ./multimedia/default.nix
+    ./scripts/default.nix
     ./sdk/default.nix
     ./terminal/default.nix
     ./wm/gnome/default.nix

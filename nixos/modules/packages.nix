@@ -31,6 +31,7 @@
     ripgrep
     shellcheck
     shfmt
+    powershell
 
     # filesystems
     ntfs3g

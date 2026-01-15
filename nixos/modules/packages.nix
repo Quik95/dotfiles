@@ -23,12 +23,14 @@
     llvmPackages.bintools
 
     # terminal essentials
-    neovim
-    fish
-    ripgrep
-    fd
-    btop
     bat
+    btop
+    fd
+    fish
+    neovim
+    ripgrep
+    shellcheck
+    shfmt
 
     # filesystems
     ntfs3g

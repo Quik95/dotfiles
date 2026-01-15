@@ -36,6 +36,11 @@ in {
         sopsFile = ../secrets/master-gpg-key.yaml;
         path = "${gpgHome}/master-private-key.asc";
       };
+
+      mcp-env = {
+        sopsFile = ../secrets/mcp.env;
+        format = "dotenv";
+      };
     };
   };
 }

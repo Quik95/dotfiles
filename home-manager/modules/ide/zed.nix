@@ -4,7 +4,6 @@
 }: {
   home.packages = with pkgs; [
     eslint
-    claude-code
   ];
 
   programs.zed-editor = {

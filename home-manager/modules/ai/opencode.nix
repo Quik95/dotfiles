@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  home.sessionVariables = {
+    OPENCODE_DISABLE_CLAUDE_CODE = 1;
+  };
+
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;

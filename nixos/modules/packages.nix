@@ -63,5 +63,6 @@
     nix-output-monitor
     nvd
     nurl
+    hydra-check
   ];
 }

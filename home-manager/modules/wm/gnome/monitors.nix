@@ -1,11 +1,12 @@
-{pkgs, config, ...}: {
-  systemd.user.tmpfiles.rules = [
-    "f ${config.home.homeDirectory}/.config/monitors.xml 0644 - - - ${pkgs.writeText "monitors.xml" ''
+{...}: {
+  xdg.configFile."monitors.xml" = {
+    force = true;
+    text = ''
       <monitors version="2">
         <configuration>
           <layoutmode>physical</layoutmode>
           <logicalmonitor>
-            <x>1920</x>
+            <x>0</x>
             <y>0</y>
             <scale>1</scale>
             <primary>yes</primary>
@@ -25,7 +26,7 @@
           </logicalmonitor>
           <logicalmonitor>
             <x>0</x>
-            <y>120</y>
+            <y>1200</y>
             <scale>1</scale>
             <monitor>
               <monitorspec>
@@ -43,6 +44,6 @@
           </logicalmonitor>
         </configuration>
       </monitors>
-    ''}"
-  ];
+    '';
+  };
 }

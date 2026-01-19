@@ -1,7 +1,6 @@
 _: let
   flash = func: {__raw = ''function() require("flash").${func}() end'';};
-in
-{
+in {
   programs.nixvim = {
     plugins.flash.enable = true;
     keymaps = [

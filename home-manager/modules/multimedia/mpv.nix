@@ -148,8 +148,6 @@
       "protocol.ytdlp" = {
         profile = "protocol.http";
       };
-
-
     };
     scripts = with pkgs.mpvScripts; [
       autoload

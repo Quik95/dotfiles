@@ -1,5 +1,8 @@
-{config, lib, ...}:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   flags = ''
     --gtk-version=4
     --ignore-gpu-blocklist
@@ -11,7 +14,7 @@ let
     --ozone-platform-hint=auto
     --use-gl=angle
     --use-angle=vulkan
-    '';
+  '';
 in {
   # We have to do this that way, because chrome doesn't have access to files in the nix store
   home.activation.createChromeFlags = lib.hm.dag.entryAfter ["writeBoundary"] ''

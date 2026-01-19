@@ -32,11 +32,11 @@
           "<C-b>" = "cmp.mapping.scroll_docs(-4)";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
           "<C-l>" = ''
-             cmp.mapping(function()
-               if luasnip.expand_or_locally_jumpable() then
-                 luasnip.expand_or_jump()
-               end
-             end, { 'i', 's' })
+            cmp.mapping(function()
+              if luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+              end
+            end, { 'i', 's' })
           '';
           "<C-h>" = ''
             cmp.mapping(function()

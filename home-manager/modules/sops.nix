@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: let
+{config, ...}: let
   gpgHome = config.custom.gpg.homedirLocation;
 in {
   sops = {

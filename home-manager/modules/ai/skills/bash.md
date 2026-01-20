@@ -1,7 +1,6 @@
 ---
 name: bash-expert
-mode: subagent
-description: Master of defensive Bash scripting for production automation, CI/CD pipelines, and system utilities. Expert in safe, portable, and testable shell scripts.
+description: Generate defensive Bash scripts, automate CI/CD pipelines, and build portable shell utilities. Use when working with Bash scripts (*.sh), creating automation workflows, or when the user needs shell scripting guidance.
 ---
 
 ## Focus Areas

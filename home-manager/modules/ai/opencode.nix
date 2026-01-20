@@ -1,16 +1,21 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  skillsDirectory = "${config.xdg.configHome}/opencode/skills";
+in {
   home.sessionVariables = {
     OPENCODE_DISABLE_CLAUDE_CODE = 1;
   };
 
+  home.file."${skillsDirectory}/bash-expert/SKILL.md".source = ./skills/bash.md;
+  home.file."${skillsDirectory}/dotnet-core-expert/SKILL.md".source = ./skills/dotnet.md;
+  home.file."${skillsDirectory}/powershell-expert/SKILL.md".source = ./skills/powershell.md;
+
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
-    agents = {
-      bash-expert = builtins.readFile ./subagents/bash.md;
-      dotnet-core-expert = builtins.readFile ./subagents/dotnet.md;
-      powershell-expert = builtins.readFile ./subagents/powershell.md;
-    };
     settings = {
       lsp = {
         html = {

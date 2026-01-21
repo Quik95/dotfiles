@@ -29,6 +29,10 @@
           command = ["${pkgs.nixd}/bin/nixd"];
           extensions = [".nix"];
         };
+        dotnet = {
+          command = ["${pkgs.omnisharp-roslyn}/bin/OmniSharp"];
+          extensions = [".cs" ".csx"];
+        };
       };
       formatter = {
         nixfmt = {

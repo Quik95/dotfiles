@@ -48,11 +48,10 @@
         };
         omnisharp.binary.path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
         rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
-        tinymist = {
+        tinymist.binary = {
           path = "${pkgs.tinymist}/bin/tinymist";
           arguments = ["lsp"];
         };
-        pylsp.binary.path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
         package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
         vtsls.binary = {
           path = "${pkgs.vtsls}/bin/vtsls";
@@ -83,7 +82,6 @@
       agent = {
         enabled = true;
         use_modifier_to_send = true;
-        play_sound_when_done = true;
         enable_feedback = false;
         single_file_review = false;
         default_model = {
@@ -102,7 +100,7 @@
         };
       };
       edit_predictions = {
-        mode = "subtle";
+        mode = "eager";
       };
       inlay_hints = {
         enabled = true;

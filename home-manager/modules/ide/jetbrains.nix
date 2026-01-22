@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   nix-jetbrains-plugins,
   ...
 }: let
@@ -8,7 +7,7 @@
   standardPlugins = ["IdeaVIM" "nix-idea"];
   ides = ["rust-rover" "rider"];
 in {
-  home.packages = builtins.map (name: buildIde name standardPlugins) ides;
+  home.packages = map (name: buildIde name standardPlugins) ides;
 
-  home.file."${config.xdg.configHome}/ideavim/ideavimrc".source = ./.ideavimrc;
+  home.file.".ideavimrc".source = ./.ideavimrc;
 }

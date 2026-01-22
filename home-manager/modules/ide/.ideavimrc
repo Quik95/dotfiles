@@ -81,6 +81,7 @@ nnoremap <CR><CR> :action ShowIntentionActions<CR>
 " AI actions
 inoremap <S-A-Bslash> :action CallInlineCompletionAction<CR>
 inoremap <A-l> :action InsertInlineCompletionAction<CR>
+map <A-l> :action dev.sweep.assistant.autocomplete.edit.AcceptEditCompletionAction<CR>
 
 nnoremap s :action flash.search<CR>
 

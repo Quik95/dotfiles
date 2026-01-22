@@ -11,6 +11,7 @@
       "csharp"
       "html"
       "nix"
+      "typst"
       "zig"
     ];
     userSettings = {
@@ -47,6 +48,10 @@
         };
         omnisharp.binary.path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
         rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+        tinymist = {
+          path = "${pkgs.tinymist}/bin/tinymist";
+          arguments = ["lsp"];
+        };
         pylsp.binary.path = "${pkgs.python313Packages.python-lsp-server}/bin/pylsp";
         package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
         vtsls.binary = {

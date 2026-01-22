@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [
+    hunspell
+    hunspellDicts.pl_PL
+  ];
+
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-bin;
@@ -64,6 +69,10 @@
         "browser.urlbar.suggest.engines" = true;
         "browser.urlbar.suggest.quicksuggest.sponsored" = false;
         "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
+
+        # Spellcheck
+        "spellcheck.dictionary" = "pl,en-GB";
+        "layout.spellcheckDefault" = 2;
 
         # Dark theme
         "ui.systemUsesDarkTheme" = 1;

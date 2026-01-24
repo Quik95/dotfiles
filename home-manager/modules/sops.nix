@@ -34,8 +34,8 @@ in {
         path = "${gpgHome}/master-private-key.asc";
       };
 
-      mcp-env = {
-        sopsFile = ../secrets/mcp.env;
+      env-secrets = {
+        sopsFile = ../secrets/env-secrets.env;
         format = "dotenv";
       };
     };

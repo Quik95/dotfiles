@@ -88,6 +88,10 @@
           provider = "copilot_chat";
           model = "gemini-3-flash-preview";
         };
+        inline_assistant_model = {
+          provider = "copilot_chat";
+          model = "gpt-5-mini";
+        };
       };
       context_servers = {
         eslint-mcp = {

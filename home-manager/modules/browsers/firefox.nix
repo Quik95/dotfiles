@@ -32,6 +32,7 @@
         "browser.urlbar.trimURLs" = true;
         "browser.search.suggest.enabled" = true;
         "ui.key.menuAccessKey" = 0;
+        "pdfjs.enableHighlightFloatingButton" = false;
 
         # Performance
         "gfx.webrender.all" = true;

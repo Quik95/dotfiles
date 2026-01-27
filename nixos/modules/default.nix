@@ -5,6 +5,7 @@
     ./ananicy.nix
     ./btrfs.nix
     ./eduroam.nix
+    ./hosts.nix
     ./laptop-power.nix
     ./nh.nix
     ./packages.nix

@@ -2,11 +2,12 @@
   pkgs,
   config,
   ...
-}: {
-  home.sessionVariables = {
-    OPENCODE_DISABLE_CLAUDE_CODE = 1;
-  };
-
+}: let
+  fake-xdg-open = pkgs.writeScriptBin "xdg-open" ''
+    #!/usr/bin/env bash
+    exit 0
+  '';
+in {
   home.file = import ./skills {
     inherit pkgs;
     basePath = "${config.xdg.configHome}/opencode/skills";
@@ -39,10 +40,49 @@
           command = ["${pkgs.alejandra}" "--quiet" "$FILE"];
         };
       };
+      server = {
+        hostname = "127.0.0.1";
+        port = 4096;
+      };
       keybinds = {
         model_list = "alt+p";
       };
       plugin = ["opencode-gemini-auth@latest"];
+    };
+  };
+
+  # OpenCode module has built-in support for starting this server, but it auto opens
+  # the web interface, which is stupid and I don't want that
+  systemd.user.services.opencode-web = {
+    Unit = {
+      Description = "OpenCode Web Service";
+      After = ["network.target"];
+    };
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.opencode}/bin/opencode web";
+      Environment = [
+        "OPENCODE_DISABLE_CLAUDE_CODE=1"
+        "PATH=${fake-xdg-open}/bin:/run/current-system/sw/bin"
+      ];
+      Restart = "on-failure";
+      RestartSec = "5s";
+
+      PrivateDevices = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectClock = true;
+      ProtectHostname = true;
+      ProtectControlGroups = true;
+      SystemCallArchitectures = "native";
+      LockPersonality = true;
+      RestrictRealtime = true;
+    };
+
+    Install = {
+      WantedBy = ["default.target"];
     };
   };
 }

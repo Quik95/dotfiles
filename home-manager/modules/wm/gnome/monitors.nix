@@ -1,49 +1,52 @@
-{...}: {
-  xdg.configFile."monitors.xml" = {
-    force = true;
-    text = ''
-      <monitors version="2">
-        <configuration>
-          <layoutmode>physical</layoutmode>
-          <logicalmonitor>
-            <x>0</x>
-            <y>0</y>
-            <scale>1</scale>
-            <primary>yes</primary>
-            <monitor>
-              <monitorspec>
-                <connector>HDMI-1</connector>
-                <vendor>HPN</vendor>
-                <product>HP E243i</product>
-                <serial>6CM9240TQ1</serial>
-              </monitorspec>
-              <mode>
-                <width>1920</width>
-                <height>1200</height>
-                <rate>59.950</rate>
-              </mode>
-            </monitor>
-          </logicalmonitor>
-          <logicalmonitor>
-            <x>0</x>
-            <y>1200</y>
-            <scale>1</scale>
-            <monitor>
-              <monitorspec>
-                <connector>eDP-1</connector>
-                <vendor>LGD</vendor>
-                <product>0x06e8</product>
-                <serial>0x00000000</serial>
-              </monitorspec>
-              <mode>
-                <width>1920</width>
-                <height>1080</height>
-                <rate>60.020</rate>
-              </mode>
-            </monitor>
-          </logicalmonitor>
-        </configuration>
-      </monitors>
-    '';
+{pkgs, ...}: let
+  monitorScript = pkgs.writeShellApplication {
+    name = "restore-monitors";
+    runtimeInputs = [pkgs.coreutils pkgs.glib pkgs.gnome-monitor-config];
+    text = builtins.readFile ./restore-monitors.sh;
+  };
+in {
+  home.packages = [pkgs.gnome-monitor-config pkgs.glib];
+
+  systemd.user.services.gnome-monitor-restore = {
+    Unit = {
+      Description = "Restore GNOME monitor layout";
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+      StartLimitIntervalSec = 5;
+      StartLimitBurst = 1;
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${monitorScript}/bin/restore-monitors";
+      Restart = "always";
+      RestartSec = 2;
+      # Security hardening - service only needs D-Bus for GNOME
+      CapabilityBoundingSet = "";
+      PrivateNetwork = true; # no network access needed
+      PrivateDevices = true; # no device access needed
+      PrivateTmp = true; # no shared /tmp access needed
+      ProtectClock = true; # doesn't write to system/hw clock
+      ProtectSystem = "strict"; # doesn't write to system
+      ProtectHome = "read-only"; # doesn't write to home
+      ProtectKernelLogs = true; # doesn't read/write kernel logs
+      ProtectKernelTunables = true; # doesn't modify kernel
+      ProtectKernelModules = true; # doesn't load modules
+      ProtectHostname = true; # doesn't change hostname
+      ProtectControlGroups = true; # doesn't modify cgroups
+      NoNewPrivileges = true; # doesn't escalate privileges
+      ProtectProc = "invisible";
+      ProcSubset = "pid";
+      RestrictAddressFamilies = ["AF_UNIX"];
+      RestrictRealtime = true; # doesn't need realtime
+      RestrictSUIDSGID = true; # doesn't create SUID
+      RestrictNamespaces = true; # doesn't create namespaces
+      LockPersonality = true; # doesn't change ABI
+      MemoryDenyWriteExecute = true; # doesn't need JIT
+      SystemCallArchitectures = "native";
+      UMask = "0077";
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
   };
 }

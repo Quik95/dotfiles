@@ -40,6 +40,10 @@
       show-battery-percentage = true;
     };
 
+    "org/gnome/desktop/session" = {
+      idle-delay = 0;
+    };
+
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
       workspaces-only-on-primary = false;
@@ -76,7 +80,7 @@
     "org/gnome/settings-daemon/plugins/power" = {
       power-saver-profile-on-low-battery = true;
       sleep-inactive-ac-type = "nothing";
-      sleep-inactive-battery-timeout = 900;
+      sleep-inactive-battery-timeout = 1800;
       idle-dim = false;
       power-button-action = "suspend";
     };

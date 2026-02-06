@@ -13,7 +13,7 @@
   };
 
   hardware.opentabletdriver = {
-    enable = true;
+    enable = false;
     daemon.enable = true;
   };
 

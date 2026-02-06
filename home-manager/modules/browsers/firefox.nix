@@ -1,12 +1,18 @@
-{pkgs, lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   dictionaries = with pkgs.hunspellDicts; [
     pl_PL
     en_GB-large
   ];
 in {
-  home.packages = with pkgs; [
-    hunspell
-  ] ++ dictionaries;
+  home.packages = with pkgs;
+    [
+      hunspell
+    ]
+    ++ dictionaries;
 
   home.sessionVariables = {
     DICPATH = lib.concatMapStringsSep ":" (dict: "${dict}/share/hunspell") dictionaries;
@@ -26,6 +32,9 @@ in {
       DisableAppUpdate = true;
       DisplayBookmarksToolbar = "newtab";
       Searchbar = "unified";
+      Spellcheck = {
+        Languages = ["pl" "en-GB"];
+      };
     };
 
     profiles.default = {
@@ -151,8 +160,9 @@ in {
           currentVersion = 23;
           newElementCount = 2;
         };
+
         # Spellcheck
-        "spellcheck.dictionary" = "pl,en-GB";
+        "spellchecker.dictionary" = "pl,en-GB";
         "layout.spellcheckDefault" = 2;
 
         # Dark theme

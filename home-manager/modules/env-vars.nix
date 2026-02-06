@@ -1,4 +1,9 @@
-{pkgs, lib, config, ...}: let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   env = import ../../shared/env.nix;
   envVars = [
     "CONTEXT7_API_KEY"

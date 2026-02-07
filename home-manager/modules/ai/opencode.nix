@@ -1,8 +1,21 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: let
+  wrapWithSecrets = import ./wrap-with-secrets.nix {
+    inherit pkgs lib;
+  };
+
+  opencodeWrapped = wrapWithSecrets {
+    pkg = pkgs.opencode;
+    binary = "opencode";
+    vars = {
+      CONTEXT7_API_KEY = config.sops.secrets."CONTEXT7_API_KEY".path;
+    };
+  };
+
   fake-xdg-open = pkgs.writeScriptBin "xdg-open" ''
     #!/usr/bin/env bash
     exit 0
@@ -15,6 +28,7 @@ in {
 
   programs.opencode = {
     enable = true;
+    package = opencodeWrapped;
     enableMcpIntegration = true;
     settings = {
       lsp = {
@@ -61,7 +75,7 @@ in {
 
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.opencode}/bin/opencode web";
+      ExecStart = "${opencodeWrapped}/bin/opencode web";
       Environment = [
         "OPENCODE_DISABLE_CLAUDE_CODE=1"
         "PATH=${fake-xdg-open}/bin:/run/current-system/sw/bin"

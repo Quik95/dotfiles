@@ -1,14 +1,5 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
+{config, ...}: let
   env = import ../../shared/env.nix;
-  envVars = [
-    "CONTEXT7_API_KEY"
-    "CODEX_ZAI_API_KEY"
-  ];
 in {
   home.sessionVariables = {
     BROWSER = env.browser;
@@ -34,25 +25,5 @@ in {
     OMNISHARPHOME = "${config.xdg.configHome}/omnisharp";
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
     RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-  };
-
-  systemd.user.services.env-secrets-loader = {
-    Unit = {
-      Description = "Load environment variables from sops";
-      Before = ["graphical-session.target"];
-      PartOf = ["graphical-session.target"];
-    };
-
-    Service = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      EnvironmentFile = config.sops.secrets.env-secrets.path;
-
-      ExecStart = "${pkgs.systemd}/bin/systemctl --user import-environment ${lib.concatStringsSep " " envVars}";
-    };
-
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
   };
 }

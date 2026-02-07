@@ -34,9 +34,16 @@ in {
         path = "${gpgHome}/master-private-key.asc";
       };
 
-      env-secrets = {
-        sopsFile = ../secrets/env-secrets.env;
-        format = "dotenv";
+      "CODEX_ZAI_API_KEY" = {
+        sopsFile = ../secrets/env-secrets.yaml;
+        key = "CODEX_ZAI_API_KEY";
+        format = "yaml";
+      };
+
+      "CONTEXT7_API_KEY" = {
+        sopsFile = ../secrets/env-secrets.yaml;
+        key = "CONTEXT7_API_KEY";
+        format = "yaml";
       };
     };
   };

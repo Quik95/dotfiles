@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       xkb-options = ["caps:swapescape" "compose:prsc"];
@@ -41,7 +45,7 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = 0;
+      idle-delay = lib.hm.gvariant.mkUint32 0;
     };
 
     "org/gnome/mutter" = {
@@ -79,7 +83,9 @@
 
     "org/gnome/settings-daemon/plugins/power" = {
       power-saver-profile-on-low-battery = true;
-      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-ac-type = "suspend";
+      sleep-inactive-ac-timeout = 1800;
+      sleep-inactive-battery-type = "suspend";
       sleep-inactive-battery-timeout = 1800;
       idle-dim = false;
       power-button-action = "suspend";

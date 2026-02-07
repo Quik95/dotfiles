@@ -1,83 +1,100 @@
 # AGENTS.md - Repository Guide
 
-This is a declarative NixOS and Home Manager dotfiles repository using Nix flakes for reproducible system configuration.
+This repository manages a NixOS host and a Home Manager profile via a single flake.
 
-## Quick Reference
+## Scope
 
-### Apply Configurations
+- **System config:** `nixosConfigurations.sebastian-laptop-hp`
+- **Home config:** `homeConfigurations.sebastian`
+- **Platform:** `x86_64-linux` on NixOS unstable
+- **Desktop:** GNOME
+
+## Environment Details
+
+- **Terminal:** Ghostty with Fish shell
+- **Editor:** Neovim (`nixvim`)
+- **Theme:** Stylix (`purple-rain` base24)
+- **Age key path:** `~/.config/sops/age/keys.txt`
+
+## Quick Commands
+
+### Validate (safe, non-destructive)
 
 ```bash
-# System configuration (NixOS)
-sudo nixos-rebuild switch --flake $NH_FLAKE --quiet
+# Show flake outputs (no lockfile writes)
+nix flake show --no-write-lock-file
 
-# User configuration (Home Manager)
-home-manager switch --flake $NH_FLAKE
+# Validate flake checks
+nix flake check . --quiet
 
-# Test without persisting (add --dry-run for no changes)
-sudo nixos-rebuild test --flake $NH_FLAKE --quiet
-home-manager build --flake $NH_FLAKE
+# Dry-run Home Manager activation package build
+nix build .#homeConfigurations.sebastian.activationPackage --dry-run --quiet
+
+# Dry-run NixOS system build
+nix build .#nixosConfigurations.sebastian-laptop-hp.config.system.build.toplevel --dry-run --quiet
+
+# Formatting check only
+nix fmt . -- --check
 ```
 
-### Validation
+### Apply configurations
 
 ```bash
-nix flake check $NH_FLAKE      # Validate flake structure and syntax
-nix flake update               # Update all inputs
-nix flake update <name>        # Update specific input
+# NixOS switch
+sudo nixos-rebuild switch --flake .#sebastian-laptop-hp --quiet
+
+# NixOS test (temporary activation)
+sudo nixos-rebuild test --flake .#sebastian-laptop-hp --quiet
+
+# Home Manager switch
+home-manager switch --flake .#sebastian
 ```
 
-### Agent/CI Usage
-
-Use these non-interactive flags with nix commands:
-- `--quiet` or `-q` - Minimize output (show errors only)
-- `--ask` - Request confirmation before switching (nh only)
-- `--accept-flake-config` - Auto-accept flake config settings (nh only)
-
-Do NOT use `-b backup` with home-manager. Let it fail on conflicts so issues are surfaced.
+### Update inputs
 
 ```bash
-# Quiet build check (agents should use this)
-nix build $NH_FLAKE#homeConfigurations.sebastian.activationPackage --dry-run --quiet
+# Update all inputs
+nix flake update
 
-# Format check without modifying
-nix fmt $NH_FLAKE -- --check
+# Update one input
+nix flake lock --update-input <input-name>
 ```
 
-### Secret Management
+### Secret management
 
 ```bash
-sops home-manager/secrets/<file>.yaml  # Edit encrypted secret
+sops home-manager/secrets/<file>.yaml
 ```
 
 ## Directory Structure
 
-```
-├── flake.nix                 # Flake definition with inputs/outputs
-├── flake.lock                # Pinned dependencies (commit this)
+```text
+.
+├── flake.nix
+├── flake.lock
 ├── nixos/
-│   ├── configuration.nix     # Main NixOS config
-│   ├── hardware-configuration.nix  # DO NOT EDIT - auto-generated
-│   └── modules/              # System-level modules
+│   ├── configuration.nix
+│   ├── hardware-configuration.nix
+│   └── modules/
 ├── home-manager/
-│   ├── home.nix              # Main Home Manager config
-│   ├── modules/              # User-level modules
-│   ├── secrets/              # sops-encrypted secrets
-│   └── .sops.yaml            # sops configuration
+│   ├── home.nix
+│   ├── modules/
+│   └── secrets/
 └── shared/
-    └── env.nix               # Shared environment variables
+    └── env.nix
 ```
 
 ## Code Conventions
 
-- **Indentation:** 2 spaces
-- **Strings:** Double quotes
-- **File naming:** kebab-case (e.g., `laptop-power.nix`)
-- **Module aggregation:** Use `default.nix` to import submodules
-- **Formatter:** alejandra (`nix fmt`)
+- Use 2-space indentation.
+- Use double quotes for strings.
+- Use kebab-case filenames (example: `laptop-power.nix`).
+- Aggregate module imports in `default.nix` files.
+- Format with `alejandra` via `nix fmt`.
 
 ## Common Patterns
 
-### Module Structure
+### Module signature
 
 ```nix
 {
@@ -90,7 +107,7 @@ sops home-manager/secrets/<file>.yaml  # Edit encrypted secret
 }
 ```
 
-### Using Shared Environment
+### Shared environment values
 
 ```nix
 let
@@ -100,7 +117,7 @@ in {
 }
 ```
 
-### Defining Secrets
+### SOPS secret declaration
 
 ```nix
 sops.secrets.secret-name = {
@@ -109,27 +126,46 @@ sops.secrets.secret-name = {
 };
 ```
 
-### Program Configuration
+### Securely passing secrets as env vars
+
+Use secret file paths (`config.sops.secrets.<name>.path`) and load values at runtime.
 
 ```nix
-programs.program-name = {
-  enable = true;
-  settings = { /* config */ };
+# 1) Define secret (Home Manager or NixOS module)
+sops.secrets."API_KEY" = {
+  sopsFile = ../secrets/env-secrets.yaml;
+  key = "API_KEY";
+  format = "yaml";
 };
+
+# 2) Wrap binaries and export at runtime (preferred for CLI tools)
+toolWrapped = wrapWithSecrets {
+  pkg = pkgs.some-cli;
+  binary = "some-cli";
+  vars = {
+    API_KEY = config.sops.secrets."API_KEY".path;
+  };
+};
+
+# 3) For services, use environment files from sops paths
+systemd.services.some-service.serviceConfig.EnvironmentFile =
+  config.sops.secrets.some-service-env.path;
 ```
 
-## Key Information
+Do not put secret values in `home.sessionVariables`/`environment.variables`.
+Do not inline secret values in Nix code or use `builtins.readFile` for secret content.
 
-- **System:** NixOS unstable on x86_64-linux
-- **Desktop:** GNOME
-- **Terminal:** Ghostty with Fish shell
-- **Editor:** Neovim (nixvim)
-- **Theme:** Stylix with purple-rain base24
+## Guardrails
 
-## Important Notes
+1. Never edit `nixos/hardware-configuration.nix` manually.
+2. Commit `flake.lock` after input updates.
+3. Keep secrets encrypted at rest under `home-manager/secrets/`.
+4. Do not make NixOS modules import Home Manager modules directly.
+5. For Home Manager, do not use backup flags; allow activation conflicts to fail loudly.
+6. Pass secrets to programs via SOPS-managed files and runtime loading, not plaintext Nix variables.
 
-1. **hardware-configuration.nix** is auto-generated - never edit manually
-2. **flake.lock** must be committed for reproducibility
-3. NixOS modules cannot import Home Manager modules directly
-4. Secrets are encrypted at rest and decrypted at activation time
-5. Age keys are stored at `~/.config/sops/age/keys.txt`
+## Agent Notes
+
+- Prefer quiet, non-interactive invocations for automation (`--quiet`, `--dry-run` where appropriate).
+- `NH_FLAKE` is typically set in shell env vars, but repo-local `.` flake references are preferred in this file.
+- `home-manager/modules/scripts/link-agents.ps1` manages `CLAUDE.md` and `GEMINI.md` symlinks to `AGENTS.md`.

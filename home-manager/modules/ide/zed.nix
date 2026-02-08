@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs; [
     eslint
   ];
@@ -33,6 +37,9 @@
         Nix = {
           language_servers = ["nixd"];
         };
+        CSharp = {
+          language_servers = ["roslyn"];
+        };
         JavaScript = {
           formatter = "prettier";
         };
@@ -40,13 +47,28 @@
       lsp = {
         nixd = {
           binary.path = "${pkgs.nixd}/bin/nixd";
-          settings.formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--"];
+          settings = {
+            nixd = {
+              formatting = {
+                command = ["${pkgs.alejandra}/bin/alejandra" "--"];
+              };
+            };
+          };
         };
         json-language-server.binary = {
           path = "${pkgs.vscode-json-languageserver}/bin/vscode-json-language-server";
           arguments = ["--stdio"];
         };
-        omnisharp.binary.path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
+        roslyn.binary = {
+          path = "${pkgs.roslyn-ls}/bin/Microsoft.CodeAnalysis.LanguageServer";
+          arguments = [
+            "--stdio"
+            "--logLevel"
+            "Information"
+            "--extensionLogDirectory"
+            "${config.xdg.stateHome}/lsp/roslyn"
+          ];
+        };
         rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
         tinymist.binary = {
           path = "${pkgs.tinymist}/bin/tinymist";

@@ -9,6 +9,22 @@ both_active() {
 	while IFS= read -r line; do
 		line_lc=$(printf "%s" "$line" | tr "[:upper:]" "[:lower:]")
 		case "$line_lc" in
+		*"monitor [ hdmi-1 ] on"*)
+			hdmi_enabled=1
+			current="hdmi-1"
+			;;
+		*"monitor [ hdmi-1 ] off"*)
+			hdmi_enabled=0
+			current="hdmi-1"
+			;;
+		*"monitor [ edp-1 ] on"*)
+			edp_enabled=1
+			current="edp-1"
+			;;
+		*"monitor [ edp-1 ] off"*)
+			edp_enabled=0
+			current="edp-1"
+			;;
 		*"hdmi-1"*)
 			current="hdmi-1"
 			;;
@@ -35,15 +51,31 @@ both_active() {
 	[ "$hdmi_enabled" -eq 1 ] && [ "$edp_enabled" -eq 1 ]
 }
 
-maybe_apply_layout() {
-	if both_active; then
+wait_until_both_active() {
+	local timeout_secs="${1:-10}"
+	local elapsed=0
+
+	while [ "$elapsed" -lt "$timeout_secs" ]; do
+		if both_active; then
+			return 0
+		fi
+		sleep 1
+		elapsed=$((elapsed + 1))
+	done
+
+	return 1
+}
+
+apply_when_ready() {
+	if wait_until_both_active 10; then
+		# Add a small settle delay so Mutter completes mode transitions.
 		sleep 1
 		apply_layout
 	fi
 }
 
 sleep 2
-maybe_apply_layout
+apply_when_ready
 
 last_apply=0
 gdbus monitor --session \
@@ -52,16 +84,12 @@ gdbus monitor --session \
 	while IFS= read -r line; do
 		case "$line" in
 		*MonitorsChanged*)
-			if ! both_active; then
-				continue
-			fi
 			now=$(date +%s)
 			if [ $((now - last_apply)) -lt 2 ]; then
 				continue
 			fi
 			last_apply=$now
-			sleep 1
-			apply_layout
+			apply_when_ready
 			;;
 		esac
 	done

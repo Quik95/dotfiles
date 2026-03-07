@@ -6,6 +6,7 @@
     ./btrfs.nix
     ./eduroam.nix
     ./hosts.nix
+    ./keyd.nix
     ./laptop-power.nix
     ./nh.nix
     ./packages.nix

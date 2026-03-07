@@ -5,7 +5,7 @@
 }: {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
-      xkb-options = ["caps:swapescape" "compose:prsc"];
+      xkb-options = [];
     };
 
     "org/gnome/desktop/wm/keybindings" = {

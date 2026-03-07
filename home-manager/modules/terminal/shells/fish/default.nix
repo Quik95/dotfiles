@@ -4,6 +4,7 @@
   ...
 }: {
   home.packages = [
+    pkgs.fzf
     pkgs.grc
   ];
 
@@ -63,6 +64,10 @@
       detach = {
         description = "Run command in background and forget about it completely";
         body = builtins.readFile ./detach.fish;
+      };
+      rgf = {
+        description = "Search with ripgrep, pick in fzf, open in nvim";
+        body = builtins.readFile ./rg-fzf-nvim.fish;
       };
     };
     interactiveShellInit = ''

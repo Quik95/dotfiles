@@ -1,11 +1,11 @@
 # AGENTS.md - Repository Guide
 
-This repository manages a NixOS host and a Home Manager profile via a single flake.
+This repository manages NixOS hosts and Home Manager profiles via a single flake.
 
 ## Scope
 
-- **System config:** `nixosConfigurations.sebastian-laptop-hp`
-- **Home config:** `homeConfigurations.sebastian`
+- **System configs:** `nixosConfigurations.sebastian-laptop-hp`, `nixosConfigurations.sebastian-laptop-loq`
+- **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-hp"`, `homeConfigurations."sebastian@sebastian-laptop-loq"`
 - **Platform:** `x86_64-linux` on NixOS unstable
 - **Desktop:** GNOME
 
@@ -28,10 +28,13 @@ nix flake show --no-write-lock-file
 nix flake check . --quiet
 
 # Dry-run Home Manager activation package build
-nix build .#homeConfigurations.sebastian.activationPackage --dry-run --quiet
+nix build .#homeConfigurations.\"sebastian@sebastian-laptop-hp\".activationPackage --dry-run --quiet
 
-# Dry-run NixOS system build
+# Dry-run NixOS system build (HP)
 nix build .#nixosConfigurations.sebastian-laptop-hp.config.system.build.toplevel --dry-run --quiet
+
+# Dry-run NixOS system build (LOQ)
+nix build .#nixosConfigurations.sebastian-laptop-loq.config.system.build.toplevel --dry-run --quiet
 
 # Formatting check only
 nix fmt . -- --check
@@ -40,14 +43,17 @@ nix fmt . -- --check
 ### Apply configurations
 
 ```bash
-# NixOS switch
+# NixOS switch (HP)
 sudo nixos-rebuild switch --flake .#sebastian-laptop-hp --quiet
+
+# NixOS switch (LOQ)
+sudo nixos-rebuild switch --flake .#sebastian-laptop-loq --quiet
 
 # NixOS test (temporary activation)
 sudo nixos-rebuild test --flake .#sebastian-laptop-hp --quiet
 
 # Home Manager switch
-home-manager switch --flake .#sebastian
+home-manager switch --flake .#sebastian@sebastian-laptop-hp
 ```
 
 ### Update inputs
@@ -73,8 +79,12 @@ sops home-manager/secrets/<file>.yaml
 ├── flake.nix
 ├── flake.lock
 ├── nixos/
-│   ├── configuration.nix
-│   ├── hardware-configuration.nix
+│   ├── hosts/
+│   │   ├── sebastian-laptop-hp/
+│   │   │   ├── configuration.nix
+│   │   │   └── hardware-configuration.nix
+│   │   └── sebastian-laptop-loq/
+│   │       └── configuration.nix
 │   └── modules/
 ├── home-manager/
 │   ├── home.nix
@@ -157,7 +167,7 @@ Do not inline secret values in Nix code or use `builtins.readFile` for secret co
 
 ## Guardrails
 
-1. Never edit `nixos/hardware-configuration.nix` manually.
+1. Never edit `nixos/hosts/*/hardware-configuration.nix` manually.
 2. Commit `flake.lock` after input updates.
 3. Keep secrets encrypted at rest under `home-manager/secrets/`.
 4. Do not make NixOS modules import Home Manager modules directly.

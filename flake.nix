@@ -42,15 +42,33 @@
       inherit system;
       modules = [
         sops-nix.nixosModules.sops
-        ./nixos/configuration.nix
+        ./nixos/hosts/sebastian-laptop-hp/configuration.nix
       ];
     };
 
-    homeConfigurations."sebastian" = home-manager.lib.homeManagerConfiguration {
+    nixosConfigurations.sebastian-laptop-loq = nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules = [
+        sops-nix.nixosModules.sops
+        ./nixos/hosts/sebastian-laptop-loq/configuration.nix
+      ];
+    };
+
+    homeConfigurations."sebastian@sebastian-laptop-hp" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [./home-manager/home.nix];
       extraSpecialArgs = {
         inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins;
+        hostname = "sebastian-laptop-hp";
+      };
+    };
+
+    homeConfigurations."sebastian@sebastian-laptop-loq" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./home-manager/home.nix];
+      extraSpecialArgs = {
+        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins;
+        hostname = "sebastian-laptop-loq";
       };
     };
 

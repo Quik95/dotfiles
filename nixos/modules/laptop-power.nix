@@ -17,8 +17,6 @@
 
   # Additional kernel parameters for power saving
   boot.kernelParams = [
-    # AMD power saving options
-    "amd_pstate=active"
     # Enable power saving for audio
     "snd_hda_intel.power_save=1"
     # NMI watchdog can wake CPU unnecessarily

@@ -4,6 +4,7 @@
   nixvim,
   sops-nix,
   stylix,
+  hostname,
   ...
 }: {
   imports = [

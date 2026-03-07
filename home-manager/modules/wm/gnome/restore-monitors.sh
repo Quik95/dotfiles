@@ -1,7 +1,7 @@
 apply_layout() {
 	gnome-monitor-config set \
-		-LpM HDMI-1 -x 0 -y 0 \
-		-LM eDP-1 -x 0 -y 1200
+		-LpM HDMI-1 -x 1920 -y 0 \
+		-LM eDP-1 -x 0 -y 120
 }
 
 both_active() {

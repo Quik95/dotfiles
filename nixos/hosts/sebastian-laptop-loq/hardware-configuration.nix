@@ -31,7 +31,16 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  swapDevices = [ ];
+  fileSystems."/swap" =
+    { device = "/dev/disk/by-uuid/17c79fd8-ce47-40f6-8953-c926267eb013";
+      fsType = "btrfs";
+      options = [ "subvol=@swap" "noatime" ];
+    };
+
+  swapDevices = [{
+    device = "/swap/swapfile";
+    size = 4 * 1024; # 4 GB
+  }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

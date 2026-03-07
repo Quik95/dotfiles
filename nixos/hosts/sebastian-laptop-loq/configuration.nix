@@ -12,6 +12,10 @@ in {
 
   networking.hostName = "sebastian-laptop-loq";
 
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 100;
+  };
+
   # Clone MAC address from HP laptop for network allow-list compatibility
   networking.networkmanager.ethernet.macAddress = "c8:5a:cf:df:08:f8";
 

@@ -1,12 +1,9 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }: let
-  cfg = config.myModules.gnome;
-  extensions = with pkgs.gnomeExtensions;
-    [
+  extensions = with pkgs.gnomeExtensions; [
     {
       pkg = activate-window-by-title;
       enabled = false;
@@ -83,17 +80,6 @@
       pkg = system-monitor;
       enabled = true;
     }
-  ]
-  ++ lib.optionals cfg.gpuProfileSelector.enable [
-    {
-      pkg = pkgs.gnomeExtensions.gpu-profile-selector;
-      enabled = true;
-      dconfPath = "GPU_profile_selector";
-      settings = {
-        coolbits = false;
-        force-composition-pipeline = false;
-      };
-    }
   ];
 
   mkDconfSettings = exts:
@@ -105,8 +91,6 @@
     ) {}
     exts;
 in {
-  options.myModules.gnome.gpuProfileSelector.enable = lib.mkEnableOption "GPU Profile Selector GNOME extension";
-
   config.dconf.settings =
     mkDconfSettings extensions
     // {

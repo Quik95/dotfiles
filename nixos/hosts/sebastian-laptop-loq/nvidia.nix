@@ -2,21 +2,7 @@
   config,
   pkgs,
   ...
-}: let
-  envycontrol = pkgs.python3Packages.buildPythonApplication {
-    pname = "envycontrol";
-    version = "3.5.2";
-    pyproject = true;
-    build-system = [pkgs.python3Packages.setuptools];
-    dependencies = [pkgs.pciutils];
-    src = pkgs.fetchFromGitHub {
-      owner = "bayasdev";
-      repo = "envycontrol";
-      tag = "v3.5.2";
-      hash = "sha256-FZMkYHUAA3keV7OSqzEIu0k1rdgDS0VP3nPBLBzbaeM=";
-    };
-  };
-in {
+}: {
   # RTX 5060 Mobile (Blackwell GB206M) + Intel Alder Lake-S hybrid graphics
 
   services.xserver.videoDrivers = ["nvidia"];
@@ -52,6 +38,4 @@ in {
       nvidiaBusId = "PCI:1:0:0";
     };
   };
-
-  environment.systemPackages = [envycontrol];
 }

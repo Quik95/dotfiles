@@ -27,6 +27,7 @@ in {
   programs.codex = {
     enable = true;
     package = codexWrapped;
+    enableMcpIntegration = true;
     settings = {
       model = "gpt-5.3-codex";
     };

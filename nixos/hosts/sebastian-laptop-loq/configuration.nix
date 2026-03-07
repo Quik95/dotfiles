@@ -28,63 +28,66 @@ in {
 
   # Lenovo LOQ/IdeaPad family exposes a boolean conservation mode in sysfs.
   # 1 = on (fixed vendor threshold, usually ~80%), 0 = off (charge to 100%).
-  systemd.services = if lenovoConservation.enable then {
-    lenovo-conservation-mode = {
-      description = "Set Lenovo battery conservation mode";
-      wantedBy = ["multi-user.target"];
-      after = ["local-fs.target"];
-      unitConfig.ConditionPathExistsGlob = "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode";
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        NoNewPrivileges = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        PrivateNetwork = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        ProtectControlGroups = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectClock = true;
-        ProtectHostname = true;
-        MemoryDenyWriteExecute = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        RemoveIPC = true;
-        RestrictNamespaces = true;
-        RestrictAddressFamilies = ["AF_UNIX"];
-        IPAddressDeny = "any";
-        ProtectProc = "invisible";
-        ProcSubset = "pid";
-        CapabilityBoundingSet = "";
-        AmbientCapabilities = "";
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-          "~@mount"
-          "~@swap"
-          "~@reboot"
-          "~@obsolete"
-          "~@debug"
-          "~@cpu-emulation"
-          "~@module"
-          "~@raw-io"
-          "~@clock"
-        ];
-        UMask = "0077";
-        ReadWritePaths = ["/sys/bus/platform/drivers/ideapad_acpi"];
+  systemd.services =
+    if lenovoConservation.enable
+    then {
+      lenovo-conservation-mode = {
+        description = "Set Lenovo battery conservation mode";
+        wantedBy = ["multi-user.target"];
+        after = ["local-fs.target"];
+        unitConfig.ConditionPathExistsGlob = "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode";
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          PrivateNetwork = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          ProtectControlGroups = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectClock = true;
+          ProtectHostname = true;
+          MemoryDenyWriteExecute = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          RemoveIPC = true;
+          RestrictNamespaces = true;
+          RestrictAddressFamilies = ["AF_UNIX"];
+          IPAddressDeny = "any";
+          ProtectProc = "invisible";
+          ProcSubset = "pid";
+          CapabilityBoundingSet = "";
+          AmbientCapabilities = "";
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+            "~@resources"
+            "~@mount"
+            "~@swap"
+            "~@reboot"
+            "~@obsolete"
+            "~@debug"
+            "~@cpu-emulation"
+            "~@module"
+            "~@raw-io"
+            "~@clock"
+          ];
+          UMask = "0077";
+          ReadWritePaths = ["/sys/bus/platform/drivers/ideapad_acpi"];
+        };
+        script = ''
+          for f in /sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode; do
+            if [ -w "$f" ]; then
+              echo ${toString lenovoConservation.mode} > "$f"
+            fi
+          done
+        '';
       };
-      script = ''
-        for f in /sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode; do
-          if [ -w "$f" ]; then
-            echo ${toString lenovoConservation.mode} > "$f"
-          fi
-        done
-      '';
-    };
-  } else {};
+    }
+    else {};
 }

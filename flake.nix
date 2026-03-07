@@ -19,6 +19,9 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    llm-agents.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -30,6 +33,7 @@
     sops-nix,
     stylix,
     nix-jetbrains-plugins,
+    llm-agents,
     ...
   } @ attrs: let
     system = "x86_64-linux";
@@ -58,7 +62,7 @@
       inherit pkgs;
       modules = [./home-manager/home.nix];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins;
+        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
         hostname = "sebastian-laptop-hp";
       };
     };
@@ -67,7 +71,7 @@
       inherit pkgs;
       modules = [./home-manager/home.nix];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins;
+        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
         hostname = "sebastian-laptop-loq";
       };
     };

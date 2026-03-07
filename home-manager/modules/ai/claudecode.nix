@@ -2,14 +2,17 @@
   pkgs,
   lib,
   config,
+  llm-agents,
   ...
 }: let
   wrapWithSecrets = import ./wrap-with-secrets.nix {
     inherit pkgs lib;
   };
 
+  llmAgentsPkgs = llm-agents.packages.${pkgs.system};
+
   claudeWrapped = wrapWithSecrets {
-    pkg = pkgs.claude-code;
+    pkg = llmAgentsPkgs.claude-code;
     binary = "claude";
     vars = {
       CONTEXT7_API_KEY = config.sops.secrets."CONTEXT7_API_KEY".path;

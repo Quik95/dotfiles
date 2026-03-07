@@ -2,14 +2,17 @@
   pkgs,
   lib,
   config,
+  llm-agents,
   ...
 }: let
   wrapWithSecrets = import ./wrap-with-secrets.nix {
     inherit pkgs lib;
   };
 
+  llmAgentsPkgs = llm-agents.packages.${pkgs.system};
+
   codexWrapped = wrapWithSecrets {
-    pkg = pkgs.codex;
+    pkg = llmAgentsPkgs.codex;
     binary = "codex";
     vars = {
       CODEX_ZAI_API_KEY = config.sops.secrets."CODEX_ZAI_API_KEY".path;

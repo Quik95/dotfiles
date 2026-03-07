@@ -88,5 +88,7 @@ in {
   # MTP stuff
   services.gvfs.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   system.stateVersion = "24.11";
 }

@@ -9,7 +9,7 @@
     inherit pkgs lib;
   };
 
-  llmAgentsPkgs = llm-agents.packages.${pkgs.system};
+  llmAgentsPkgs = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
   codexWrapped = wrapWithSecrets {
     pkg = llmAgentsPkgs.codex;

@@ -1,7 +1,27 @@
 apply_layout() {
+	local hdmi_connector="$1"
+	[ -n "$hdmi_connector" ] || return 1
+
 	gnome-monitor-config set \
-		-LpM HDMI-1 -x 1920 -y 0 \
+		-LpM "$hdmi_connector" -x 1920 -y 0 \
 		-LM eDP-1 -x 0 -y 120
+}
+
+detect_active_hdmi_connector() {
+	local line line_lc connector
+	while IFS= read -r line; do
+		line_lc=$(printf "%s" "$line" | tr "[:upper:]" "[:lower:]")
+		case "$line_lc" in
+		*"monitor [ hdmi-"*"] on"*)
+			connector=${line#*monitor [ }
+			connector=${connector%% ]*}
+			printf "%s\n" "$connector"
+			return 0
+			;;
+		esac
+	done < <(gnome-monitor-config list 2>/dev/null)
+
+	return 1
 }
 
 both_active() {
@@ -9,13 +29,13 @@ both_active() {
 	while IFS= read -r line; do
 		line_lc=$(printf "%s" "$line" | tr "[:upper:]" "[:lower:]")
 		case "$line_lc" in
-		*"monitor [ hdmi-1 ] on"*)
+		*"monitor [ hdmi-"*"] on"*)
 			hdmi_enabled=1
-			current="hdmi-1"
+			current="hdmi"
 			;;
-		*"monitor [ hdmi-1 ] off"*)
+		*"monitor [ hdmi-"*"] off"*)
 			hdmi_enabled=0
-			current="hdmi-1"
+			current="hdmi"
 			;;
 		*"monitor [ edp-1 ] on"*)
 			edp_enabled=1
@@ -25,21 +45,21 @@ both_active() {
 			edp_enabled=0
 			current="edp-1"
 			;;
-		*"hdmi-1"*)
-			current="hdmi-1"
+		*"hdmi-"*)
+			current="hdmi"
 			;;
 		*"edp-1"*)
 			current="edp-1"
 			;;
 		*"enabled:"*"yes"* | *"enabled:"*"true"* | *"active:"*"yes"* | *"active:"*"true"*)
-			if [ "$current" = "hdmi-1" ]; then
+			if [ "$current" = "hdmi" ]; then
 				hdmi_enabled=1
 			elif [ "$current" = "edp-1" ]; then
 				edp_enabled=1
 			fi
 			;;
 		*"enabled:"*"no"* | *"enabled:"*"false"* | *"disabled"* | *"active:"*"no"* | *"active:"*"false"*)
-			if [ "$current" = "hdmi-1" ]; then
+			if [ "$current" = "hdmi" ]; then
 				hdmi_enabled=0
 			elif [ "$current" = "edp-1" ]; then
 				edp_enabled=0
@@ -67,10 +87,12 @@ wait_until_both_active() {
 }
 
 apply_when_ready() {
+	local hdmi_connector
 	if wait_until_both_active 10; then
 		# Add a small settle delay so Mutter completes mode transitions.
 		sleep 1
-		apply_layout
+		hdmi_connector=$(detect_active_hdmi_connector) || return 0
+		apply_layout "$hdmi_connector"
 	fi
 }
 

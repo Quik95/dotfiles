@@ -10,7 +10,7 @@
     text = builtins.readFile ./restore-monitors.sh;
   };
 in
-  lib.mkIf (hostname == "sebastian-laptop-hp") {
+  lib.mkIf (builtins.elem hostname ["sebastian-laptop-hp" "sebastian-laptop-loq"]) {
     home.packages = [pkgs.gnome-monitor-config pkgs.glib];
 
     systemd.user.services.gnome-monitor-restore = {

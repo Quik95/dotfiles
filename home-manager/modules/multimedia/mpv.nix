@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  hostname,
+  ...
+}: {
   programs.mpv = {
     enable = true;
     bindings = {
@@ -65,77 +70,85 @@
       F1 = "script-binding console/enable";
       F12 = ''af toggle "lavfi=[loudnorm=I=-22:TP=-1.5:LRA=2]"'';
     };
-    config = {
-      save-position-on-quit = true;
-      force-seekable = true;
+    config =
+      {
+        save-position-on-quit = true;
+        force-seekable = true;
 
-      cache = true;
-      demuxer-max-bytes = "4096MiB";
+        cache = true;
+        demuxer-max-bytes = "4096MiB";
 
-      prefetch-playlist = true;
-      drag-and-drop = "append";
+        prefetch-playlist = true;
+        drag-and-drop = "append";
 
-      gpu-api = "vulkan";
+        gpu-api = "vulkan";
 
-      hr-seek-framedrop = "no";
-      border = "no";
-      msg-color = "yes";
-      msg-module = "yes";
+        hr-seek-framedrop = "no";
+        border = "no";
+        msg-color = "yes";
+        msg-module = "yes";
 
-      keep-open = "yes";
-      cursor-autohide = 1000;
+        keep-open = "yes";
+        cursor-autohide = 1000;
 
-      screenshot-format = "png";
-      screenshot-png-compression = 4;
-      screenshot-tag-colorspace = "yes";
-      screenshot-high-bit-depth = "yes";
+        screenshot-format = "png";
+        screenshot-png-compression = 4;
+        screenshot-tag-colorspace = "yes";
+        screenshot-high-bit-depth = "yes";
 
-      blend-subtitles = "no";
-      sub-ass-use-video-data = "all";
-      sub-ass-scale-with-window = "no";
-      sub-auto = "fuzzy";
-      demuxer-mkv-subtitle-preroll = "yes";
-      embeddedfonts = "yes";
-      sub-fix-timing = "yes";
+        blend-subtitles = "no";
+        sub-ass-use-video-data = "all";
+        sub-ass-scale-with-window = "no";
+        sub-auto = "fuzzy";
+        demuxer-mkv-subtitle-preroll = "yes";
+        embeddedfonts = "yes";
+        sub-fix-timing = "yes";
 
-      volume-max = 130;
-      audio-stream-silence = true;
-      audio-file-auto = "fuzzy";
-      audio-pitch-correction = "yes";
+        volume-max = 130;
+        audio-stream-silence = true;
+        audio-file-auto = "fuzzy";
+        audio-pitch-correction = "yes";
 
-      profile = "high-quality";
-      hwdec = "auto";
-      vo = "gpu-next";
+        profile = "high-quality";
+        hwdec = "auto";
+        vo = "gpu-next";
 
-      scale = "catmull_rom";
-      dscale = "hermite";
-      cscale = "catmull_rom";
-      temporal-dither = "yes";
+        scale = "catmull_rom";
+        dscale = "hermite";
+        cscale = "catmull_rom";
+        temporal-dither = "yes";
 
-      dither = "fruit";
-      dither-depth = "auto";
+        dither = "fruit";
+        dither-depth = "auto";
 
-      deband = "yes";
-      deband-iterations = 1;
-      deband-threshold = 32;
-      deband-range = 16;
-      deband-grain = 4;
+        deband = "yes";
+        deband-iterations = 1;
+        deband-threshold = 32;
+        deband-range = 16;
+        deband-grain = 4;
 
-      correct-downscaling = "yes";
+        correct-downscaling = "yes";
 
-      linear-upscaling = "no";
-      sigmoid-upscaling = "yes";
-      linear-downscaling = "yes";
+        linear-upscaling = "no";
+        sigmoid-upscaling = "yes";
+        linear-downscaling = "yes";
 
-      video-sync = "display-resample";
-      interpolation = "yes";
-      tscale = "mitchell";
+        video-sync = "display-resample";
+        interpolation = "yes";
+        tscale = "mitchell";
 
-      deinterlace = "no";
+        deinterlace = "no";
 
-      ytdl = true;
-      ytdl-format = "(bestvideo[height<=1080][vcodec*=h264]+bestaudio)/(bestvideo[height<=1080][vcodec!*=vp9]+bestaudio)/(bestvideo[height<=1080]+bestaudio)/best[height<=1080]";
-    };
+        ytdl = true;
+        ytdl-format = "(bestvideo[height<=1080][vcodec*=h264]+bestaudio)/(bestvideo[height<=1080][vcodec!*=vp9]+bestaudio)/(bestvideo[height<=1080]+bestaudio)/best[height<=1080]";
+      }
+      // lib.optionalAttrs (hostname == "sebastian-laptop-loq") {
+        # Stabilniejsze odtwarzanie na zewnętrznych ekranach w konfiguracji hybrydowej.
+        vo = "gpu";
+        gpu-api = "opengl";
+        video-sync = "audio";
+        interpolation = "no";
+      };
     profiles = {
       "protocol.http" = {
         hls-bitrate = "max";

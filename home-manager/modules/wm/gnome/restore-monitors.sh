@@ -1,10 +1,40 @@
 apply_layout() {
 	local hdmi_connector="$1"
 	[ -n "$hdmi_connector" ] || return 1
+	connector_exists "$hdmi_connector" || return 0
 
-	gnome-monitor-config set \
+	if ! gnome-monitor-config set \
 		-LpM "$hdmi_connector" -x 1920 -y 0 \
-		-LM eDP-1 -x 0 -y 120
+		-LM eDP-1 -x 0 -y 120; then
+		printf "restore-monitors: failed to apply layout for %s\n" "$hdmi_connector" >&2
+	fi
+}
+
+parse_connector_from_monitor_line() {
+	local line="$1" rest
+	case "$line" in
+	*" [ "*)
+		rest=${line#*" [ "}
+		printf "%s\n" "${rest%% ]*}"
+		return 0
+		;;
+	esac
+	return 1
+}
+
+connector_exists() {
+	local wanted="$1" line line_lc connector
+	while IFS= read -r line; do
+		line_lc=$(printf "%s" "$line" | tr "[:upper:]" "[:lower:]")
+		case "$line_lc" in
+		*"monitor [ "*"]"*)
+			connector=$(parse_connector_from_monitor_line "$line") || continue
+			[ "$connector" = "$wanted" ] && return 0
+			;;
+		esac
+	done < <(gnome-monitor-config list 2>/dev/null)
+
+	return 1
 }
 
 detect_active_hdmi_connector() {
@@ -13,8 +43,7 @@ detect_active_hdmi_connector() {
 		line_lc=$(printf "%s" "$line" | tr "[:upper:]" "[:lower:]")
 		case "$line_lc" in
 		*"monitor [ hdmi-"*"] on"*)
-			connector=${line#*monitor [ }
-			connector=${connector%% ]*}
+			connector=$(parse_connector_from_monitor_line "$line") || continue
 			printf "%s\n" "$connector"
 			return 0
 			;;

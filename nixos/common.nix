@@ -20,6 +20,9 @@ in {
     nssmdns4 = true;
   };
 
+  # Firmware updates via LVFS
+  services.fwupd.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
 

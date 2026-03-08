@@ -6,6 +6,8 @@
   # RTX 5060 Mobile (Blackwell GB206M) + Intel Alder Lake-S hybrid graphics
 
   services.xserver.videoDrivers = ["nvidia"];
+  # Mixed-refresh multi-monitor setups are more reliable on GNOME Wayland than X11.
+  services.displayManager.gdm.wayland = true;
 
   hardware.graphics.enable = true;
 

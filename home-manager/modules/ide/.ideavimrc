@@ -103,3 +103,4 @@ sethandler <c-o> a:vim
 sethandler <A-s-\> a:vim
 sethandler <c-d> a:vim
 sethandler <c-u> a:vim
+sethandler <c-e> a:ide

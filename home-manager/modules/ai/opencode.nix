@@ -18,6 +18,15 @@
       CONTEXT7_API_KEY = config.sops.secrets."CONTEXT7_API_KEY".path;
     };
   };
+
+  opencodeProcessWrapped = pkgs.symlinkJoin {
+    name = "${opencodeWrapped.pname or opencodeWrapped.name}-process-env";
+    paths = [opencodeWrapped];
+    nativeBuildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram $out/bin/opencode --set OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT "true"
+    '';
+  };
 in {
   home.file = import ./skills {
     inherit pkgs;
@@ -26,7 +35,7 @@ in {
 
   programs.opencode = {
     enable = true;
-    package = opencodeWrapped;
+    package = opencodeProcessWrapped;
     enableMcpIntegration = true;
     settings = {
       lsp = {

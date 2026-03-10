@@ -63,7 +63,6 @@ in {
         # Security
         "dom.security.https_only_mode" = true;
         "dom.security.https_only_mode_ever_enabled" = true;
-        "dom.security.https_only_mode_exceptions" = "opencode.local";
 
         # Network
         "network.trr.mode" = 2;

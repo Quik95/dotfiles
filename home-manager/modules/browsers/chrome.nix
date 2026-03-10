@@ -1,19 +1,36 @@
 {
   config,
   lib,
+  hostname,
   ...
 }: let
+  isLoq = hostname == "sebastian-laptop-loq";
+  features =
+    [
+      "UseOzonePlatform"
+      "TouchGestures"
+      "TouchpadOverscrollHistoryNavigation"
+      "AcceleratedVideoDecodeLinuxZeroCopyGL"
+      "AcceleratedVideoEncoder"
+      "VaapiIgnoreDriverChecks"
+      "UseMultiPlaneFormatForHardwareVideo"
+    ]
+    ++ lib.optionals (!isLoq) [
+      "Vulkan"
+      "VulkanFromANGLE"
+      "DefaultANGLEVulkan"
+    ];
   flags = ''
     --gtk-version=4
     --ignore-gpu-blocklist
-    --enable-features=UseOzonePlatform,TouchGestures,TouchpadOverscrollHistoryNavigation,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo
+    --enable-features=${lib.concatStringsSep "," features}
     --disable-features=GlobalShortcutsPortal
     --ozone-platform=wayland
     --enable-gpu-rasterization
     --enable-experimental-web-platform-features
     --ozone-platform-hint=auto
     --use-gl=angle
-    --use-angle=vulkan
+    ${lib.optionalString (!isLoq) "--use-angle=vulkan"}
   '';
 in {
   # We have to do this that way, because chrome doesn't have access to files in the nix store

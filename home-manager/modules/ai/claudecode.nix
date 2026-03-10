@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  aiAgentsSystemInstruction,
   llm-agents,
   ...
 }: let
@@ -33,5 +34,8 @@ in {
     enable = true;
     package = claudeWrapped;
     enableMcpIntegration = true;
+    memory.text = ''
+      ${aiAgentsSystemInstruction}
+    '';
   };
 }

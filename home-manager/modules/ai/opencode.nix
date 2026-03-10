@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  aiAgentsSystemInstruction,
   llm-agents,
   ...
 }: let
@@ -37,6 +38,9 @@ in {
     enable = true;
     package = opencodeProcessWrapped;
     enableMcpIntegration = true;
+    rules = ''
+      ${aiAgentsSystemInstruction}
+    '';
     settings = {
       lsp = {
         html = {

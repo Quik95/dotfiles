@@ -13,11 +13,16 @@
       )
       vars);
 in
-  pkgs.symlinkJoin {
-    name = "${pkg.pname or pkg.name}-wrapped";
-    paths = [pkg];
-    nativeBuildInputs = [pkgs.makeWrapper];
-    postBuild = ''
-      wrapProgram $out/bin/${binary} --run ${lib.escapeShellArg exportCmd}
-    '';
-  }
+  pkgs.symlinkJoin (
+    {
+      name = "${pkg.pname or pkg.name}-wrapped";
+      paths = [pkg];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/${binary} --run ${lib.escapeShellArg exportCmd}
+      '';
+    }
+    // lib.optionalAttrs (pkg ? version) {
+      inherit (pkg) version;
+    }
+  )

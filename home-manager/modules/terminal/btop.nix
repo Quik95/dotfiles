@@ -11,6 +11,7 @@
       show_boxes = "cpu mem net proc";
       update_ms = 1500;
       proc_sorting = "cpu lazy";
+      disks_filter = "/home /swap";
     };
   };
 }

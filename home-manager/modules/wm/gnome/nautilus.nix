@@ -26,8 +26,8 @@
       name = "Videos";
     }
     {
-      path = "${config.home.homeDirectory}/Projects/Studia/Magisterka/Semestr II";
-      name = "Semestr II";
+      path = "${config.home.homeDirectory}/Projects/Studia/Magisterka/Semestr III";
+      name = "Semestr III";
     }
     {
       path = "/tmp";

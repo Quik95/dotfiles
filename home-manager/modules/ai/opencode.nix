@@ -3,6 +3,7 @@
   lib,
   config,
   aiAgentsSystemInstruction,
+  aiAgentsGitContextCommand,
   llm-agents,
   ...
 }: let
@@ -38,6 +39,9 @@ in {
     enable = true;
     package = opencodeProcessWrapped;
     enableMcpIntegration = true;
+    commands = {
+      git-context = aiAgentsGitContextCommand;
+    };
     rules = ''
       ${aiAgentsSystemInstruction}
     '';

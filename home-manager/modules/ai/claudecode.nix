@@ -3,6 +3,7 @@
   lib,
   config,
   aiAgentsSystemInstruction,
+  aiAgentsGitContextCommand,
   llm-agents,
   ...
 }: let
@@ -34,6 +35,9 @@ in {
     enable = true;
     package = claudeWrapped;
     enableMcpIntegration = true;
+    commands = {
+      git-context = aiAgentsGitContextCommand;
+    };
     memory.text = ''
       ${aiAgentsSystemInstruction}
     '';

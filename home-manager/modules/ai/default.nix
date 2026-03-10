@@ -2,6 +2,7 @@
   aiAgentsSystemInstruction = ''
     Current system: ${hostname}
   '';
+  aiAgentsGitContextCommand = builtins.readFile ./commands/git-context.md;
 in {
   assertions = [
     {
@@ -11,6 +12,7 @@ in {
   ];
 
   _module.args.aiAgentsSystemInstruction = aiAgentsSystemInstruction;
+  _module.args.aiAgentsGitContextCommand = aiAgentsGitContextCommand;
 
   imports = [
     ./claudecode.nix

@@ -10,6 +10,7 @@
     ./keyd.nix
     ./laptop-power.nix
     ./nh.nix
+    ./openvpn.nix
     ./packages.nix
     ./pam.nix
     ./sops.nix

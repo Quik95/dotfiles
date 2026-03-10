@@ -18,6 +18,12 @@ in {
         sopsFile = ../../home-manager/secrets/eduroam-credentials.env;
         mode = "0400";
       };
+
+      tryhackme-openvpn = {
+        format = "binary";
+        sopsFile = ../../home-manager/secrets/tryhackme-openvpn.bin;
+        mode = "0400";
+      };
     };
   };
 }

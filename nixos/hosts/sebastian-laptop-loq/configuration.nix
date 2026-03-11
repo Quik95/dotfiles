@@ -13,6 +13,7 @@ in {
   networking.hostName = "sebastian-laptop-loq";
   dotfiles.eduroam.interfaceName = "wlp9s0";
   dotfiles.i2c.enable = true;
+  dotfiles.passwordless-sudo.enable = false;
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 100;

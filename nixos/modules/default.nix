@@ -13,6 +13,7 @@
     ./openvpn.nix
     ./packages.nix
     ./pam.nix
+    ./passwordless-sudo.nix
     ./sops.nix
     ./virtualization.nix
     ./wifi-manager.nix

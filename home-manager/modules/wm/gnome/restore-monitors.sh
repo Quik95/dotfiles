@@ -10,6 +10,34 @@ apply_layout() {
 	fi
 }
 
+layout_already_applied() {
+	local wanted="$1" wanted_lc line line_lc
+	local has_hdmi_logical=0 has_edp_logical=0 has_hdmi_monitor=0 has_edp_monitor=0
+	[ -n "$wanted" ] || return 1
+
+	wanted_lc=$(printf "%s" "$wanted" | tr "[:upper:]" "[:lower:]")
+
+	while IFS= read -r line; do
+		line_lc=$(printf "%s" "$line" | tr "[:upper:]" "[:lower:]")
+		case "$line_lc" in
+		*"logical monitor [ 1920x1200+1920+0 "*)
+			has_hdmi_logical=1
+			;;
+		*"logical monitor [ 1920x1080+0+120 "*)
+			has_edp_logical=1
+			;;
+		*"monitor [ $wanted_lc ] 1920x1200@"*)
+			has_hdmi_monitor=1
+			;;
+		*"monitor [ edp-1 ] 1920x1080@"*)
+			has_edp_monitor=1
+			;;
+		esac
+	done < <(gnome-monitor-config list 2>/dev/null)
+
+	[ "$has_hdmi_logical" -eq 1 ] && [ "$has_edp_logical" -eq 1 ] && [ "$has_hdmi_monitor" -eq 1 ] && [ "$has_edp_monitor" -eq 1 ]
+}
+
 parse_connector_from_monitor_line() {
 	local line="$1" rest
 	case "$line" in
@@ -101,7 +129,7 @@ both_active() {
 }
 
 wait_until_both_active() {
-	local timeout_secs="${1:-10}"
+	local timeout_secs="${1:-15}"
 	local elapsed=0
 
 	while [ "$elapsed" -lt "$timeout_secs" ]; do
@@ -117,15 +145,18 @@ wait_until_both_active() {
 
 apply_when_ready() {
 	local hdmi_connector
-	if wait_until_both_active 10; then
-		# Add a small settle delay so Mutter completes mode transitions.
-		sleep 1
+	if wait_until_both_active 15; then
+		# Add settle delay so Mutter completes mode transitions.
+		sleep 2
 		hdmi_connector=$(detect_active_hdmi_connector) || return 0
+		if layout_already_applied "$hdmi_connector"; then
+			return 0
+		fi
 		apply_layout "$hdmi_connector"
 	fi
 }
 
-sleep 2
+sleep 5
 apply_when_ready
 
 last_apply=0
@@ -136,7 +167,7 @@ gdbus monitor --session \
 		case "$line" in
 		*MonitorsChanged*)
 			now=$(date +%s)
-			if [ $((now - last_apply)) -lt 2 ]; then
+			if [ $((now - last_apply)) -lt 5 ]; then
 				continue
 			fi
 			last_apply=$now

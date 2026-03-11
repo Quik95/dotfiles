@@ -1,7 +1,7 @@
 {...}: {
   dconf.settings = {
     "org/gnome/mutter" = {
-      experimental-features = ["variable-refresh-rate"];
+      experimental-features = [];
     };
   };
 }

@@ -24,7 +24,7 @@
     paths = [opencodeWrapped];
     nativeBuildInputs = [pkgs.makeWrapper];
     postBuild = ''
-      wrapProgram $out/bin/opencode --set OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT "true"
+      wrapProgram $out/bin/opencode --set OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT "true" --set OPENCODE_DISABLE_LSP_DOWNLOAD "true"
     '';
   };
 in {

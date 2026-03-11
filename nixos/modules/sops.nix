@@ -1,9 +1,7 @@
-{config, ...}: let
-  homeDir = config.users.users.sebastian.home;
-in {
+{...}: {
   sops = {
     defaultSopsFile = ../../home-manager/secrets/eduroam-certificate.bin;
-    age.keyFile = "${homeDir}/.config/sops/age/keys.txt";
+    age.keyFile = "/var/lib/sops-nix/key.txt";
 
     secrets = {
       eduroam-certificate = {

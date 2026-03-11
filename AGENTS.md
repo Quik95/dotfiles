@@ -14,7 +14,7 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 - **Terminal:** Ghostty with Fish shell
 - **Editor:** Neovim (`nixvim`)
 - **Theme:** Stylix (`purple-rain` base24)
-- **Age key path:** `~/.config/sops/age/keys.txt`
+- **Age key path:** `/var/lib/sops-nix/key.txt`
 
 ## Quick Commands
 

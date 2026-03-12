@@ -1,5 +1,5 @@
 {
-  description = "flake for yourHostNameGoesHere";
+  description = "NixOS and Home Manager configurations for sebastian's laptops";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -19,6 +19,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
+    nix-jetbrains-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +61,10 @@
 
     homeConfigurations."sebastian@sebastian-laptop-hp" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home-manager/home.nix];
+      modules = [
+        ./home-manager/home.nix
+        ./home-manager/hosts/sebastian-laptop-hp.nix
+      ];
       extraSpecialArgs = {
         inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
         hostname = "sebastian-laptop-hp";

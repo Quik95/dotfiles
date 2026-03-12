@@ -22,10 +22,11 @@ in {
     algorithm = "zstd";
   };
 
+  # Override hardware-configuration's 4 GB swap with 18 GB for hibernation
   swapDevices = lib.mkForce [
     {
       device = "/swap/swapfile";
-      size = 18432; # 18 GB, aby pomieścić zrzut RAM podczas hibernacji
+      size = 18432;
     }
   ];
 

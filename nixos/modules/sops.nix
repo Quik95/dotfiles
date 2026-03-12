@@ -1,6 +1,8 @@
 {...}: {
   sops = {
     defaultSopsFile = ../../home-manager/secrets/eduroam-certificate.bin;
+    # System-level key (root-owned); HM uses a separate user-level key
+    # at $XDG_CONFIG_HOME/sops/age/keys.txt (see home-manager/modules/sops.nix)
     age.keyFile = "/var/lib/sops-nix/key.txt";
 
     secrets = {

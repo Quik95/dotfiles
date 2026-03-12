@@ -2,6 +2,8 @@
   gpgHome = config.custom.gpg.homedirLocation;
 in {
   sops = {
+    # User-level key; NixOS system secrets use a separate root-owned key
+    # at /var/lib/sops-nix/key.txt (see nixos/modules/sops.nix)
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
     secrets = {
       identity-public-key = {

@@ -1,4 +1,4 @@
-{...}: let
+{lib, ...}: let
   lenovoConservation = {
     enable = true;
     mode = 1; # 1 = conservation on (~80%), 0 = off (charge to 100%)
@@ -15,8 +15,36 @@ in {
   dotfiles.i2c.enable = true;
   dotfiles.passwordless-sudo.enable = false;
 
+  # --- PAMIĘĆ I SWAP ---
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    algorithm = "zstd";
+  };
+
+  swapDevices = lib.mkForce [
+    {
+      device = "/swap/swapfile";
+      size = 18432; # 18 GB, aby pomieścić zrzut RAM podczas hibernacji
+    }
+  ];
+
   boot.kernel.sysctl = {
     "vm.swappiness" = 100;
+    "vm.vfs_cache_pressure" = 125;
+    "vm.dirty_ratio" = 10;
+    "vm.dirty_background_ratio" = 5;
+  };
+
+  # --- HIBERNACJA I ZARZĄDZANIE ENERGIĄ ---
+  boot.resumeDevice = "/dev/disk/by-uuid/17c79fd8-ce47-40f6-8953-c926267eb013";
+  boot.kernelParams = ["resume_offset=47286090"];
+
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "120m";
+    SuspendState = "mem";
   };
 
   # Clone MAC address from HP laptop for network allow-list compatibility

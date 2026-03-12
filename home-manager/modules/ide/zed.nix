@@ -9,6 +9,7 @@
 
   programs.zed-editor = {
     enable = true;
+    enableMcpIntegration = true;
     extensions = [
       "angular"
       "catppuccin"
@@ -113,16 +114,6 @@
         inline_assistant_model = {
           provider = "copilot_chat";
           model = "gpt-5-mini";
-        };
-      };
-      context_servers = {
-        eslint-mcp = {
-          command = "${pkgs.eslint}/bin/eslint";
-          args = ["--mcp"];
-        };
-        angular-mcp = {
-          command = "nix-shell";
-          args = ["-p" "nodejs" "--command" "npx -y @angular/cli mcp"];
         };
       };
       edit_predictions = {

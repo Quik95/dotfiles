@@ -9,6 +9,7 @@
     ./i2c.nix
     ./keyd.nix
     ./laptop-power.nix
+    ./modem-manager.nix
     ./nh.nix
     ./openvpn.nix
     ./packages.nix

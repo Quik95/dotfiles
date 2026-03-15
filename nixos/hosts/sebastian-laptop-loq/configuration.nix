@@ -1,8 +1,14 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   lenovoConservation = {
     enable = true;
     mode = 1; # 1 = conservation on (~80%), 0 = off (charge to 100%)
   };
+  useUpowerChargeThreshold = config.services.desktopManager.gnome.enable;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -58,16 +64,26 @@ in {
     }
   ];
 
-  # Lenovo LOQ/IdeaPad family exposes a boolean conservation mode in sysfs.
-  # 1 = on (fixed vendor threshold, usually ~80%), 0 = off (charge to 100%).
+  # Under GNOME, prefer UPower D-Bus API for charge-threshold control.
+  # Outside GNOME, fall back to Lenovo ideapad_acpi sysfs conservation mode.
   systemd.services =
     if lenovoConservation.enable
     then {
       lenovo-conservation-mode = {
         description = "Set Lenovo battery conservation mode";
         wantedBy = ["multi-user.target"];
-        after = ["local-fs.target"];
-        unitConfig.ConditionPathExistsGlob = "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode";
+        after =
+          ["local-fs.target"]
+          ++ lib.optionals useUpowerChargeThreshold ["upower.service"];
+        wants = lib.optionals useUpowerChargeThreshold ["upower.service"];
+        unitConfig =
+          if useUpowerChargeThreshold
+          then {
+            ConditionPathExists = "/run/dbus/system_bus_socket";
+          }
+          else {
+            ConditionPathExistsGlob = "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode";
+          };
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
@@ -110,15 +126,30 @@ in {
             "~@clock"
           ];
           UMask = "0077";
-          ReadWritePaths = ["/sys/bus/platform/drivers/ideapad_acpi"];
+          ReadWritePaths = lib.optionals (!useUpowerChargeThreshold) ["/sys/bus/platform/drivers/ideapad_acpi"];
         };
-        script = ''
-          for f in /sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode; do
-            if [ -w "$f" ]; then
-              echo ${toString lenovoConservation.mode} > "$f"
-            fi
-          done
-        '';
+        script =
+          if useUpowerChargeThreshold
+          then ''
+            enabled=${
+              if lenovoConservation.mode == 1
+              then "true"
+              else "false"
+            }
+
+            for dev in /org/freedesktop/UPower/devices/battery_BAT0 /org/freedesktop/UPower/devices/battery_BAT1; do
+              if ${pkgs.systemd}/bin/busctl --system --quiet get-property org.freedesktop.UPower "$dev" org.freedesktop.UPower.Device ChargeThresholdSupported >/dev/null 2>&1; then
+                ${pkgs.systemd}/bin/busctl --system call org.freedesktop.UPower "$dev" org.freedesktop.UPower.Device EnableChargeThreshold b "$enabled"
+              fi
+            done
+          ''
+          else ''
+            for f in /sys/bus/platform/drivers/ideapad_acpi/VPC2004:*/conservation_mode; do
+              if [ -w "$f" ]; then
+                echo ${toString lenovoConservation.mode} > "$f"
+              fi
+            done
+          '';
       };
     }
     else {};

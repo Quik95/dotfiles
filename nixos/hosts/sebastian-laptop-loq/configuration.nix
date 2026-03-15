@@ -16,6 +16,17 @@ in {
     ../../common.nix
   ];
 
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.limine = {
+    enable = true;
+    efiSupport = true;
+    extraEntries = ''
+      /CachyOS
+        protocol: efi_chainload
+        image_path: guid(693a1c82-49ed-471e-9148-b8713c216f5f):/EFI/limine/limine_x64.efi
+    '';
+  };
+
   networking.hostName = "sebastian-laptop-loq";
   dotfiles.eduroam.interfaceName = "wlp9s0";
   dotfiles.i2c.enable = true;

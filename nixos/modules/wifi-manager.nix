@@ -62,6 +62,14 @@ in {
     };
   };
 
+  systemd.timers.wifi-manager-sync = {
+    description = "Debounce timer for WiFi state sync";
+    timerConfig = {
+      OnActiveSec = "3s";
+      AccuracySec = "1s";
+    };
+  };
+
   systemd.services.wifi-manager-resume = {
     description = "Sync WiFi state after system resume";
     after = ["suspend.target" "hibernate.target" "hybrid-sleep.target"];
@@ -69,14 +77,14 @@ in {
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.systemd}/bin/systemctl start wifi-manager-sync.service";
+      ExecStart = "${pkgs.systemd}/bin/systemctl restart wifi-manager-sync.timer";
     };
   };
 
   networking.networkmanager.dispatcherScripts = [
     {
       source = pkgs.writeShellScript "wifi-manager-dispatcher" ''
-        ${pkgs.systemd}/bin/systemctl start wifi-manager-sync.service
+        ${pkgs.systemd}/bin/systemctl restart wifi-manager-sync.timer
       '';
       type = "basic";
     }

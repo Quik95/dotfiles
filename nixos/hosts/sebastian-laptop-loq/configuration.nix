@@ -12,7 +12,8 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ./nvidia.nix
+    ./gpu.nix
+    ./gpu-specialisations.nix
     ../../common.nix
   ];
 
@@ -64,7 +65,6 @@ in {
     HibernateDelaySec = "120m";
     SuspendState = "mem";
   };
-
 
   assertions = [
     {

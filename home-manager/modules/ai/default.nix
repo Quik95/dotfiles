@@ -1,6 +1,14 @@
 {hostname, ...}: let
+  aiAgentsSharedSkills = ''
+    Shared AI skill references:
+    - Nix best practices: https://skills.sh/0xbigboss/claude-code/nix-best-practices
+      Use this skill for Nix, NixOS, Home Manager, flakes, and nixpkgs-related tasks.
+  '';
+
   aiAgentsSystemInstruction = ''
     Current system: ${hostname}
+
+    ${aiAgentsSharedSkills}
   '';
   aiAgentsGitContextCommand = builtins.readFile ./commands/git-context.md;
 in {

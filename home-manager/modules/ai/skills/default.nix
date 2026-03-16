@@ -10,7 +10,7 @@
   };
 in {
   "${basePath}/bash-expert/SKILL.md".source = ./bash.md;
-  "${basePath}/dotnet-core-expert/SKILL.md".source = ./dotnet.md;
+  "${basePath}/nix-best-practices/SKILL.md".source = ./nix-best-practices.md;
   "${basePath}/powershell-expert/SKILL.md".source = ./powershell.md;
   "${basePath}/typst-author/SKILL.md".source = "${typst-author}/SKILL.md";
   "${basePath}/typst-author/docs" = {

@@ -11,6 +11,8 @@
 
       hardware.nvidia.powerManagement.enable = lib.mkForce true;
       hardware.nvidia.powerManagement.finegrained = lib.mkForce true;
+
+      hardware.nvidia.nvidiaPersistenced = lib.mkForce false;
     };
 
     # Odpowiednik envycontrol -s integrated

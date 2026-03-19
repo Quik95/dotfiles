@@ -4,7 +4,7 @@
   hostname,
   ...
 }: let
-  isLoq = hostname == "sebastian-laptop-loq";
+  isLoq = builtins.elem hostname ["sebastian-laptop-loq" "sebastian-laptop-legion"];
   features =
     [
       "UseOzonePlatform"

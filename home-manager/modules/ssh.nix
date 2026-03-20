@@ -41,5 +41,15 @@
       enableSshSupport = true;
       pinentry.package = pkgs.pinentry-gnome3;
     };
+
+    home.activation.importGpgKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      for key in \
+        ${config.sops.secrets.master-public-gpg-key.path} \
+        ${config.sops.secrets.master-private-gpg-key.path}; do
+        if [ -f "$key" ]; then
+          run ${pkgs.gnupg}/bin/gpg --homedir ${config.programs.gpg.homedir} --import "$key"
+        fi
+      done
+    '';
   };
 }

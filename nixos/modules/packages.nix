@@ -27,11 +27,12 @@
     btop
     fd
     fish
+    ghostty
     neovim
+    powershell
     ripgrep
     shellcheck
     shfmt
-    powershell
 
     # filesystems
     ntfs3g

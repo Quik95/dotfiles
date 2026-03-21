@@ -12,7 +12,7 @@
         email = "quikstyletv@gmail.com";
       };
 
-      aliases = {
+      alias = {
         df = "difftool";
         d = "diff";
         s = "status";
@@ -38,7 +38,10 @@
         algorithm = "histogram";
         mnemonicPrefix = true;
         renames = true;
+        tool = "difftastic";
       };
+      difftool.prompt = false;
+      "difftool \"difftastic\"".cmd = "difft \"$LOCAL\" \"$REMOTE\"";
 
       fetch = {
         prune = true;
@@ -90,16 +93,29 @@
   programs.lazygit = {
     enable = true;
     settings = {
-      git.overrideGpg = true;
-      useExternalDiffGitConfig = true;
+      git = {
+        overrideGpg = true;
+        pagers = [
+          {
+            pager = "delta --paging=never";
+          }
+          {
+            externalDiffCommand = "difft --color=always";
+          }
+        ];
+      };
     };
   };
 
-  programs.difftastic = {
+  programs.delta = {
     enable = true;
-    git = {
-      enable = true;
-      diffToolMode = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      side-by-side = true;
+      line-numbers = true;
     };
   };
+
+  programs.difftastic.enable = true;
 }

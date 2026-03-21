@@ -16,9 +16,9 @@
 
     nvidiaSettings = true;
 
-    # Prioritize smoothness for multi-monitor setups.
-    # Keep dGPU active (at a battery cost), without aggressive RTD3.
-    powerManagement.enable = false;
+    # Save and restore VRAM across suspend/resume to prevent Xid 13
+    # (shader corruption / missing textures after wake).
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
 
     # Balance power between CPU and GPU (laptops with Dynamic Boost support)

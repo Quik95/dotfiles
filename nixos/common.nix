@@ -1,10 +1,6 @@
 {pkgs, ...}: let
   env = import ../shared/env.nix;
 in {
-  imports = [
-    ./modules/default.nix
-  ];
-
   # Enable networking
   networking.networkmanager.enable = true;
 

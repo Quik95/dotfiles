@@ -1,15 +1,12 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
     ./gpu-specialisations.nix
     ./bluetooth.nix
-    ./lenovo-conservation.nix
-    ../../common.nix
   ];
+
+  nixfiles.enable = true;
 
   fileSystems."/".options = ["compress=zstd"];
   fileSystems."/home".options = ["compress=zstd"];
@@ -31,10 +28,14 @@
 
   networking.hostName = "sebastian-laptop-legion";
   networking.networkmanager.ethernet.macAddress = "38:a7:46:3b:16:ed";
-  dotfiles.eduroam.interfaceName = "wlp4s0";
+  nixfiles.eduroam.interfaceName = "wlp4s0";
 
-  dotfiles.i2c.enable = true;
-  dotfiles.passwordless-sudo.enable = false;
+  nixfiles.i2c.enable = true;
+  nixfiles.passwordless-sudo.enable = false;
+  nixfiles.power.lenovo-conservation = {
+    enable = true;
+    mode = 1;
+  };
 
   boot.kernelParams = ["amd_pstate=active"];
 

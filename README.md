@@ -4,6 +4,23 @@ NixOS + Home Manager flake for Sebastian's laptops.
 
 Available configurations: `sebastian-laptop-hp`, `sebastian-laptop-loq`, `sebastian-laptop-legion`.
 
+## Unified modules (nixfiles)
+
+Repo korzysta teraz z układu modułów inspirowanego "Unified Modules":
+
+- `modules/common.nix` - opcje wspólne (`nixfiles.*`) + automatyczny import `common.nix` i `home.nix`.
+- `modules/nixos.nix` - główny moduł NixOS, automatycznie importuje wszystkie `nixos.nix`.
+- `modules/home-standalone.nix` - automatyczny import `home.nix` dla `homeConfigurations` (bez `core/home.nix`).
+- `modules/<kategoria>/<modul>/common.nix` - deklaracje opcji.
+- `modules/<kategoria>/<modul>/nixos.nix` - konfiguracja systemowa.
+- `modules/<kategoria>/<modul>/home.nix` - konfiguracja Home Manager (opcjonalna).
+
+W hostach NixOS aktywujesz to przez:
+
+```nix
+nixfiles.enable = true;
+```
+
 ## Bootstrap na świeżej instalacji
 
 ### 1) Sklonuj repo

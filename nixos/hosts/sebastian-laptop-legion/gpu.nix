@@ -27,7 +27,6 @@
     # Keep GPU context active for lower wake latency.
     nvidiaPersistenced = true;
 
-
     # PRIME sync: NVIDIA renders, iGPU drives the internal panel.
     prime = {
       sync.enable = true;

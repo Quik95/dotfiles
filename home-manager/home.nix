@@ -12,8 +12,6 @@
     nix-flatpak.homeManagerModules.nix-flatpak
     sops-nix.homeManagerModules.sops
     stylix.homeModules.stylix
-
-    ./modules/default.nix
   ];
 
   programs.home-manager.enable = true;

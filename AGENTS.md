@@ -78,17 +78,24 @@ sops home-manager/secrets/<file>.yaml
 .
 ├── flake.nix
 ├── flake.lock
+├── modules/
+│   ├── common.nix
+│   ├── nixos.nix
+│   ├── home-standalone.nix
+│   ├── core/
+│   │   └── nixos.nix
+│   └── ...
 ├── nixos/
+│   ├── common.nix
 │   ├── hosts/
 │   │   ├── sebastian-laptop-hp/
 │   │   │   ├── configuration.nix
 │   │   │   └── hardware-configuration.nix
 │   │   └── sebastian-laptop-loq/
 │   │       └── configuration.nix
-│   └── modules/
 ├── home-manager/
 │   ├── home.nix
-│   ├── modules/
+│   ├── hosts/
 │   └── secrets/
 └── shared/
     └── env.nix
@@ -178,4 +185,4 @@ Do not inline secret values in Nix code or use `builtins.readFile` for secret co
 
 - Prefer quiet, non-interactive invocations for automation (`--quiet`, `--dry-run` where appropriate).
 - `NH_FLAKE` is typically set in shell env vars, but repo-local `.` flake references are preferred in this file.
-- `home-manager/modules/scripts/link-agents.ps1` manages `CLAUDE.md` and `GEMINI.md` symlinks to `AGENTS.md`.
+- `modules/scripts/link-agents.ps1` manages `CLAUDE.md` and `GEMINI.md` symlinks to `AGENTS.md`.

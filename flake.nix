@@ -47,6 +47,7 @@
       inherit system;
       modules = [
         sops-nix.nixosModules.sops
+        ./modules/nixos.nix
         ./nixos/hosts/sebastian-laptop-hp/configuration.nix
       ];
     };
@@ -55,6 +56,7 @@
       inherit system;
       modules = [
         sops-nix.nixosModules.sops
+        ./modules/nixos.nix
         ./nixos/hosts/sebastian-laptop-loq/configuration.nix
       ];
     };
@@ -63,6 +65,7 @@
       inherit system;
       modules = [
         sops-nix.nixosModules.sops
+        ./modules/nixos.nix
         ./nixos/hosts/sebastian-laptop-legion/configuration.nix
       ];
     };
@@ -71,6 +74,7 @@
       inherit pkgs;
       modules = [
         ./home-manager/home.nix
+        ./modules/home-standalone.nix
         ./home-manager/hosts/sebastian-laptop-hp.nix
       ];
       extraSpecialArgs = {
@@ -83,6 +87,7 @@
       inherit pkgs;
       modules = [
         ./home-manager/home.nix
+        ./modules/home-standalone.nix
         ./home-manager/hosts/sebastian-laptop-loq.nix
       ];
       extraSpecialArgs = {
@@ -95,6 +100,7 @@
       inherit pkgs;
       modules = [
         ./home-manager/home.nix
+        ./modules/home-standalone.nix
         ./home-manager/hosts/sebastian-laptop-legion.nix
       ];
       extraSpecialArgs = {

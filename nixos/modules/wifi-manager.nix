@@ -64,6 +64,9 @@ in {
 
   systemd.timers.wifi-manager-sync = {
     description = "Debounce timer for WiFi state sync";
+    unitConfig = {
+      StartLimitIntervalSec = 0;
+    };
     timerConfig = {
       OnActiveSec = "3s";
       AccuracySec = "1s";
@@ -84,7 +87,7 @@ in {
   networking.networkmanager.dispatcherScripts = [
     {
       source = pkgs.writeShellScript "wifi-manager-dispatcher" ''
-        ${pkgs.systemd}/bin/systemctl restart wifi-manager-sync.timer
+        ${pkgs.systemd}/bin/systemctl restart wifi-manager-sync.timer || true
       '';
       type = "basic";
     }

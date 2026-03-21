@@ -36,7 +36,7 @@
       lg = "lazygit";
       sudo = "run0";
       nix-shell = "nix-shell --run fish";
-      wlcopy = "wl-copy";
+      wlc = "wl-copy";
       wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
     };
 

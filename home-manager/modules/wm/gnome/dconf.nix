@@ -45,7 +45,7 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = lib.hm.gvariant.mkUint32 0;
+      idle-delay = lib.mkDefault (lib.hm.gvariant.mkUint32 0);
     };
 
     "org/gnome/mutter" = {

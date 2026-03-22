@@ -52,15 +52,6 @@
       ];
     };
 
-    nixosConfigurations.sebastian-laptop-loq = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        sops-nix.nixosModules.sops
-        ./modules/nixos.nix
-        ./nixos/hosts/sebastian-laptop-loq/configuration.nix
-      ];
-    };
-
     nixosConfigurations.sebastian-laptop-legion = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
@@ -80,19 +71,6 @@
       extraSpecialArgs = {
         inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
         hostname = "sebastian-laptop-hp";
-      };
-    };
-
-    homeConfigurations."sebastian@sebastian-laptop-loq" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [
-        ./home-manager/home.nix
-        ./modules/home-standalone.nix
-        ./home-manager/hosts/sebastian-laptop-loq.nix
-      ];
-      extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
-        hostname = "sebastian-laptop-loq";
       };
     };
 

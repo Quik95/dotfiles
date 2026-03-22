@@ -4,8 +4,8 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 
 ## Scope
 
-- **System configs:** `nixosConfigurations.sebastian-laptop-hp`, `nixosConfigurations.sebastian-laptop-loq`
-- **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-hp"`, `homeConfigurations."sebastian@sebastian-laptop-loq"`
+- **System configs:** `nixosConfigurations.sebastian-laptop-hp`, `nixosConfigurations.sebastian-laptop-legion`
+- **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-hp"`, `homeConfigurations."sebastian@sebastian-laptop-legion"`
 - **Platform:** `x86_64-linux` on NixOS unstable
 - **Desktop:** GNOME
 
@@ -33,8 +33,8 @@ nix build .#homeConfigurations.\"sebastian@sebastian-laptop-hp\".activationPacka
 # Dry-run NixOS system build (HP)
 nix build .#nixosConfigurations.sebastian-laptop-hp.config.system.build.toplevel --dry-run --quiet
 
-# Dry-run NixOS system build (LOQ)
-nix build .#nixosConfigurations.sebastian-laptop-loq.config.system.build.toplevel --dry-run --quiet
+# Dry-run NixOS system build (Legion)
+nix build .#nixosConfigurations.sebastian-laptop-legion.config.system.build.toplevel --dry-run --quiet
 
 # Formatting check only
 nix fmt . -- --check
@@ -46,8 +46,8 @@ nix fmt . -- --check
 # NixOS switch (HP)
 sudo nixos-rebuild switch --flake .#sebastian-laptop-hp --quiet
 
-# NixOS switch (LOQ)
-sudo nixos-rebuild switch --flake .#sebastian-laptop-loq --quiet
+# NixOS switch (Legion)
+sudo nixos-rebuild switch --flake .#sebastian-laptop-legion --quiet
 
 # NixOS test (temporary activation)
 sudo nixos-rebuild test --flake .#sebastian-laptop-hp --quiet
@@ -91,7 +91,7 @@ sops home-manager/secrets/<file>.yaml
 │   │   ├── sebastian-laptop-hp/
 │   │   │   ├── configuration.nix
 │   │   │   └── hardware-configuration.nix
-│   │   └── sebastian-laptop-loq/
+│   │   └── sebastian-laptop-legion/
 │   │       └── configuration.nix
 ├── home-manager/
 │   ├── home.nix

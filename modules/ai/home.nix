@@ -14,8 +14,8 @@
 in {
   assertions = [
     {
-      assertion = builtins.elem hostname ["sebastian-laptop-hp" "sebastian-laptop-loq" "sebastian-laptop-legion"];
-      message = "Unsupported hostname '${hostname}'. Expected sebastian-laptop-hp, sebastian-laptop-loq, or sebastian-laptop-legion.";
+      assertion = builtins.elem hostname ["sebastian-laptop-hp" "sebastian-laptop-legion"];
+      message = "Unsupported hostname '${hostname}'. Expected sebastian-laptop-hp or sebastian-laptop-legion.";
     }
   ];
 

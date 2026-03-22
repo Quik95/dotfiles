@@ -2,7 +2,7 @@
 
 NixOS + Home Manager flake for Sebastian's laptops.
 
-Available configurations: `sebastian-laptop-hp`, `sebastian-laptop-loq`, `sebastian-laptop-legion`.
+Available configurations: `sebastian-laptop-hp`, `sebastian-laptop-legion`.
 
 ## Unified modules (nixfiles)
 

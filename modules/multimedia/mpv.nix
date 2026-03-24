@@ -137,7 +137,6 @@
 
       target-colorspace-hint = "yes";
       tone-mapping = "bt.2446a";
-      tone-mapping-mode = "hybrid";
       hdr-compute-peak = "yes";
       gamut-mapping-mode = "clip";
 

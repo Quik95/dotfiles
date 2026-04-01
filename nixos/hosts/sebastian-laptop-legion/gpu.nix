@@ -14,7 +14,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
 
-    nvidiaSettings = true;
+    nvidiaSettings = false;
 
     # Save and restore VRAM across suspend/resume to prevent Xid 13
     # (shader corruption / missing textures after wake).

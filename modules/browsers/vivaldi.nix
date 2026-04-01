@@ -29,5 +29,5 @@
     ];
   };
 in {
-  home.packages = [vivaldiWrapped];
+    # home.packages = [vivaldiWrapped];
 }

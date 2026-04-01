@@ -44,6 +44,7 @@
     wget
     compsize
     wl-clipboard
+    jq
     sqlite
     litecli
     ouch

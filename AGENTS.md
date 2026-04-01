@@ -186,3 +186,4 @@ Do not inline secret values in Nix code or use `builtins.readFile` for secret co
 - Prefer quiet, non-interactive invocations for automation (`--quiet`, `--dry-run` where appropriate).
 - `NH_FLAKE` is typically set in shell env vars, but repo-local `.` flake references are preferred in this file.
 - `modules/scripts/link-agents.ps1` manages `CLAUDE.md` and `GEMINI.md` symlinks to `AGENTS.md`.
+- Use `jq` for JSON parsing, not `python3 -m json.tool` or inline Python.

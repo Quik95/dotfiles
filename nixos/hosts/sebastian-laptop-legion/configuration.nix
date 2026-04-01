@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib, pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
@@ -38,9 +38,27 @@
     mode = 1;
   };
 
-  boot.kernelParams = ["amd_pstate=active"];
+  boot.kernelParams = [
+    "amd_pstate=active"
+    # Prevent ACPI EC from immediately waking the system during s2idle,
+    # which happens when an external monitor is connected via NVIDIA HDMI.
+    "acpi.ec_no_wakeup=1"
+  ];
 
   services.logind.settings.Login.HandleLidSwitch = "suspend";
+
+  # Stop the GDM greeter user session before suspend. Without this, systemd-sleep
+  # tries to freeze user.slice while logind simultaneously removes the greeter
+  # session (user@60578 / gdm-greeter), causing a 60s deadlock timeout.
+  systemd.services.pre-sleep-gdm-greeter-cleanup = {
+    description = "Stop GDM greeter session before suspend";
+    before = [ "sleep.target" ];
+    wantedBy = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "-${pkgs.systemd}/bin/systemctl stop user@60578.service";
+    };
+  };
 
   systemd.sleep.settings.Sleep = {
     AllowHibernation = "no";

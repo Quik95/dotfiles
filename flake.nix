@@ -23,6 +23,9 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs";
+
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -35,12 +38,14 @@
     stylix,
     nix-jetbrains-plugins,
     llm-agents,
+    nur,
     ...
   } @ attrs: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [nur.overlays.default];
     };
   in {
     nixosConfigurations.sebastian-laptop-hp = nixpkgs.lib.nixosSystem {

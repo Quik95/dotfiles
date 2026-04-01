@@ -42,6 +42,10 @@ in {
       name = "default";
       search = import ./firefox-bookmarks.nix;
 
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        gesturefy
+      ];
+
       settings = {
         # General settings
         "browser.shell.checkDefaultBrowser" = false;
@@ -159,6 +163,10 @@ in {
           currentVersion = 23;
           newElementCount = 2;
         };
+
+        # Mouse gestures
+        "dom.event.contextmenu.enabled" = true;
+        "ui.context_menus.after_mouseup" = true;
 
         # Spellcheck
         "spellchecker.dictionary" = "pl,en-GB";

@@ -43,7 +43,17 @@ in {
       search = import ./firefox-bookmarks.nix;
 
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        bitwarden
+        consent-o-matic
         gesturefy
+        raindropio
+        refined-github
+        sponsorblock
+        ublock-origin
+        videospeed
+        violentmonkey
+        wappalyzer
+        youtube-recommended-videos
       ];
 
       settings = {

@@ -1,14 +1,14 @@
 {
   pkgs,
   nix-flatpak,
-  nixvim,
+  lazyvim,
   sops-nix,
   stylix,
   hostname,
   ...
 }: {
   imports = [
-    nixvim.homeModules.nixvim
+    lazyvim.homeManagerModules.default
     nix-flatpak.homeManagerModules.nix-flatpak
     sops-nix.homeManagerModules.sops
     stylix.homeModules.stylix

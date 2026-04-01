@@ -7,8 +7,8 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    lazyvim.url = "github:pfassina/lazyvim-nix/1d4fe049ef1ccfc2b0ad2ce2b01fb8f92c3e51ef";
+    lazyvim.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +33,7 @@
     nixpkgs,
     home-manager,
     nix-flatpak,
-    nixvim,
+    lazyvim,
     sops-nix,
     stylix,
     nix-jetbrains-plugins,
@@ -74,7 +74,7 @@
         ./home-manager/hosts/sebastian-laptop-hp.nix
       ];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
+        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents;
         hostname = "sebastian-laptop-hp";
       };
     };
@@ -87,7 +87,7 @@
         ./home-manager/hosts/sebastian-laptop-legion.nix
       ];
       extraSpecialArgs = {
-        inherit nix-flatpak nixvim sops-nix stylix nix-jetbrains-plugins llm-agents;
+        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents;
         hostname = "sebastian-laptop-legion";
       };
     };

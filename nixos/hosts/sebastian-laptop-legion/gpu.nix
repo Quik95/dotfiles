@@ -2,7 +2,6 @@
   # RTX 5050 Mobile (Blackwell) + AMD Ryzen 7 hybrid graphics
 
   services.xserver.videoDrivers = ["nvidia"];
-  # Mixed-refresh multi-monitor setups are more reliable on GNOME Wayland than X11.
   services.displayManager.gdm.wayland = true;
 
   hardware.graphics.enable = true;
@@ -19,17 +18,21 @@
     # Save and restore VRAM across suspend/resume to prevent Xid 13
     # (shader corruption / missing textures after wake).
     powerManagement.enable = true;
-    powerManagement.finegrained = false;
+    # RTD3 — dGPU sleeps when no clients hold it open.
+    # HDMI connected to the dGPU keeps it awake automatically.
+    powerManagement.finegrained = true;
 
-    # Balance power between CPU and GPU (laptops with Dynamic Boost support)
-    dynamicBoost.enable = true;
+    # Dynamic Boost (nvidia-powerd) aggressively caps GPU clocks, causing
+    # the compositor to occasionally miss vblank deadlines on HDMI output.
+    dynamicBoost.enable = false;
 
-    # Keep GPU context active for lower wake latency.
-    nvidiaPersistenced = true;
+    nvidiaPersistenced = false;
 
-    # PRIME sync: NVIDIA renders, iGPU drives the internal panel.
+    # PRIME offload: AMD iGPU composites, dGPU renders on demand
+    # (`nvidia-offload <cmd>`). HDMI on the dGPU works via display offload.
     prime = {
-      sync.enable = true;
+      offload.enable = true;
+      offload.enableOffloadCmd = true;
 
       # AMD iGPU: 65:00.0 (0x65 = 101 decimal)
       amdgpuBusId = "PCI:101:0:0";

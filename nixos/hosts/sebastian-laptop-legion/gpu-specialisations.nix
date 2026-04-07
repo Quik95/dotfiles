@@ -1,18 +1,17 @@
 {lib, ...}: {
   specialisation = {
-    # Equivalent to envycontrol -s hybrid
-    # dGPU sleeps (RTD3), wakes up via `nvidia-offload <cmd>`
-    hybrid.configuration = {
-      system.nixos.tags = ["hybrid"];
+    # Equivalent to envycontrol -s nvidia
+    # NVIDIA renders everything, best for gaming / GPU-bound workloads.
+    sync.configuration = {
+      system.nixos.tags = ["sync"];
 
-      hardware.nvidia.prime.sync.enable = lib.mkForce false;
-      hardware.nvidia.prime.offload.enable = lib.mkForce true;
-      hardware.nvidia.prime.offload.enableOffloadCmd = lib.mkForce true;
+      hardware.nvidia.prime.offload.enable = lib.mkForce false;
+      hardware.nvidia.prime.offload.enableOffloadCmd = lib.mkForce false;
+      hardware.nvidia.prime.sync.enable = lib.mkForce true;
 
-      hardware.nvidia.powerManagement.enable = lib.mkForce true;
-      hardware.nvidia.powerManagement.finegrained = lib.mkForce true;
+      hardware.nvidia.powerManagement.finegrained = lib.mkForce false;
 
-      hardware.nvidia.nvidiaPersistenced = lib.mkForce false;
+      hardware.nvidia.nvidiaPersistenced = lib.mkForce true;
     };
 
     # Equivalent to envycontrol -s integrated
@@ -30,7 +29,8 @@
         "nouveau"
       ];
 
-      hardware.nvidia.prime.sync.enable = lib.mkForce false;
+      hardware.nvidia.prime.offload.enable = lib.mkForce false;
+      hardware.nvidia.prime.offload.enableOffloadCmd = lib.mkForce false;
       hardware.nvidia.dynamicBoost.enable = lib.mkForce false;
       hardware.nvidia.nvidiaPersistenced = lib.mkForce false;
     };

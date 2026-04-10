@@ -1,4 +1,8 @@
-{lib, pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
@@ -52,8 +56,8 @@
   # session (user@60578 / gdm-greeter), causing a 60s deadlock timeout.
   systemd.services.pre-sleep-gdm-greeter-cleanup = {
     description = "Stop GDM greeter session before suspend";
-    before = [ "sleep.target" ];
-    wantedBy = [ "sleep.target" ];
+    before = ["sleep.target"];
+    wantedBy = ["sleep.target"];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "-${pkgs.systemd}/bin/systemctl stop user@60578.service";

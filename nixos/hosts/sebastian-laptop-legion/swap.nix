@@ -11,9 +11,11 @@
     options = ["subvol=@swap"];
   };
 
-  swapDevices = lib.mkForce [{
-    device = "/swap/swapfile";
-  }];
+  swapDevices = lib.mkForce [
+    {
+      device = "/swap/swapfile";
+    }
+  ];
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 100;

@@ -67,6 +67,16 @@ in {
     extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
   '';
 
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
+
   services.flatpak.enable = true;
   environment.variables = {
     EDITOR = env.editor;

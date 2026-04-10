@@ -11,7 +11,6 @@
       "com.google.Chrome"
       "com.mattjakeman.ExtensionManager"
       "com.spotify.Client"
-      "com.valvesoftware.Steam"
       "dev.vencord.Vesktop"
       "garden.jamie.Morphosis"
       "org.gnome.Fractal"

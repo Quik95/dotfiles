@@ -1,8 +1,10 @@
 {
   pkgs,
   lib,
+  hostname,
   ...
-}: {
+}:
+lib.mkIf (hostname != "sebastian-laptop-legion") {
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       xkb-options = [];

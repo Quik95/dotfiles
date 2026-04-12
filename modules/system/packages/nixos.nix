@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.fish.enable = true;
   environment.shells = [pkgs.bashInteractive pkgs.fish];
   users.defaultUserShell = pkgs.fish;
@@ -17,54 +22,57 @@
     daemon.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    git
-    clang
-    llvmPackages.bintools
+  environment.systemPackages = with pkgs;
+    [
+      git
+      clang
+      llvmPackages.bintools
 
-    # terminal essentials
-    bat
-    btop
-    fd
-    fish
-    ghostty
-    neovim
-    powershell
-    ripgrep
-    shellcheck
-    shfmt
+      # terminal essentials
+      bat
+      btop
+      fd
+      fish
+      ghostty
+      neovim
+      powershell
+      ripgrep
+      shellcheck
+      shfmt
 
-    # filesystems
-    ntfs3g
-    jmtpfs
+      # filesystems
+      ntfs3g
+      jmtpfs
 
-    # misc
-    fastfetch
-    gnome-tweaks
-    wget
-    compsize
-    wl-clipboard
-    jq
-    sqlite
-    litecli
-    ouch
-    mtr
-    file
-    iw
-    wirelesstools
-    gparted
-    usbutils
+      # misc
+      fastfetch
+      wget
+      compsize
+      wl-clipboard
+      jq
+      sqlite
+      litecli
+      ouch
+      mtr
+      file
+      iw
+      wirelesstools
+      gparted
+      usbutils
 
-    # fonts
-    powerline-fonts
+      # fonts
+      powerline-fonts
 
-    # nix stuff
-    nixd
-    nil
-    alejandra
-    nix-output-monitor
-    nvd
-    nurl
-    hydra-check
-  ];
+      # nix stuff
+      nixd
+      nil
+      alejandra
+      nix-output-monitor
+      nvd
+      nurl
+      hydra-check
+    ]
+    ++ lib.optionals config.services.desktopManager.gnome.enable [
+      gnome-tweaks
+    ];
 }

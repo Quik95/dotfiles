@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -6,7 +11,8 @@
   # gvfsd-mtp in the user session claims the USB device via usbfs.
   # Mask the MTP volume monitor so it never starts, and register the
   # device ID with btusb via udev.
-  systemd.user.services.gvfs-mtp-volume-monitor.enable = false;
+  systemd.user.services.gvfs-mtp-volume-monitor.enable =
+    lib.mkIf config.services.desktopManager.gnome.enable false;
 
   services.udev.packages = [
     (pkgs.writeTextFile {

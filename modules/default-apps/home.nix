@@ -1,11 +1,23 @@
 {
   config,
   pkgs,
+  hostname,
   ...
 }: let
+  isLegion = hostname == "sebastian-laptop-legion";
   browser = ["firefox.desktop"];
-  fileManager = ["org.gnome.Nautilus.desktop"];
-  imageViewer = ["org.gnome.Loupe.desktop"];
+  fileManager =
+    if isLegion
+    then ["org.kde.dolphin.desktop"]
+    else ["org.gnome.Nautilus.desktop"];
+  imageViewer =
+    if isLegion
+    then ["org.kde.gwenview.desktop"]
+    else ["org.gnome.Loupe.desktop"];
+  pdfViewer =
+    if isLegion
+    then ["org.kde.okular.desktop"]
+    else ["org.gnome.Papers.desktop"];
   mediaPlayer = ["mpv.desktop"];
   textEditor = ["dev.zed.Zed.desktop"];
 
@@ -69,7 +81,7 @@ in {
         "web-browser" = browser;
         "x-scheme-handler/jetbrains" = ["jetbrains-toolbox.desktop"];
         "x-scheme-handler/fleet" = ["jetbrains-toolbox.desktop"];
-        "application/pdf" = ["org.gnome.Papers.desktop"];
+        "application/pdf" = pdfViewer;
         "inode/directory" = fileManager;
       };
   };

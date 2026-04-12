@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  hostname,
   ...
 }: {
   options = {
@@ -39,7 +40,10 @@
       enable = true;
       enableFishIntegration = true;
       enableSshSupport = true;
-      pinentry.package = pkgs.pinentry-gnome3;
+      pinentry.package =
+        if hostname == "sebastian-laptop-legion"
+        then pkgs.pinentry-qt
+        else pkgs.pinentry-gnome3;
     };
 
     home.activation.importGpgKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''

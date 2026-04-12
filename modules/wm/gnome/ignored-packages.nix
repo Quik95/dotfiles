@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+lib.mkIf (config.networking.hostName != "sebastian-laptop-legion") {
   environment.gnome.excludePackages = with pkgs; [
     atomix
     cheese

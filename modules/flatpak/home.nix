@@ -1,26 +1,35 @@
 {
+  lib,
+  hostname,
+  ...
+}: let
+  isLegion = hostname == "sebastian-laptop-legion";
+in {
   services.flatpak = {
     enable = true;
 
-    packages = [
-      "be.alexandervanhee.gradia"
-      "com.github.flxzt.rnote"
-      "com.github.marhkb.Pods"
-      "com.github.rafostar.Clapper"
-      "com.github.tchx84.Flatseal"
-      "com.google.Chrome"
-      "com.mattjakeman.ExtensionManager"
-      "com.spotify.Client"
-      "dev.vencord.Vesktop"
-      "garden.jamie.Morphosis"
-      "org.gnome.Fractal"
-      "org.gnome.Papers"
-      "org.gnome.gitlab.somas.Apostrophe"
-      "org.jdownloader.JDownloader"
-      "org.libreoffice.LibreOffice"
-      "org.nickvision.money"
-      "page.tesk.Refine"
-    ];
+    packages =
+      [
+        "com.github.flxzt.rnote"
+        "com.github.marhkb.Pods"
+        "com.github.rafostar.Clapper"
+        "com.github.tchx84.Flatseal"
+        "com.google.Chrome"
+        "com.spotify.Client"
+        "dev.vencord.Vesktop"
+        "garden.jamie.Morphosis"
+        "org.gnome.Fractal"
+        "org.gnome.gitlab.somas.Apostrophe"
+        "org.jdownloader.JDownloader"
+        "org.libreoffice.LibreOffice"
+        "org.nickvision.money"
+        "page.tesk.Refine"
+      ]
+      ++ lib.optionals (!isLegion) [
+        "be.alexandervanhee.gradia"
+        "com.mattjakeman.ExtensionManager"
+        "org.gnome.Papers"
+      ];
     uninstallUnmanaged = true;
 
     overrides = {

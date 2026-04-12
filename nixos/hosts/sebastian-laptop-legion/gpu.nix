@@ -2,7 +2,6 @@
   # RTX 5050 Mobile (Blackwell) + AMD Ryzen 7 hybrid graphics
 
   services.xserver.videoDrivers = ["nvidia"];
-  services.displayManager.gdm.wayland = true;
 
   hardware.graphics.enable = true;
 

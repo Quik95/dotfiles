@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  hostname,
   ...
 }: {
   programs.mpv = {
@@ -158,19 +159,22 @@
         profile = "protocol.http";
       };
     };
-    scripts = with pkgs.mpvScripts; [
-      autoload
-      autosubsync-mpv
-      inhibit-gnome
-      memo
-      mpris
-      mpv-playlistmanager
-      quack
-      reload
-      sponsorblock-minimal
-      thumbfast
-      uosc
-    ];
+    scripts = with pkgs.mpvScripts;
+      [
+        autoload
+        autosubsync-mpv
+        memo
+        mpris
+        mpv-playlistmanager
+        quack
+        reload
+        sponsorblock-minimal
+        thumbfast
+        uosc
+      ]
+      ++ lib.optionals (hostname != "sebastian-laptop-legion") [
+        inhibit-gnome
+      ];
     scriptOpts = {
       autosubsync-mpv = {
         ffmpeg_path = "${pkgs.ffmpeg}/bin/ffmpeg";

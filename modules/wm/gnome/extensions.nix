@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  hostname,
   ...
 }: let
   extensions = with pkgs.gnomeExtensions; [
@@ -90,18 +91,19 @@
         else acc
     ) {}
     exts;
-in {
-  config.dconf.settings =
-    mkDconfSettings extensions
-    // {
-      "org/gnome/shell" = {
-        disable-user-extensions = false;
-        disabled-extensions = [];
-        enabled-extensions =
-          lib.map (ext: ext.pkg.extensionUuid)
-          (lib.filter (ext: ext.enabled) extensions);
+in
+  lib.mkIf (hostname != "sebastian-laptop-legion") {
+    dconf.settings =
+      mkDconfSettings extensions
+      // {
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          disabled-extensions = [];
+          enabled-extensions =
+            lib.map (ext: ext.pkg.extensionUuid)
+            (lib.filter (ext: ext.enabled) extensions);
+        };
       };
-    };
 
-  config.home.packages = (lib.map (ext: ext.pkg) extensions) ++ (with pkgs; [ddcutil]);
-}
+    home.packages = (lib.map (ext: ext.pkg) extensions) ++ (with pkgs; [ddcutil]);
+  }

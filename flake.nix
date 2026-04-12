@@ -26,6 +26,10 @@
 
     nur.url = "github:nix-community/NUR";
     nur.inputs.nixpkgs.follows = "nixpkgs";
+
+    plasma-manager.url = "github:nix-community/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
   };
 
   outputs = {
@@ -39,6 +43,7 @@
     nix-jetbrains-plugins,
     llm-agents,
     nur,
+    plasma-manager,
     ...
   } @ attrs: let
     system = "x86_64-linux";
@@ -74,7 +79,7 @@
         ./home-manager/hosts/sebastian-laptop-hp.nix
       ];
       extraSpecialArgs = {
-        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents;
+        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents plasma-manager;
         hostname = "sebastian-laptop-hp";
       };
     };
@@ -87,7 +92,7 @@
         ./home-manager/hosts/sebastian-laptop-legion.nix
       ];
       extraSpecialArgs = {
-        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents;
+        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents plasma-manager;
         hostname = "sebastian-laptop-legion";
       };
     };

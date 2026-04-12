@@ -1,9 +1,11 @@
 {
   pkgs,
+  lib,
   nix-flatpak,
   lazyvim,
   sops-nix,
   stylix,
+  plasma-manager,
   hostname,
   ...
 }: {
@@ -12,6 +14,7 @@
     nix-flatpak.homeManagerModules.nix-flatpak
     sops-nix.homeManagerModules.sops
     stylix.homeModules.stylix
+    plasma-manager.homeModules.plasma-manager
   ];
 
   programs.home-manager.enable = true;
@@ -23,26 +26,29 @@
     stateVersion = "24.11";
   };
 
-  home.packages = with pkgs; [
-    fortune
-    ffmpeg-full
-    resources
-    tokei
-    maestral
-    fselect
-    just
-    mask
-    mprocs
-    kondo
-    appimage-run
-    litecli
+  home.packages = with pkgs;
+    [
+      fortune
+      ffmpeg-full
+      resources
+      tokei
+      maestral
+      fselect
+      just
+      mask
+      mprocs
+      kondo
+      appimage-run
+      litecli
 
-    # required for the gnome-system-monitor extension to work
-    gnome-system-monitor
-    lm_sensors
-    smartmontools
+      lm_sensors
+      smartmontools
 
-    devenv
-    sops
-  ];
+      devenv
+      sops
+    ]
+    ++ lib.optionals (hostname != "sebastian-laptop-legion") [
+      # required for the gnome-system-monitor extension to work
+      gnome-system-monitor
+    ];
 }

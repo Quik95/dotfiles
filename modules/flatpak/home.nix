@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   hostname,
   ...
@@ -33,6 +34,12 @@ in {
     uninstallUnmanaged = true;
 
     overrides = {
+      "org.jdownloader.JDownloader".Context = {
+        filesystems = [
+          "${config.home.homeDirectory}/Videos:rw"
+        ];
+      };
+
       "org.libreoffice.LibreOffice".Context = {
         filesystems = [
           "/tmp:rw"

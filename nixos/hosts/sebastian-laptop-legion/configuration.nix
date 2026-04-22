@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
@@ -38,6 +42,14 @@
     enable = true;
     mode = 1;
   };
+
+  programs.steam.package = lib.mkDefault (
+    pkgs.steam.override {
+      extraEnv = {
+        MANGOHUD = true;
+      };
+    }
+  );
 
   boot.kernelParams = [
     "amd_pstate=active"

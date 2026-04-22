@@ -69,6 +69,11 @@ in {
           command = ["${pkgs.alejandra}" "--quiet" "$FILE"];
         };
       };
+      permission = {
+        external_directory = {
+          "/nix/store/**" = "allow";
+        };
+      };
       keybinds = {
         model_list = "alt+p";
       };

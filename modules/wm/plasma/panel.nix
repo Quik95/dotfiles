@@ -16,6 +16,7 @@
             iconTasks = {
               iconsOnly = false;
               launchers = [
+                "applications:systemsettings.desktop"
                 "applications:org.kde.dolphin.desktop"
                 "applications:com.mitchellh.ghostty.desktop"
                 "applications:firefox.desktop"

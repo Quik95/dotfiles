@@ -32,7 +32,14 @@
             };
           }
           "org.kde.plasma.marginsseparator"
-          "com.pras.syspeek"
+          {
+            name = "com.pras.syspeek";
+            config.General = {
+              useFixedWidth = true;
+              itemSpacing = 26;
+              widgetWidth = 380;
+            };
+          }
           "org.kde.plasma.weather"
           {
             battery.showPercentage = true;

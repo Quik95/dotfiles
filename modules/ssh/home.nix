@@ -39,7 +39,9 @@
     services.gpg-agent = {
       enable = true;
       enableFishIntegration = true;
-      enableSshSupport = true;
+      enableSshSupport = hostname != "sebastian-laptop-legion";
+      defaultCacheTtl = 28800;
+      maxCacheTtl = 28800;
       pinentry.package =
         if hostname == "sebastian-laptop-legion"
         then pkgs.pinentry-qt

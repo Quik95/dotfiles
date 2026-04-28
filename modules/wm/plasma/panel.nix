@@ -51,6 +51,9 @@
                 "org.kde.plasma.networkmanagement"
                 "org.kde.plasma.volume"
               ];
+              hidden = [
+                "org.kde.plasma.battery"
+              ];
             };
           }
           {

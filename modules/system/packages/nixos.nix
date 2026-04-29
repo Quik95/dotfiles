@@ -51,7 +51,6 @@
       wl-clipboard
       jq
       sqlite
-      litecli
       ouch
       mtr
       file

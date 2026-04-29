@@ -39,7 +39,6 @@
       mprocs
       kondo
       appimage-run
-      litecli
 
       lm_sensors
       smartmontools

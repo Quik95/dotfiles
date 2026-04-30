@@ -58,6 +58,8 @@
           turnOffDisplay = {
             idleTimeout = 180;
           };
+          whenLaptopLidClosed = "turnOffScreen";
+          inhibitLidActionWhenExternalMonitorConnected = true;
         };
         battery = {
           autoSuspend = {
@@ -67,6 +69,8 @@
           turnOffDisplay = {
             idleTimeout = 180;
           };
+          whenLaptopLidClosed = "sleep";
+          inhibitLidActionWhenExternalMonitorConnected = true;
         };
         lowBattery = {
           powerProfile = "powerSaving";

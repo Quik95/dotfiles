@@ -16,6 +16,7 @@ in {
 
   home.sessionVariables = {
     DICPATH = lib.concatMapStringsSep ":" (dict: "${dict}/share/hunspell") dictionaries;
+    LIBVA_DRIVER_NAME = "radeonsi";
   };
 
   programs.firefox = {
@@ -68,7 +69,6 @@ in {
         # Performance
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
-        "media.hardware-video-decoding.force-enabled" = true;
 
         # Wayland-specific improvements
         "widget.use-xdg-desktop-portal.file-picker" = 1;

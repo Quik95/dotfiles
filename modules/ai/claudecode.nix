@@ -38,7 +38,7 @@ in {
     commands = {
       git-context = aiAgentsGitContextCommand;
     };
-    memory.text = ''
+    context = ''
       ${aiAgentsSystemInstruction}
     '';
     settings = {

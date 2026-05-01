@@ -42,7 +42,7 @@ in {
     commands = {
       git-context = aiAgentsGitContextCommand;
     };
-    rules = ''
+    context = ''
       ${aiAgentsSystemInstruction}
     '';
     settings = {

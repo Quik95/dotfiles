@@ -57,7 +57,7 @@ in {
   xdg.configFile."codex/config.toml".source = codexSettingsToml;
 
   programs.codex = {
-    enable = true;
+    enable = false;
     package = codexWrapped;
     # Home Manager writes programs.codex.settings to ~/.codex/config.yaml and
     # ignores CODEX_HOME for that path, so we manage config.toml via xdg.configFile.

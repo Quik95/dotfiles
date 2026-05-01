@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   dictionaries = with pkgs.hunspellDicts; [
@@ -22,6 +23,7 @@ in {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-bin;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     languagePacks = ["en-GB" "pl"];
     policies = {
       DefaultDownloadDirectory = "/tmp";

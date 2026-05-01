@@ -17,9 +17,10 @@
     # Save and restore VRAM across suspend/resume to prevent Xid 13
     # (shader corruption / missing textures after wake).
     powerManagement.enable = true;
-    # RTD3 — dGPU sleeps when no clients hold it open.
-    # HDMI connected to the dGPU keeps it awake automatically.
-    powerManagement.finegrained = true;
+    # RTD3 disabled: aggressive D3 power cycling during s2idle causes two issues:
+    # (1) PCIe events on GPP0 (root port) trigger immediate spurious wakeup,
+    # (2) GSP firmware loses heartbeat after power-gating, blocking subsequent suspends.
+    powerManagement.finegrained = false;
 
     # Dynamic Boost (nvidia-powerd) aggressively caps GPU clocks, causing
     # the compositor to occasionally miss vblank deadlines on HDMI output.

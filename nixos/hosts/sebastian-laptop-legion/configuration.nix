@@ -60,6 +60,21 @@
 
   services.logind.settings.Login.HandleLidSwitch = "suspend";
 
+  # GPP0 (0000:00:01.1) is the PCIe root port for the NVIDIA dGPU. With this
+  # wakeup source enabled, any PCIe link event on that port (including normal
+  # D3 transitions) immediately aborts s2idle. Disable it at boot.
+  systemd.services.disable-nvidia-pcie-wakeup = {
+    description = "Disable NVIDIA PCIe root port wakeup source (GPP0)";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "disable-nvidia-pcie-wakeup" ''
+        grep -qP 'GPP0\s.*\*enabled' /proc/acpi/wakeup && echo GPP0 > /proc/acpi/wakeup || true
+      '';
+    };
+  };
+
   systemd.sleep.settings.Sleep = {
     AllowHibernation = "no";
     AllowSuspendThenHibernate = "no";

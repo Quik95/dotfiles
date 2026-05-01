@@ -50,7 +50,14 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [nur.overlays.default];
+      overlays = [
+        nur.overlays.default
+        (final: prev: {
+          mpv = prev.mpv.override {
+            yt-dlp = final.yt-dlp-light;
+          };
+        })
+      ];
     };
   in {
     nixosConfigurations.sebastian-laptop-hp = nixpkgs.lib.nixosSystem {

@@ -19,7 +19,6 @@ in {
         "com.spotify.Client"
         "dev.vencord.Vesktop"
         "garden.jamie.Morphosis"
-        "net.ankiweb.Anki"
         "org.gnome.Fractal"
         "org.gnome.gitlab.somas.Apostrophe"
         "org.jdownloader.JDownloader"

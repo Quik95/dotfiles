@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   hostname,
   ...
@@ -23,6 +24,9 @@
 
   browserMimes = [
     "text/html"
+    "text/xml"
+    "application/xhtml+xml"
+    "application/vnd.mozilla.xul+xml"
     "x-scheme-handler/http"
     "x-scheme-handler/https"
     "x-scheme-handler/about"
@@ -84,5 +88,9 @@ in {
         "application/pdf" = pdfViewer;
         "inode/directory" = fileManager;
       };
+  };
+
+  programs.plasma.configFile.kdeglobals.General = lib.mkIf isLegion {
+    BrowserApplication = "firefox.desktop";
   };
 }

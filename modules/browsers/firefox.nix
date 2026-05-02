@@ -91,7 +91,9 @@ in {
         "browser.tabs.closeWindowWithLastTab" = true;
         "browser.tabs.warnOnClose" = false;
         "browser.tabs.warnOnCloseOtherTabs" = false;
-        "browser.download.useDownloadDir" = false;
+        "browser.download.dir" = "/tmp";
+        "browser.download.folderList" = 2;
+        "browser.download.useDownloadDir" = true;
         "browser.toolbars.bookmarks.showOtherBookmarks" = false;
         "sidebar.visibility" = "hide-sidebar-button";
 

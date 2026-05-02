@@ -49,6 +49,8 @@
         };
       };
 
+      configFile.kcminputrc.Keyboard.NumLock = 0;
+
       powerdevil = {
         AC = {
           autoSuspend = {

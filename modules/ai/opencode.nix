@@ -81,7 +81,6 @@ in {
       keybinds = {
         model_list = "alt+p";
       };
-      plugin = ["@slkiser/opencode-quota"];
     };
     tui = {
       plugin = ["@slkiser/opencode-quota"];

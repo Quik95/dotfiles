@@ -9,7 +9,11 @@
         floating = true;
         height = 32;
         location = "top";
-        screen = "all";
+        # `screen = "all"` depends on Plasma's screenCount at the moment the
+        # startup script runs. If the external monitor is detected later, only
+        # the primary-screen panel is created and plasma-manager will not rerun
+        # the script because the config hash did not change.
+        screen = [0 1];
         widgets = [
           "org.kde.plasma.kickoff"
           {

@@ -35,6 +35,10 @@ in {
     basePath = "${config.xdg.configHome}/opencode/skills";
   };
 
+  xdg.configFile."opencode/opencode-quota/quota-toast.json".text = builtins.toJSON {
+    enableToast = false;
+  };
+
   programs.opencode = {
     enable = true;
     package = opencodeProcessWrapped;
@@ -77,7 +81,10 @@ in {
       keybinds = {
         model_list = "alt+p";
       };
-      plugin = ["opencode-gemini-auth@latest"];
+      plugin = ["@slkiser/opencode-quota"];
+    };
+    tui = {
+      plugin = ["@slkiser/opencode-quota"];
     };
   };
 }

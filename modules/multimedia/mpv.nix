@@ -165,9 +165,7 @@
         autosubsync-mpv
         memo
         mpris
-        (mpv-playlistmanager.override {
-          yt-dlp = pkgs.yt-dlp-light;
-        })
+        mpv-playlistmanager
         quack
         reload
         sponsorblock-minimal
@@ -188,7 +186,7 @@
       };
       playlistmanager = {
         prefer_titles = "all";
-        youtube_dl_executable = "${pkgs.yt-dlp-light}/bin/yt-dlp";
+        youtube_dl_executable = "${pkgs.yt-dlp}/bin/yt-dlp";
         resolve_url_titles = true;
       };
       reload = {

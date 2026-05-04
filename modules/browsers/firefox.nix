@@ -54,7 +54,6 @@ in {
         ublock-origin
         videospeed
         violentmonkey
-        wappalyzer
         youtube-recommended-videos
       ];
 
@@ -115,7 +114,6 @@ in {
               "myallychou_gmail_com-browser-action"
               "_7be2ba16-0f1e-4d93-9ebc-5164397477a9_-browser-action"
               "_a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad_-browser-action"
-              "wappalyzer_crunchlabz_com-browser-action"
               "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
               "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
               "_2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c_-browser-action"
@@ -157,7 +155,6 @@ in {
             "_7be2ba16-0f1e-4d93-9ebc-5164397477a9_-browser-action"
             "_a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad_-browser-action"
             "ublock0_raymondhill_net-browser-action"
-            "wappalyzer_crunchlabz_com-browser-action"
             "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
             "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
             "jid0-adyhmvsp91nuo8prv0mn2vkeb84_jetpack-browser-action"

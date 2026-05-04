@@ -78,11 +78,11 @@ in {
           "/nix/store/**" = "allow";
         };
       };
+    };
+    tui = {
       keybinds = {
         model_list = "alt+p";
       };
-    };
-    tui = {
       plugin = ["@slkiser/opencode-quota"];
     };
   };

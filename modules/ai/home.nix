@@ -26,7 +26,8 @@ in {
   _module.args.aiAgentsGitContextCommand = aiAgentsGitContextCommand;
 
   imports = [
-    ./claudecode.nix
+    ./claude-code
+
     ./codex.nix
     ./mcp.nix
     ./opencode.nix

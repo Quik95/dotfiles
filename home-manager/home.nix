@@ -24,6 +24,7 @@
     username = "sebastian";
     homeDirectory = "/home/sebastian";
     stateVersion = "24.11";
+    preferXdgDirectories = true;
   };
 
   home.packages = with pkgs;

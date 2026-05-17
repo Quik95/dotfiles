@@ -61,6 +61,18 @@
     functions = {
       fish_greeting = "fortune";
       mkcd = "mkdir -p $argv[1] && cd $argv[1]";
+      __enter_or_ls = {
+        description = "Run ls when pressing enter on an empty command line";
+        body = ''
+          set -l buffer (string trim -- (commandline -b))
+
+          if test -z "$buffer"
+            commandline -r ls
+          end
+
+          commandline -f execute
+        '';
+      };
       detach = {
         description = "Run command in background and forget about it completely";
         body = builtins.readFile ./detach.fish;
@@ -82,6 +94,7 @@
       bind -M insert \ce end-of-line         # Ctrl+e: move to end
       bind -M insert \ck kill-line           # Ctrl+k: delete to end of line
       bind -M insert \cw backward-kill-word  # Ctrl+w: delete word backwards
+      bind -M insert \r __enter_or_ls        # Enter: run ls on an empty command line
 
       # Completion function for detach - suggest commands from PATH
       complete -c detach -a '(__fish_complete_command)'

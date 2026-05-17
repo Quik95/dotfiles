@@ -4,6 +4,7 @@
   config,
   aiAgentsSystemInstruction,
   aiAgentsGitContextCommand,
+  aiAgentsLspServers,
   llm-agents,
   ...
 }: let
@@ -147,11 +148,6 @@ in {
 
   xdg.configFile."ccstatusline/settings.json".text = builtins.toJSON ccstatuslineSettings;
 
-  home.packages = with pkgs; [
-    omnisharp-roslyn
-    rust-analyzer
-  ];
-
   programs.claude-code = {
     enable = true;
     package = claudeWrapped;
@@ -162,6 +158,12 @@ in {
     context = ''
       ${aiAgentsSystemInstruction}
     '';
+    lspServers = lib.mapAttrs (_: s: {
+      command = builtins.head s.command;
+      args = builtins.tail s.command;
+      extensionToLanguage = s.extensionToLanguage;
+    }) aiAgentsLspServers;
+
     settings = {
       statusLine = {
         type = "command";

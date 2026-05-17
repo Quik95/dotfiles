@@ -29,6 +29,7 @@ in {
     ./claude-code
 
     ./codex.nix
+    ./lsp.nix
     ./mcp.nix
     ./opencode.nix
   ];

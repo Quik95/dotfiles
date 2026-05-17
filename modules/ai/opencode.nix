@@ -4,6 +4,7 @@
   config,
   aiAgentsSystemInstruction,
   aiAgentsGitContextCommand,
+  aiAgentsLspServers,
   llm-agents,
   ...
 }: let
@@ -50,24 +51,12 @@ in {
       ${aiAgentsSystemInstruction}
     '';
     settings = {
-      lsp = {
-        html = {
-          command = ["${pkgs.superhtml}/bin/superhtml lsp"];
-          extensions = [".html" ".shtml" ".htm"];
-        };
-        json = {
-          command = ["${pkgs.vscode-json-languageserver}/bin/vscode-json-language-server --stdio"];
-          extensions = [".json" ".jsonc"];
-        };
-        nixd = {
-          command = ["${pkgs.nixd}/bin/nixd"];
-          extensions = [".nix"];
-        };
-        dotnet = {
-          command = ["${pkgs.omnisharp-roslyn}/bin/OmniSharp"];
-          extensions = [".cs" ".csx"];
-        };
-      };
+      lsp =
+        lib.mapAttrs (_: s: {
+          command = [(lib.concatStringsSep " " s.command)];
+          extensions = lib.attrNames s.extensionToLanguage;
+        })
+        aiAgentsLspServers;
       formatter = {
         nixfmt = {
           command = ["${pkgs.alejandra}" "--quiet" "$FILE"];

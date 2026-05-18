@@ -1,18 +1,14 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
   # Foxconn MT7925 BT (0489:e111) is misdetected as an MTP device.
-  # Plasma's MTP worker can match the usb_interface nodes, not just the
-  # parent usb_device, so clear those tags for the whole device tree.
-  # The add rule still registers the ID with btusb for BlueZ.
-  systemd.user.services.gvfs-mtp-volume-monitor.enable =
-    lib.mkIf config.services.desktopManager.gnome.enable false;
+  # The MTP volume monitor races btusb for the USB device at boot; if it
+  # wins, the BT firmware handshake fails (wmt func ctrl) and the chip is
+  # stuck until a cold power cycle. Mask the monitor unconditionally — the
+  # gnome.enable guard left this disabled on Plasma, which is the desktop
+  # this host actually runs.
+  systemd.user.services.gvfs-mtp-volume-monitor.enable = false;
 
   services.udev.packages = [
     (pkgs.writeTextFile {

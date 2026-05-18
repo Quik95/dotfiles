@@ -32,6 +32,10 @@
     '';
   };
 
+  # Keep Legion on the latest 6.6 LTS kernel while the btmtk regression in the
+  # current unstable kernel breaks Bluetooth initialization.
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+
   networking.hostName = "sebastian-laptop-legion";
   networking.networkmanager.ethernet.macAddress = "38:a7:46:3b:16:ed";
   nixfiles.eduroam.interfaceName = "wlp4s0";

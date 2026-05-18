@@ -158,11 +158,13 @@ in {
     context = ''
       ${aiAgentsSystemInstruction}
     '';
-    lspServers = lib.mapAttrs (_: s: {
-      command = builtins.head s.command;
-      args = builtins.tail s.command;
-      extensionToLanguage = s.extensionToLanguage;
-    }) aiAgentsLspServers;
+    lspServers =
+      lib.mapAttrs (_: s: {
+        command = builtins.head s.command;
+        args = builtins.tail s.command;
+        extensionToLanguage = s.extensionToLanguage;
+      })
+      aiAgentsLspServers;
 
     settings = {
       statusLine = {

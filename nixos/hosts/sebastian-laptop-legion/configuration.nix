@@ -56,9 +56,39 @@
     # Prevent ACPI EC from immediately waking the system during s2idle,
     # which happens when an external monitor is connected via NVIDIA HDMI.
     "acpi.ec_no_wakeup=1"
+    # The EC signals battery/AC status changes via an ACPI _AEI GpioInt on
+    # AMD GPIO pin 4 (gpiochip AMDI0030:00, IRQ 33). It fires every ~20s and
+    # spuriously wakes the system from s2idle. acpi.ec_no_wakeup only masks
+    # the EC's SCI/GPE3, not this separate GPIO line. Kernel-confirmed via
+    # pm_debug_messages: "GPIO 4 is active". This _AEI wake is armed by the
+    # ACPI resource, not a device power/wakeup attribute, so the touchpad
+    # technique does not apply here. ignore_wake keeps the pin working as a
+    # runtime interrupt (battery updates still work) but drops its wake
+    # capability. See docs/suspend-wakeup-investigation.md.
+    "gpiolib_acpi.ignore_wake=AMDI0030:00@4"
   ];
 
   services.logind.settings.Login.HandleLidSwitch = "suspend";
+
+  # The FTCS0038 touchpad (i2c-HID via AMD GPIO pin 8 / pinctrl_amd IRQ 7)
+  # asserts its interrupt line shortly after s2idle entry and spuriously
+  # wakes the system after ~20-25s. Keyboard, power button and lid remain
+  # wake sources. See docs/suspend-wakeup-investigation.md.
+  #
+  # Note: a udev ACTION=="add" rule does not work here because the kernel
+  # creates power/wakeup only after the i2c_hid_acpi driver finishes probe(),
+  # which is after the udev add event fires. A systemd oneshot is simpler.
+  systemd.services.disable-touchpad-wakeup = {
+    description = "Disable FTCS0038 touchpad wakeup source (pinctrl_amd IRQ 7)";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "disable-touchpad-wakeup" ''
+        echo disabled > /sys/bus/i2c/devices/i2c-FTCS0038:00/power/wakeup
+      '';
+    };
+  };
 
   # GPP0 (0000:00:01.1) is the PCIe root port for the NVIDIA dGPU. With this
   # wakeup source enabled, any PCIe link event on that port (including normal

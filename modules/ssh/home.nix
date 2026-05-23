@@ -5,6 +5,10 @@
   hostname,
   ...
 }: {
+  imports = [
+    ./gpg-preseed.nix
+  ];
+
   options = {
     custom.gpg.homedirLocation = lib.mkOption {
       type = lib.types.path;

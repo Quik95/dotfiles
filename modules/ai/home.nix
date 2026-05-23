@@ -13,7 +13,6 @@
     Files under `/nix/store` are approved for read-only exploration and reference.
     Do not modify, replace, or attempt to write anywhere under `/nix/store`.
   '';
-  aiAgentsGitContextCommand = builtins.readFile ./commands/git-context.md;
 in {
   assertions = [
     {
@@ -23,8 +22,6 @@ in {
   ];
 
   _module.args.aiAgentsSystemInstruction = aiAgentsSystemInstruction;
-  _module.args.aiAgentsGitContextCommand = aiAgentsGitContextCommand;
-
   imports = [
     ./claude-code
 

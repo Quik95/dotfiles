@@ -9,5 +9,5 @@
 in {
   home.packages = map (name: buildIde name standardPlugins) ides;
 
-  home.file.".ideavimrc".source = ./.ideavimrc;
+  home.file.".config/ideavim/ideavimrc".source = ./.ideavimrc;
 }

@@ -30,6 +30,9 @@ in {
       tui = {
         status_line_use_colors = true;
         status_line = [
+          "current-dir"
+          "git-branch"
+          "model-with-reasoning"
           "branch-changes"
           "run-state"
           "context-used"

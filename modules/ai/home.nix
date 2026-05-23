@@ -32,5 +32,6 @@ in {
     ./lsp.nix
     ./mcp.nix
     ./opencode.nix
+    ./rtk.nix
   ];
 }

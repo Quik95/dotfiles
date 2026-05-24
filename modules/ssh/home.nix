@@ -21,17 +21,17 @@
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
-      settings."*" = {
-        ForwardAgent = false;
-        AddKeysToAgent = "yes";
-        Compression = false;
-        ServerAliveInterval = 0;
-        ServerAliveCountMax = 3;
-        HashKnownHosts = false;
-        UserKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
-        ControlMaster = "no";
-        ControlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
-        ControlPersist = "no";
+      matchBlocks."*" = {
+        forwardAgent = false;
+        addKeysToAgent = "yes";
+        compression = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        hashKnownHosts = false;
+        userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
+        controlMaster = "no";
+        controlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
+        controlPersist = "no";
       };
     };
 

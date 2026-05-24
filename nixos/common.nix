@@ -74,7 +74,9 @@ in {
 
   programs.gamescope = {
     enable = true;
-    capSysNice = true;
+    # Work around nixpkgs#523200: capSysNice currently installs a setuid
+    # bubblewrap wrapper, which breaks Steam's runtime sandbox.
+    capSysNice = false;
   };
 
   services.flatpak.enable = true;

@@ -40,8 +40,8 @@
             name = "com.pras.syspeek";
             config.General = {
               useFixedWidth = true;
-              itemSpacing = 26;
-              widgetWidth = 380;
+              itemSpacing = 18;
+              widgetWidth = 450;
             };
           }
           "org.kde.plasma.weather"

@@ -146,6 +146,7 @@ in {
   };
 
   xdg.configFile."ccstatusline/settings.json".text = builtins.toJSON ccstatuslineSettings;
+  xdg.configFile."mimeapps.list".force = true; # idk, I don't care that much
 
   programs.claude-code = {
     enable = true;
@@ -163,6 +164,9 @@ in {
       aiAgentsLspServers;
 
     settings = {
+      env = {
+        "CLAUDE_CODE_DISABLE_1M_CONTEXT" = 1;
+      };
       statusLine = {
         type = "command";
         command = "${ccstatusline}/bin/ccstatusline";

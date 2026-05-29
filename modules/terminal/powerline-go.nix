@@ -10,6 +10,7 @@
       "cwd"
       "perms"
       "git"
+      "jobs"
       "exit"
       "root"
       "nix-shell"

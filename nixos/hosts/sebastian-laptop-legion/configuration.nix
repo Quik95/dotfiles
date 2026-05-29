@@ -32,9 +32,8 @@
     '';
   };
 
-  # Keep Legion on the latest 6.6 LTS kernel while the btmtk regression in the
-  # current unstable kernel breaks Bluetooth initialization.
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # mt7925e (WiFi) jest w mainline od 6.7; regresja inicjalizacji BT MT7925 (wmt func ctrl -22) naprawiona upstream w 7.0.10 — stockowy kernel wystarcza. Patrz docs/wifi-mt7925-investigation.md.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "sebastian-laptop-legion";
   networking.networkmanager.ethernet.macAddress = "38:a7:46:3b:16:ed";

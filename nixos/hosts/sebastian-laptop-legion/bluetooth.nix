@@ -2,6 +2,12 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
+  # MT7925 BT (0489:e111) becomes unresponsive after a USB autosuspend cycle:
+  # on resume the chip needs a full firmware re-setup and ends up flapping in a
+  # reset loop until a cold power cycle (Red Hat BZ 2372880). Stop btusb from
+  # enabling autosuspend on it. Patrz docs/wifi-mt7925-investigation.md.
+  boot.extraModprobeConfig = "options btusb enable_autosuspend=0";
+
   # Foxconn MT7925 BT (0489:e111) is misdetected as an MTP device.
   # The MTP volume monitor races btusb for the USB device at boot; if it
   # wins, the BT firmware handshake fails (wmt func ctrl) and the chip is

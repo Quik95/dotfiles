@@ -1,4 +1,8 @@
-{pkgs, lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   aubio-python312 = pkgs.python312Packages.buildPythonPackage {
     pname = "aubio";
     version = "0.4.9";
@@ -21,9 +25,11 @@
 
   picardWithAubio = pkgs.picard.overrideAttrs (old: {
     propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [aubio-python312];
-    qtWrapperArgs = (old.qtWrapperArgs or []) ++ [
-      "--prefix PYTHONPATH : ${aubioSitePackages}:${numpySitePackages}"
-    ];
+    qtWrapperArgs =
+      (old.qtWrapperArgs or [])
+      ++ [
+        "--prefix PYTHONPATH : ${aubioSitePackages}:${numpySitePackages}"
+      ];
   });
 
   picardPlugins = pkgs.fetchFromGitHub {
@@ -38,7 +44,8 @@ in {
   home.packages = [picardWithAubio pkgs.rsgain];
 
   xdg.configFile = lib.listToAttrs (map (name: {
-    name = "MusicBrainz/Picard/plugins/${name}";
-    value.source = "${picardPlugins}/plugins/${name}";
-  }) pluginDirs);
+      name = "MusicBrainz/Picard/plugins/${name}";
+      value.source = "${picardPlugins}/plugins/${name}";
+    })
+    pluginDirs);
 }

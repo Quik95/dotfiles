@@ -11,8 +11,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "prassamin";
       repo = "SysPeek";
-      rev = "v1.3.0";
-      hash = "sha256-7QQnsDzkf7g3MZeU7Rc2SYh2iKCGUUhMEwS4qOvPvA0=";
+      rev = "v2.0.0";
+      hash = "sha256-slpgxrz2O/Spgzv4SuI87vNkC7kpmqorTzqBFpGyImQ=";
     };
 
     dontBuild = true;

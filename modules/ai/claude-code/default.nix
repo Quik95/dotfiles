@@ -142,7 +142,7 @@
 in {
   home.file = import ../skills {
     inherit pkgs;
-    basePath = "${config.home.homeDirectory}/.claude/skills";
+    basePath = "${config.programs.claude-code.configDir}/skills";
   };
 
   xdg.configFile."ccstatusline/settings.json".text = builtins.toJSON ccstatuslineSettings;
@@ -151,6 +151,7 @@ in {
   programs.claude-code = {
     enable = true;
     package = claudeWrapped;
+    configDir = "${config.xdg.configHome}/claude-code";
     enableMcpIntegration = true;
     context = ''
       ${aiAgentsSystemInstruction}

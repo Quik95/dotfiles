@@ -59,16 +59,23 @@
     # Prevent ACPI EC from immediately waking the system during s2idle,
     # which happens when an external monitor is connected via NVIDIA HDMI.
     "acpi.ec_no_wakeup=1"
-    # The EC signals battery/AC status changes via an ACPI _AEI GpioInt on
-    # AMD GPIO pin 4 (gpiochip AMDI0030:00, IRQ 33). It fires every ~20s and
-    # spuriously wakes the system from s2idle. acpi.ec_no_wakeup only masks
-    # the EC's SCI/GPE3, not this separate GPIO line. Kernel-confirmed via
-    # pm_debug_messages: "GPIO 4 is active". This _AEI wake is armed by the
-    # ACPI resource, not a device power/wakeup attribute, so the touchpad
-    # technique does not apply here. ignore_wake keeps the pin working as a
-    # runtime interrupt (battery updates still work) but drops its wake
-    # capability. See docs/suspend-wakeup-investigation.md.
-    "gpiolib_acpi.ignore_wake=AMDI0030:00@4"
+    # The GPIO controller AMDI0030:00 (\_SB.GPIO) exposes several ACPI _AEI
+    # GpioInt lines that spuriously wake s2idle (pm_wakeup_irq=7, pinctrl_amd).
+    # acpi.ec_no_wakeup only masks the EC's SCI/GPE3, not these separate GPIO
+    # lines. ignore_wake drops a pin's wake capability while keeping it working
+    # as a runtime interrupt. Pins decoded from the _EVT method in SSDT27
+    # (iasl -d); lid / power button / AC / battery all route through pin #0
+    # (EC0.HWAK multiplexer), which is deliberately NOT masked so the lid and
+    # power button still wake the system. Masked device-wake lines:
+    #   @4  -> GPP0.PEGP (NVIDIA dGPU info change; fired every ~20s)
+    #   @5  -> GPP0.PEGP (NVIDIA dGPU, sibling of #4)
+    #   @24 -> GPP2 (PCIe device wake)
+    #   @58 -> GP17.XHC0 (USB controller device wake)
+    #   @59 -> GP17.XHC1 (USB controller device wake)
+    # Trade-off: the laptop no longer wakes from USB-device activity, a PCIe
+    # device event, or a dGPU event while suspended (intended for closed-lid
+    # sleep). See docs/suspend-wakeup-investigation.md (Próba 5 + dekodowanie DSDT).
+    "gpiolib_acpi.ignore_wake=AMDI0030:00@4,AMDI0030:00@5,AMDI0030:00@24,AMDI0030:00@58,AMDI0030:00@59"
   ];
 
   services.logind.settings.Login.HandleLidSwitch = "suspend";
@@ -104,6 +111,25 @@
       RemainAfterExit = true;
       ExecStart = pkgs.writeShellScript "disable-nvidia-pcie-wakeup" ''
         grep -qP 'GPP0\s.*\*enabled' /proc/acpi/wakeup && echo GPP0 > /proc/acpi/wakeup || true
+      '';
+    };
+  };
+
+  # Diagnostic: after the 2026-05-30 kernel bump (linuxPackages_latest) the
+  # intermittent s2idle false-wake returned (pm_wakeup_irq=7, a pinctrl_amd
+  # GPIO). pm_debug_messages is a runtime sysfs toggle, off by default, so the
+  # kernel never logged "GPIO N is active" for the failing cycles. Enable it at
+  # boot so the next false-wake names the offending pin in the journal; then
+  # add that pin to gpiolib_acpi.ignore_wake above. Remove once pinned down.
+  # See docs/suspend-wakeup-investigation.md (Próba 5).
+  systemd.services.enable-pm-debug-messages = {
+    description = "Enable kernel PM debug messages (logs waking GPIO on resume)";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "enable-pm-debug-messages" ''
+        echo 1 > /sys/power/pm_debug_messages
       '';
     };
   };

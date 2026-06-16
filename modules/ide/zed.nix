@@ -16,6 +16,7 @@
       "csharp"
       "html"
       "nix"
+      "terraform"
       "typst"
       "zig"
     ];
@@ -44,6 +45,14 @@
         JavaScript = {
           formatter = "prettier";
         };
+        Python = {
+          language_servers = ["basedpyright" "ruff"];
+          formatter = {
+            language_server = {
+              name = "ruff";
+            };
+          };
+        };
       };
       lsp = {
         nixd = {
@@ -71,6 +80,18 @@
           ];
         };
         rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+        basedpyright.binary = {
+          path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
+          arguments = ["--stdio"];
+        };
+        ruff.binary = {
+          path = "${pkgs.ruff}/bin/ruff";
+          arguments = ["server"];
+        };
+        terraform-ls.binary = {
+          path = "${pkgs.terraform-ls}/bin/terraform-ls";
+          arguments = ["serve"];
+        };
         tinymist.binary = {
           path = "${pkgs.tinymist}/bin/tinymist";
           arguments = ["lsp"];

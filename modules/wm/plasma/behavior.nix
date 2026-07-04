@@ -47,6 +47,9 @@
         Desktops = {
           Number = 1;
         };
+        # Use KDE's native virtual keyboard (plasma-keyboard, new in 6.7) as
+        # KWin's Wayland input method. Package in modules/wm/plasma/nixos.nix.
+        Wayland.InputMethod = "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
       };
 
       configFile.kcminputrc.Keyboard.NumLock = 0;

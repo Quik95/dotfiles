@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   sops = {
     defaultSopsFile = ../../../home-manager/secrets/eduroam-certificate.bin;
     # System-level key (root-owned); HM uses a separate user-level key

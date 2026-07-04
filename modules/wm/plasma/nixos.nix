@@ -26,6 +26,11 @@ lib.mkIf (config.networking.hostName == "sebastian-laptop-legion") {
   programs.ssh.enableAskPassword = true;
   programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
 
-  environment.systemPackages = [pkgs.kdePackages.ksshaskpass];
+  environment.systemPackages = [
+    pkgs.kdePackages.ksshaskpass
+    # KDE's native on-screen virtual keyboard (new in Plasma 6.7).
+    # Selected as KWin's input method in modules/wm/plasma/behavior.nix.
+    pkgs.kdePackages.plasma-keyboard
+  ];
   environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 }

@@ -5,7 +5,10 @@
   ...
 }: {
   programs.fish.enable = true;
-  environment.shells = [pkgs.bashInteractive pkgs.fish];
+  environment.shells = [
+    pkgs.bashInteractive
+    pkgs.fish
+  ];
   users.defaultUserShell = pkgs.fish;
   programs.bash = {
     interactiveShellInit = ''
@@ -42,7 +45,6 @@
 
       # filesystems
       ntfs3g
-      jmtpfs
 
       # misc
       fastfetch

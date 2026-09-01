@@ -95,12 +95,13 @@
     settings = {
       git = {
         overrideGpg = true;
-        pagers = [
+        diffRenderers = [
           {
-            pager = "delta --paging=never";
+            command = "delta --paging=never";
           }
           {
-            externalDiffCommand = "difft --color=always";
+            command = "difft --color=always";
+            type = "extDiff";
           }
         ];
       };

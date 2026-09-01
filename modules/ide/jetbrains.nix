@@ -4,8 +4,12 @@
   ...
 }: let
   buildIde = nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs;
-  standardPlugins = ["IdeaVIM" "nix-idea"];
-  ides = ["rust-rover" "rider"];
+  standardPlugins = [
+    "IdeaVIM"
+    "nix-idea"
+  ];
+  # ides = ["rust-rover" "rider"];
+  ides = [];
 in {
   home.packages = map (name: buildIde name standardPlugins) ides;
 

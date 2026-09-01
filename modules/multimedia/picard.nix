@@ -14,7 +14,11 @@
     };
 
     nativeBuildInputs = [pkgs.pkg-config];
-    buildInputs = with pkgs; [aubio fftw libsndfile];
+    buildInputs = with pkgs; [
+      aubio
+      fftw
+      libsndfile
+    ];
     propagatedBuildInputs = [pkgs.python312Packages.numpy];
     env.NIX_CFLAGS_COMPILE = "-Wno-incompatible-pointer-types";
   };
@@ -39,13 +43,22 @@
     hash = "sha256-T/G45uc+QMtkKVnGmYOxCkObfi4CztLwQRX8525/F+I=";
   };
 
-  pluginDirs = ["lrclib_lyrics" "bpm" "replaygain2" "deezerart" "fanarttv" "lastfm"];
+  pluginDirs = [
+    "lrclib_lyrics"
+    "bpm"
+    "replaygain2"
+    "deezerart"
+    "fanarttv"
+    "lastfm"
+  ];
 in {
-  home.packages = [picardWithAubio pkgs.rsgain];
+  home.packages = [pkgs.rsgain];
 
-  xdg.configFile = lib.listToAttrs (map (name: {
+  xdg.configFile = lib.listToAttrs (
+    map (name: {
       name = "MusicBrainz/Picard/plugins/${name}";
       value.source = "${picardPlugins}/plugins/${name}";
     })
-    pluginDirs);
+    pluginDirs
+  );
 }

@@ -36,6 +36,7 @@
       maestral
       fselect
       just
+      git-absorb
       mask
       mprocs
       kondo

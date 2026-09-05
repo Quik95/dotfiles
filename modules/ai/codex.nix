@@ -27,6 +27,9 @@ in {
     enableMcpIntegration = true;
     settings = {
       model = "gpt-5.5";
+      projects = {
+        "${config.home.homeDirectory}/Documents/dotfiles".trust_level = "trusted";
+      };
       tui = {
         status_line_use_colors = true;
         status_line = [

@@ -3,6 +3,7 @@
   lib,
   config,
   aiAgentsSystemInstruction,
+  rtkSource,
   llm-agents,
   ...
 }: let
@@ -25,8 +26,10 @@ in {
     enable = true;
     package = codexWrapped;
     enableMcpIntegration = true;
+    skills = import ./skills {inherit pkgs;};
     settings = {
-      model = "gpt-5.5";
+      model = "gpt-5.6-luna";
+      model_reasoning_effort = "xhigh";
       projects = {
         "${config.home.homeDirectory}/Documents/dotfiles".trust_level = "trusted";
       };
@@ -45,6 +48,10 @@ in {
         ];
       };
     };
-    context = aiAgentsSystemInstruction;
+    context = ''
+      ${aiAgentsSystemInstruction}
+
+      ${builtins.readFile "${rtkSource}/hooks/codex/rtk-awareness.md"}
+    '';
   };
 }

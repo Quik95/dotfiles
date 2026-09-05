@@ -1,8 +1,13 @@
 {
   config,
   pkgs,
+  llm-agents,
   ...
-}: {
+}: let
+  llmAgentsPkgs = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+in {
+  home.packages = [llmAgentsPkgs.semble pkgs.ast-grep];
+
   programs.mcp = {
     enable = true;
     servers = {

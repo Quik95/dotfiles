@@ -115,13 +115,10 @@
     };
   };
 
-  # Diagnostic: after the 2026-05-30 kernel bump (linuxPackages_latest) the
-  # intermittent s2idle false-wake returned (pm_wakeup_irq=7, a pinctrl_amd
-  # GPIO). pm_debug_messages is a runtime sysfs toggle, off by default, so the
-  # kernel never logged "GPIO N is active" for the failing cycles. Enable it at
-  # boot so the next false-wake names the offending pin in the journal; then
-  # add that pin to gpiolib_acpi.ignore_wake above. Remove once pinned down.
-  # See docs/suspend-wakeup-investigation.md (Próba 5).
+  # Keep PM diagnostics enabled so intermittent s2idle wakeups identify the
+  # active GPIO in the journal. This remains useful because GPIO 0 must stay
+  # wake-capable for the lid and power button, while USB/GPE wakeups can still
+  # surface through GPIO 58. See docs/suspend-wakeup-investigation.md.
   systemd.services.enable-pm-debug-messages = {
     description = "Enable kernel PM debug messages (logs waking GPIO on resume)";
     wantedBy = ["multi-user.target"];

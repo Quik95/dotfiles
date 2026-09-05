@@ -24,10 +24,13 @@ in {
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
     NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
     NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
-    NPM_CONFIG_TMP = "/run/user/1000/npm"; # HACK or $XDG_RUNTIME_DIR
     OMNISHARPHOME = "${config.xdg.configHome}/omnisharp";
     PULSE_COOKIE = "${config.xdg.configHome}/pulse/cookie";
     PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
     RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
   };
+
+  home.sessionVariablesExtra = ''
+    export NPM_CONFIG_TMP="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/npm"
+  '';
 }

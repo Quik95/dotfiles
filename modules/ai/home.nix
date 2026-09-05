@@ -27,6 +27,7 @@ in {
 
     ./codex.nix
     ./lsp.nix
+    ./maki.nix
     ./mcp.nix
     ./opencode.nix
     ./rtk.nix

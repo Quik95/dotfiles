@@ -35,7 +35,9 @@
 in {
   # We have to do this that way, because chrome doesn't have access to files in the nix store
   home.activation.createChromeFlags = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    mkdir -p "${config.home.homeDirectory}/.var/app/com.google.Chrome/config"
-    echo "${flags}" > ${config.home.homeDirectory}/.var/app/com.google.Chrome/config/chrome-flags.conf
+    if [[ ! -v DRY_RUN ]]; then
+      mkdir -p "${config.home.homeDirectory}/.var/app/com.google.Chrome/config"
+      echo "${flags}" > ${config.home.homeDirectory}/.var/app/com.google.Chrome/config/chrome-flags.conf
+    fi
   '';
 }

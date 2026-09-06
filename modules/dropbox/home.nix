@@ -8,7 +8,7 @@
   dropboxPath = "${config.home.homeDirectory}/Dropbox";
 in {
   home.activation.setMaestralDropboxDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${pkgs.maestral}/bin/maestral config set path ${dropboxPath}
+    run ${pkgs.maestral}/bin/maestral config set path "${dropboxPath}"
   '';
 
   systemd.user.services.maestral = {

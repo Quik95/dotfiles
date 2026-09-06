@@ -16,6 +16,10 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 - **Theme:** Stylix (`purple-rain` base24)
 - **Age key path:** `/var/lib/sops-nix/key.txt`
 
+## Available Tools
+
+- `comma` is installed system-wide for running packages from `nixpkgs` without adding them permanently. Use `, <command>`, for example `, cowsay neato`.
+
 ## Quick Commands
 
 ### Validate (safe, non-destructive)

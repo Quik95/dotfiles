@@ -76,4 +76,6 @@
     ++ lib.optionals config.services.desktopManager.gnome.enable [
       gnome-tweaks
     ];
+
+  programs.nix-index-database.comma.enable = true;
 }

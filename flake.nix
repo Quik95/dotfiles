@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -35,6 +38,7 @@
   outputs = {
     self,
     nixpkgs,
+    nix-index-database,
     home-manager,
     nix-flatpak,
     lazyvim,
@@ -57,6 +61,7 @@
       inherit system;
       modules = [
         sops-nix.nixosModules.sops
+        nix-index-database.nixosModules.default
         ./modules/nixos.nix
         ./nixos/hosts/sebastian-laptop-hp/configuration.nix
       ];
@@ -66,6 +71,7 @@
       inherit system;
       modules = [
         sops-nix.nixosModules.sops
+        nix-index-database.nixosModules.default
         ./modules/nixos.nix
         ./nixos/hosts/sebastian-laptop-legion/configuration.nix
       ];

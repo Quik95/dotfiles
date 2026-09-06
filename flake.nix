@@ -97,6 +97,15 @@
       };
     };
 
+    checks.${system} = {
+      home-manager-hp = self.homeConfigurations."sebastian@sebastian-laptop-hp".activationPackage;
+      home-manager-legion = self.homeConfigurations."sebastian@sebastian-laptop-legion".activationPackage;
+      formatting = pkgs.runCommand "check-formatting" {} ''
+        ${pkgs.alejandra}/bin/alejandra --check --quiet ${self}
+        touch "$out"
+      '';
+    };
+
     formatter.${system} = pkgs.alejandra;
   };
 }

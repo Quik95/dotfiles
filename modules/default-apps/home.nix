@@ -60,9 +60,9 @@
   ];
 
   videoMimes = [
-    "video/mkv"
+    "video/x-matroska"
     "video/mp4"
-    "vide/webm"
+    "video/webm"
   ];
 
   mkAssociations = mimes: app:

@@ -52,16 +52,27 @@
         else pkgs.pinentry-gnome3;
     };
 
-    home.activation.importGpgKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      for key in \
-        ${config.sops.secrets.master-public-gpg-key.path} \
-        ${config.sops.secrets.master-private-gpg-key.path} \
-        ${config.sops.secrets.gitlab-cs-put-gpg-public-key.path} \
-        ${config.sops.secrets.gitlab-cs-put-gpg-private-key.path}; do
-        if [ -f "$key" ]; then
-          run ${pkgs.gnupg}/bin/gpg --homedir ${config.programs.gpg.homedir} --import "$key"
-        fi
-      done
-    '';
+    systemd.user.services.gpg-import-keys = {
+      Unit = {
+        Description = "Import GPG keys after SOPS decryption";
+        Requires = ["sops-nix.service"];
+        After = ["sops-nix.service"];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "import-gpg-keys" ''
+          set -euo pipefail
+          for key in \
+            ${config.sops.secrets.master-public-gpg-key.path} \
+            ${config.sops.secrets.master-private-gpg-key.path} \
+            ${config.sops.secrets.gitlab-cs-put-gpg-public-key.path} \
+            ${config.sops.secrets.gitlab-cs-put-gpg-private-key.path}; do
+            ${pkgs.gnupg}/bin/gpg --homedir ${config.programs.gpg.homedir} --import "$key"
+          done
+        '';
+        RemainAfterExit = true;
+      };
+      Install.WantedBy = ["graphical-session-pre.target"];
+    };
   };
 }

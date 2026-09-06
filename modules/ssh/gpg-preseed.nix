@@ -20,7 +20,11 @@ lib.mkIf (hostname == "sebastian-laptop-legion") {
   };
 
   systemd.user.services.gpg-preset-passphrase = {
-    Unit.Description = "Preset GPG key passphrases at login";
+    Unit = {
+      Description = "Preset GPG key passphrases at login";
+      Requires = ["gpg-import-keys.service"];
+      After = ["gpg-import-keys.service"];
+    };
     Service = {
       Type = "oneshot";
       ExecStart = "${import ./unlock-gpg-keys.nix {inherit pkgs config;}}";

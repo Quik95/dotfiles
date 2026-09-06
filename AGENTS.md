@@ -7,12 +7,12 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 - **System configs:** `nixosConfigurations.sebastian-laptop-hp`, `nixosConfigurations.sebastian-laptop-legion`
 - **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-hp"`, `homeConfigurations."sebastian@sebastian-laptop-legion"`
 - **Platform:** `x86_64-linux` on NixOS unstable
-- **Desktop:** GNOME
+- **Desktop:** GNOME (HP), Plasma 6 (Legion)
 
 ## Environment Details
 
 - **Terminal:** Ghostty with Fish shell
-- **Editor:** Neovim (`nixvim`)
+- **Editor:** LazyVim (Neovim)
 - **Theme:** Stylix (`purple-rain` base24)
 - **Age key path:** `/var/lib/sops-nix/key.txt`
 

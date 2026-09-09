@@ -8,6 +8,7 @@
   imports = [
     ./appearance.nix
     ./behavior.nix
+    ./ai-usage.nix
     ./panel.nix
     ./syspeek.nix
   ];

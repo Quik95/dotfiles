@@ -35,6 +35,19 @@
               behavior.middleClickAction = "close";
             };
           }
+          {
+            name = "org.muddyblack.aiUsageWidget";
+            config.General = {
+              claudeEnabled = true;
+              openaiEnabled = true;
+              antigravityEnabled = false;
+              kiroEnabled = false;
+              grokEnabled = false;
+              pinnedTab = "claude,openai";
+              pollIntervalSec = 60;
+              useThemeAccent = true;
+            };
+          }
           "org.kde.plasma.marginsseparator"
           {
             name = "com.pras.syspeek";

@@ -180,13 +180,10 @@ in {
           "Read(//nix/store/**)"
           "LS(//nix/store)"
           "LS(//nix/store/**)"
-          "Glob(//nix/store/**)"
           "Grep(//nix/store/**)"
         ];
         deny = [
           "Edit(//nix/store/**)"
-          "Write(//nix/store/**)"
-          "MultiEdit(//nix/store/**)"
         ];
       };
       sandbox.filesystem.denyWrite = ["/nix/store"];

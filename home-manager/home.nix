@@ -1,20 +1,16 @@
 {
   pkgs,
   lib,
-  nix-flatpak,
-  lazyvim,
-  sops-nix,
-  stylix,
-  plasma-manager,
+  inputs,
   hostname,
   ...
 }: {
   imports = [
-    lazyvim.homeManagerModules.default
-    nix-flatpak.homeManagerModules.nix-flatpak
-    sops-nix.homeManagerModules.sops
-    stylix.homeModules.stylix
-    plasma-manager.homeModules.plasma-manager
+    inputs.lazyvim.homeManagerModules.default
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+    inputs.sops-nix.homeManagerModules.sops
+    inputs.stylix.homeModules.stylix
+    inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   programs.home-manager.enable = true;

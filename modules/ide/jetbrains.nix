@@ -1,9 +1,9 @@
 {
   pkgs,
-  nix-jetbrains-plugins,
+  inputs,
   ...
 }: let
-  buildIde = nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs;
+  buildIde = inputs.nix-jetbrains-plugins.lib.buildIdeWithPlugins pkgs;
   standardPlugins = [
     "IdeaVIM"
     "nix-idea"

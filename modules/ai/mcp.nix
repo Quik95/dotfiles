@@ -1,10 +1,10 @@
 {
   config,
   pkgs,
-  llm-agents,
+  inputs,
   ...
 }: let
-  llmAgentsPkgs = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 in {
   home.packages = [llmAgentsPkgs.semble pkgs.ast-grep];
 

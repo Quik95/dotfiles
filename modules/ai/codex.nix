@@ -4,14 +4,14 @@
   config,
   aiAgentsSystemInstruction,
   rtkSource,
-  llm-agents,
+  inputs,
   ...
 }: let
   wrapWithSecrets = import ./wrap-with-secrets.nix {
     inherit pkgs lib;
   };
 
-  llmAgentsPkgs = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
   codexWrapped = wrapWithSecrets {
     pkg = llmAgentsPkgs.codex;

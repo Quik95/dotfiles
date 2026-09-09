@@ -4,14 +4,14 @@
   config,
   aiAgentsSystemInstruction,
   aiAgentsLspServers,
-  llm-agents,
+  inputs,
   ...
 }: let
   wrapWithSecrets = import ../wrap-with-secrets.nix {
     inherit pkgs lib;
   };
 
-  llmAgentsPkgs = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
   claudeWrapped = wrapWithSecrets {
     pkg = llmAgentsPkgs.claude-code;

@@ -2,37 +2,72 @@
   description = "NixOS and Home Manager configurations for sebastian's laptops";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+    };
 
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    lazyvim.url = "github:pfassina/lazyvim-nix/1d4fe049ef1ccfc2b0ad2ce2b01fb8f92c3e51ef";
-    lazyvim.inputs.nixpkgs.follows = "nixpkgs";
+    lazyvim = {
+      url = "github:pfassina/lazyvim-nix/1d4fe049ef1ccfc2b0ad2ce2b01fb8f92c3e51ef";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.inputs.systems.follows = "llm-agents/systems";
+    };
 
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
+        flake-parts.follows = "llm-agents/flake-parts";
+      };
+    };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+    };
 
-    nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
-    nix-jetbrains-plugins.inputs.nixpkgs.follows = "nixpkgs";
+    nix-jetbrains-plugins = {
+      url = "github:nix-community/nix-jetbrains-plugins";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "llm-agents/systems";
+      };
+    };
 
-    llm-agents.url = "github:numtide/llm-agents.nix";
-    llm-agents.inputs.nixpkgs.follows = "nixpkgs";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nur.url = "github:nix-community/NUR";
-    nur.inputs.nixpkgs.follows = "nixpkgs";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "llm-agents/flake-parts";
+      };
+    };
 
-    plasma-manager.url = "github:nix-community/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    plasma-manager.inputs.home-manager.follows = "home-manager";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs = {
@@ -40,16 +75,10 @@
     nixpkgs,
     nix-index-database,
     home-manager,
-    nix-flatpak,
-    lazyvim,
     sops-nix,
-    stylix,
-    nix-jetbrains-plugins,
-    llm-agents,
     nur,
-    plasma-manager,
     ...
-  } @ attrs: let
+  } @ inputs: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -83,8 +112,7 @@
           host.homeModule
         ];
         extraSpecialArgs = {
-          inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents plasma-manager;
-          inherit hostname;
+          inherit inputs hostname;
         };
       };
   in {

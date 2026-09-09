@@ -16,8 +16,8 @@
 in {
   assertions = [
     {
-      assertion = builtins.elem hostname ["sebastian-laptop-hp" "sebastian-laptop-legion"];
-      message = "Unsupported hostname '${hostname}'. Expected sebastian-laptop-hp or sebastian-laptop-legion.";
+      assertion = builtins.isString hostname && hostname != "";
+      message = "A non-empty hostname is required for AI agent instructions.";
     }
   ];
 

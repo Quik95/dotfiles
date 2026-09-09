@@ -4,10 +4,11 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 
 ## Scope
 
-- **System configs:** `nixosConfigurations.sebastian-laptop-hp`, `nixosConfigurations.sebastian-laptop-legion`
-- **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-hp"`, `homeConfigurations."sebastian@sebastian-laptop-legion"`
+- **System configs:** `nixosConfigurations.sebastian-laptop-legion`
+- **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-legion"`
 - **Platform:** `x86_64-linux` on NixOS unstable
-- **Desktop:** GNOME (HP), Plasma 6 (Legion)
+- **Desktop:** Plasma 6 (Legion); shared GNOME modules remain available
+- **Adding hosts:** register NixOS and Home Manager module paths in `hosts` in `flake.nix`; outputs and Home Manager checks are generated automatically
 
 ## Environment Details
 
@@ -32,10 +33,7 @@ nix flake show --no-write-lock-file
 nix flake check . --quiet
 
 # Dry-run Home Manager activation package build
-nix build .#homeConfigurations.\"sebastian@sebastian-laptop-hp\".activationPackage --dry-run --quiet
-
-# Dry-run NixOS system build (HP)
-nix build .#nixosConfigurations.sebastian-laptop-hp.config.system.build.toplevel --dry-run --quiet
+nix build .#homeConfigurations.\"sebastian@sebastian-laptop-legion\".activationPackage --dry-run --quiet
 
 # Dry-run NixOS system build (Legion)
 nix build .#nixosConfigurations.sebastian-laptop-legion.config.system.build.toplevel --dry-run --quiet
@@ -47,17 +45,14 @@ nix fmt . -- --check
 ### Apply configurations
 
 ```bash
-# NixOS switch (HP)
-sudo nixos-rebuild switch --flake .#sebastian-laptop-hp --quiet
-
 # NixOS switch (Legion)
 sudo nixos-rebuild switch --flake .#sebastian-laptop-legion --quiet
 
 # NixOS test (temporary activation)
-sudo nixos-rebuild test --flake .#sebastian-laptop-hp --quiet
+sudo nixos-rebuild test --flake .#sebastian-laptop-legion --quiet
 
 # Home Manager switch
-home-manager switch --flake .#sebastian@sebastian-laptop-hp
+home-manager switch --flake .#sebastian@sebastian-laptop-legion
 ```
 
 ### Update inputs
@@ -92,9 +87,6 @@ sops home-manager/secrets/<file>.yaml
 ├── nixos/
 │   ├── common.nix
 │   ├── hosts/
-│   │   ├── sebastian-laptop-hp/
-│   │   │   ├── configuration.nix
-│   │   │   └── hardware-configuration.nix
 │   │   └── sebastian-laptop-legion/
 │   │       └── configuration.nix
 ├── home-manager/

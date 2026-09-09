@@ -56,61 +56,58 @@
       config.allowUnfree = true;
       overlays = [nur.overlays.default];
     };
+    hosts = {
+      sebastian-laptop-legion = {
+        nixosModule = ./nixos/hosts/sebastian-laptop-legion/configuration.nix;
+        homeModule = ./home-manager/hosts/sebastian-laptop-legion.nix;
+      };
+    };
+
+    mkNixos = _: host:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          sops-nix.nixosModules.sops
+          nix-index-database.nixosModules.default
+          ./modules/nixos.nix
+          host.nixosModule
+        ];
+      };
+
+    mkHome = hostname: host:
+      home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home-manager/home.nix
+          ./modules/home-standalone.nix
+          host.homeModule
+        ];
+        extraSpecialArgs = {
+          inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents plasma-manager;
+          inherit hostname;
+        };
+      };
   in {
-    nixosConfigurations.sebastian-laptop-hp = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        sops-nix.nixosModules.sops
-        nix-index-database.nixosModules.default
-        ./modules/nixos.nix
-        ./nixos/hosts/sebastian-laptop-hp/configuration.nix
-      ];
-    };
+    nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos hosts;
+    homeConfigurations =
+      nixpkgs.lib.mapAttrs' (
+        hostname: host: nixpkgs.lib.nameValuePair "sebastian@${hostname}" (mkHome hostname host)
+      )
+      hosts;
 
-    nixosConfigurations.sebastian-laptop-legion = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        sops-nix.nixosModules.sops
-        nix-index-database.nixosModules.default
-        ./modules/nixos.nix
-        ./nixos/hosts/sebastian-laptop-legion/configuration.nix
-      ];
-    };
-
-    homeConfigurations."sebastian@sebastian-laptop-hp" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [
-        ./home-manager/home.nix
-        ./modules/home-standalone.nix
-        ./home-manager/hosts/sebastian-laptop-hp.nix
-      ];
-      extraSpecialArgs = {
-        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents plasma-manager;
-        hostname = "sebastian-laptop-hp";
+    checks.${system} =
+      nixpkgs.lib.mapAttrs' (
+        hostname: _:
+          nixpkgs.lib.nameValuePair "home-manager-${nixpkgs.lib.removePrefix "sebastian-laptop-" hostname}"
+          self.homeConfigurations."sebastian@${hostname}".activationPackage
+      )
+      hosts
+      // {
+        formatting = pkgs.runCommand "check-formatting" {} ''
+          ${pkgs.alejandra}/bin/alejandra --check --quiet ${self}
+          touch "$out"
+        '';
       };
-    };
-
-    homeConfigurations."sebastian@sebastian-laptop-legion" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [
-        ./home-manager/home.nix
-        ./modules/home-standalone.nix
-        ./home-manager/hosts/sebastian-laptop-legion.nix
-      ];
-      extraSpecialArgs = {
-        inherit nix-flatpak lazyvim sops-nix stylix nix-jetbrains-plugins llm-agents plasma-manager;
-        hostname = "sebastian-laptop-legion";
-      };
-    };
-
-    checks.${system} = {
-      home-manager-hp = self.homeConfigurations."sebastian@sebastian-laptop-hp".activationPackage;
-      home-manager-legion = self.homeConfigurations."sebastian@sebastian-laptop-legion".activationPackage;
-      formatting = pkgs.runCommand "check-formatting" {} ''
-        ${pkgs.alejandra}/bin/alejandra --check --quiet ${self}
-        touch "$out"
-      '';
-    };
 
     formatter.${system} = pkgs.alejandra;
   };

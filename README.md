@@ -2,7 +2,21 @@
 
 NixOS + Home Manager flake for Sebastian's laptops.
 
-Available configurations: `sebastian-laptop-hp`, `sebastian-laptop-legion`.
+Available configurations: `sebastian-laptop-legion`.
+
+## Dodawanie hosta
+
+W `flake.nix` dodaj wpis w `hosts`, wskazując `nixosModule` na
+`./nixos/hosts/<hostname>/configuration.nix` i `homeModule` na
+`./home-manager/hosts/<hostname>.nix`. Utwórz te pliki, ustaw
+`networking.hostName` na tę samą nazwę i zaimportuj wygenerowaną konfigurację
+sprzętu w module NixOS. Flake automatycznie udostępni konfigurację NixOS,
+profil `sebastian@<hostname>` i check Home Managera (obecnie dla `x86_64-linux`).
+
+Wspólne ustawienia pozostają w `modules/`, a wyjątki dla maszyny w plikach
+hosta. Przy dodawaniu innego środowiska graficznego sprawdź warunki zależne
+od `hostname` w modułach — obecnie hosty inne niż Legion domyślnie używają GNOME.
+Nowe pliki dodaj do Git, aby flake je widział.
 
 ## Unified modules (nixfiles)
 

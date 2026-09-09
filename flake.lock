@@ -278,6 +278,27 @@
         "type": "github"
       }
     },
+    "neko-rs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1789041463,
+        "narHash": "sha256-AmuueXBoSrOHeRBGcSJlVNOm/1geEnoQY995yZ+7LLY=",
+        "owner": "Quik95",
+        "repo": "neko-rs",
+        "rev": "c89996514abc05f0f77edb2402b8388357d8c514",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Quik95",
+        "repo": "neko-rs",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1783368811,
@@ -406,6 +427,7 @@
         "home-manager": "home-manager",
         "lazyvim": "lazyvim",
         "llm-agents": "llm-agents",
+        "neko-rs": "neko-rs",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
         "nix-jetbrains-plugins": "nix-jetbrains-plugins",
@@ -454,7 +476,7 @@
         "nur": [
           "nur"
         ],
-        "systems": "systems_2",
+        "systems": "systems_3",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
         "tinted-tmux": "tinted-tmux",
@@ -490,6 +512,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1689347949,
+        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1774449309,
         "narHash": "sha256-brhZ8DmuGtzkCYHJg4HEd602amKm89Y9ytsFZ5uWD1w=",

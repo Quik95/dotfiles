@@ -61,6 +61,11 @@
       };
     };
 
+    neko-rs = {
+      url = "github:Quik95/neko-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs = {

@@ -11,6 +11,7 @@
     inputs.sops-nix.homeManagerModules.sops
     inputs.stylix.homeModules.stylix
     inputs.plasma-manager.homeModules.plasma-manager
+    inputs.neko-rs.homeModules.nekors
   ];
 
   programs.home-manager.enable = true;
@@ -48,4 +49,10 @@
       # required for the gnome-system-monitor extension to work
       gnome-system-monitor
     ];
+
+  # The display is HiDPI, so the 32x32 sprites need doubling.
+  services.nekors = {
+    enable = true;
+    extraArgs = ["--scale" "2"];
+  };
 }

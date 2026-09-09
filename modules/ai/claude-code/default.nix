@@ -165,6 +165,8 @@ in {
       aiAgentsLspServers;
 
     settings = {
+      includeCoAuthoredBy = false;
+      respondToBashCommands = false;
       env = {
         "CLAUDE_CODE_DISABLE_1M_CONTEXT" = 1;
       };

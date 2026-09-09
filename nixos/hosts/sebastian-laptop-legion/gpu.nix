@@ -22,9 +22,8 @@
     # (2) GSP firmware loses heartbeat after power-gating, blocking subsequent suspends.
     powerManagement.finegrained = false;
 
-    # Dynamic Boost (nvidia-powerd) aggressively caps GPU clocks, causing
-    # the compositor to occasionally miss vblank deadlines on HDMI output.
-    dynamicBoost.enable = false;
+    # Enable NVIDIA Dynamic Boost through nvidia-powerd.
+    dynamicBoost.enable = true;
 
     nvidiaPersistenced = false;
 

@@ -1,19 +1,15 @@
 {
   lib,
   pkgs,
+  inputs,
   hostname,
   ...
 }: let
   sysPeek = pkgs.stdenvNoCC.mkDerivation {
     pname = "syspeek";
-    version = "1.3.0";
+    version = (builtins.fromJSON (builtins.readFile "${inputs.syspeek}/metadata.json")).KPlugin.Version;
 
-    src = pkgs.fetchFromGitHub {
-      owner = "prassamin";
-      repo = "SysPeek";
-      rev = "v2.0.0";
-      hash = "sha256-slpgxrz2O/Spgzv4SuI87vNkC7kpmqorTzqBFpGyImQ=";
-    };
+    src = inputs.syspeek;
 
     dontBuild = true;
 

@@ -1,13 +1,8 @@
 {
-  pkgs,
+  inputs,
   basePath ? null,
 }: let
-  typst-author = pkgs.fetchFromGitHub {
-    owner = "apcamargo";
-    repo = "typst-author";
-    rev = "9e4ace023b255ffbd9dacd26fe27665eef9c6d4b";
-    hash = "sha256-FCr+Cgi+mI9H2dtEgtrH93aj3hfolKhoP71EYiFOglo=";
-  };
+  typst-author = "${inputs.typst-skills}/typst-author";
 
   skills = {
     ast-grep = ./ast-grep.md;

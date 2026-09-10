@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   aiAgentsSystemInstruction,
   ...
 }: let
@@ -21,12 +22,7 @@
     installPhase = "install -Dm755 maki $out/bin/maki";
   };
 
-  makiconf = pkgs.fetchFromGitHub {
-    owner = "tontinton";
-    repo = "makiconf";
-    rev = "b4fde8c27c1f88cd1e5ccf19c34e8629a669b1fa";
-    hash = "sha256-UJ7dNJpqL1+ZWYTr+HgHImBZ88NaMWGjVVTZw/E81F4=";
-  };
+  makiconf = inputs.makiconf;
 in {
   home.packages = [maki];
 

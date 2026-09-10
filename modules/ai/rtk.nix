@@ -1,12 +1,11 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   rtkBin = "${pkgs.rtk}/bin/rtk";
 
-  rtkSource = pkgs.fetchFromGitHub {
-    owner = "rtk-ai";
-    repo = "rtk";
-    rev = "e53ec1cf180d801f33121855dce37b393ede258c";
-    hash = "sha256-hEGrA+IuL1wJtEAFqEd5GRlbQnxXrZMxy99a9uefDXE=";
-  };
+  rtkSource = inputs.rtk-source;
 in {
   _module.args.rtkSource = rtkSource;
 

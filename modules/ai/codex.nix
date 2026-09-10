@@ -26,7 +26,7 @@ in {
     enable = true;
     package = codexWrapped;
     enableMcpIntegration = true;
-    skills = import ./skills {inherit pkgs;};
+    skills = import ./skills {inherit inputs;};
     settings = {
       model = "gpt-5.6-luna";
       model_reasoning_effort = "xhigh";

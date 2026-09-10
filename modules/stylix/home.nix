@@ -1,15 +1,8 @@
-{pkgs, ...}: let
-  tt-schemes = pkgs.fetchFromGitHub {
-    owner = "tinted-theming";
-    repo = "schemes";
-    rev = "b15ea410ff2091a064a92d0f6b8bae80a2f27798";
-    hash = "sha256-pDz3SALMXwLvqvVPKj2pQn1Cr6WsPTWICaUhWfmXAYI=";
-  };
-in {
+{config, ...}: {
   stylix = {
     enable = true;
     autoEnable = false;
-    base16Scheme = "${tt-schemes}/base24/purple-rain.yaml";
+    base16Scheme = "${config.stylix.inputs.tinted-schemes}/base24/purple-rain.yaml";
     fonts.sizes = {
       applications = 11;
       desktop = 9;

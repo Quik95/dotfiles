@@ -141,7 +141,7 @@
   };
 in {
   home.file = import ../skills {
-    inherit pkgs;
+    inherit inputs;
     basePath = "${config.programs.claude-code.configDir}/skills";
   };
 

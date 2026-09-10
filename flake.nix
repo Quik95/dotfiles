@@ -66,6 +66,36 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    kde-ai-usage = {
+      url = "github:Muddyblack/kde-ai-usage/v2.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    syspeek = {
+      url = "github:prassamin/SysPeek/v2.0.0";
+      flake = false;
+    };
+
+    makiconf = {
+      url = "github:tontinton/makiconf";
+      flake = false;
+    };
+
+    typst-skills = {
+      url = "github:apcamargo/typst-skills";
+      flake = false;
+    };
+
+    rtk-source = {
+      url = "github:rtk-ai/rtk/e53ec1cf180d801f33121855dce37b393ede258c";
+      flake = false;
+    };
+
+    picard-plugins = {
+      url = "github:metabrainz/picard-plugins";
+      flake = false;
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs = {

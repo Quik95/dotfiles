@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   lib,
   ...
 }: let
@@ -36,12 +37,7 @@
       ];
   });
 
-  picardPlugins = pkgs.fetchFromGitHub {
-    owner = "metabrainz";
-    repo = "picard-plugins";
-    rev = "1ad24cca780406a980fda2940aba09e86a05fb47";
-    hash = "sha256-T/G45uc+QMtkKVnGmYOxCkObfi4CztLwQRX8525/F+I=";
-  };
+  picardPlugins = inputs.picard-plugins;
 
   pluginDirs = [
     "lrclib_lyrics"

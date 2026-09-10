@@ -167,6 +167,10 @@ in {
     settings = {
       includeCoAuthoredBy = false;
       respondToBashCommands = false;
+      model = "claude-opus-5";
+      effortLevel = "low";
+      modelSettings."claude-opus-5".effortLevel = "low";
+      skipDangerousModePermissionPrompt = true;
       env = {
         "CLAUDE_CODE_DISABLE_1M_CONTEXT" = 1;
       };
@@ -176,6 +180,7 @@ in {
         refreshInterval = 10;
       };
       permissions = {
+        defaultMode = "bypassPermissions";
         additionalDirectories = ["/nix/store"];
         allow = [
           "Read(//nix/store)"

@@ -5,13 +5,15 @@
   aiAgentsSystemInstruction,
   ...
 }: let
+  makiVersion = "0.5.3";
+
   maki = pkgs.stdenvNoCC.mkDerivation {
     pname = "maki";
-    version = "0.5.1";
+    version = makiVersion;
 
     src = pkgs.fetchurl {
-      url = "https://github.com/tontinton/maki/releases/download/v0.5.1/maki-v0.5.1-x86_64-unknown-linux-musl.tar.gz";
-      hash = "sha256-H00/EvkCnKbMw3ONFb3w+JouDeDHZNNgiX5QgQLktb4=";
+      url = "https://github.com/tontinton/maki/releases/download/v${makiVersion}/maki-v${makiVersion}-x86_64-unknown-linux-musl.tar.gz";
+      hash = "sha256-OHeUAqJP92nm9tFoTURkPrWqfbmCToPxy7zjjg4vC64=";
     };
 
     nativeBuildInputs = [pkgs.gnutar];

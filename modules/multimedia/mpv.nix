@@ -109,7 +109,12 @@
       audio-pitch-correction = "yes";
 
       profile = "high-quality";
-      hwdec = "auto";
+      # nvdec avoids a Vulkan hwdec decoder bug on the Legion's RTX 5050 that
+      # corrupts frames (blocky macroblock artifacts); other hosts keep auto.
+      hwdec =
+        if hostname == "sebastian-laptop-legion"
+        then "nvdec"
+        else "auto";
       vo = "gpu-next";
 
       scale = "catmull_rom";

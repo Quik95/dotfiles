@@ -66,6 +66,18 @@
       enabled = true;
     }
     {
+      pkg = multi-monitor-bar;
+      enabled = true;
+      dconfPath = "multi-monitors-bar";
+      settings = {
+        show-panel = true;
+        show-activities = false;
+        show-date-time = true;
+        show-indicator = false;
+        show-dock-on-extended-monitors = false;
+      };
+    }
+    {
       pkg = random-wallpaper;
       enabled = false;
     }

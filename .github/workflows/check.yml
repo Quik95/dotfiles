@@ -22,6 +22,12 @@ jobs:
           persist-credentials: false
 
       - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+        with:
+          # llm-agents.nix declares this cache in nixConfig, which Nix ignores
+          # as untrusted; without it codex is rebuilt from source.
+          extra-conf: |
+            extra-substituters = https://cache.numtide.com
+            extra-trusted-public-keys = niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
 
       - name: Flake checks (formatting + home-manager)
         run: nix flake check --print-build-logs --no-update-lock-file

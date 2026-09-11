@@ -83,9 +83,18 @@
         ".cts" = "typescript";
       };
     };
+    zig = {
+      package = pkgs.zls;
+      command = [(lib.getExe pkgs.zls)];
+      extensionToLanguage = {
+        ".zig" = "zig";
+        ".zon" = "zig";
+      };
+    };
   };
 in {
   _module.args.aiAgentsLspServers = servers;
 
-  home.packages = lib.mapAttrsToList (_: s: s.package) servers;
+  # zls needs a zig toolchain on PATH for build-on-save and std resolution.
+  home.packages = lib.mapAttrsToList (_: s: s.package) servers ++ [pkgs.zig];
 }

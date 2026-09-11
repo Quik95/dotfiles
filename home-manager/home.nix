@@ -4,7 +4,9 @@
   inputs,
   ...
 }: let
-  isGnome = (import ../shared/desktop.nix).desktop == "gnome";
+  desktop = (import ../shared/desktop.nix).desktop;
+  isGnome = desktop == "gnome";
+  isPlasma = desktop == "plasma";
 in {
   imports = [
     inputs.lazyvim.homeManagerModules.default
@@ -52,8 +54,11 @@ in {
     ];
 
   # The display is HiDPI, so the 32x32 sprites need doubling.
+  # Plasma only: nekors draws through zwlr_layer_shell_v1, which mutter does not
+  # implement, and it is fed cursor positions by a KWin script
+  # (Plugins.nekorsEnabled in modules/wm/plasma/behavior.nix).
   services.nekors = {
-    enable = true;
+    enable = isPlasma;
     extraArgs = ["--scale" "2"];
   };
 }

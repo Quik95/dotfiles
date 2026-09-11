@@ -57,6 +57,11 @@ in
       };
 
       "org/gnome/mutter" = {
+        # Plasma runs the 2560x1600 panel at 120%; mutter only offers fractional
+        # scales once the monitor framebuffer is scaled instead of the output.
+        # The per-monitor scale itself is runtime state in ~/.config/monitors.xml,
+        # the same way Plasma keeps it in kwinoutputconfig.json.
+        experimental-features = ["scale-monitor-framebuffer"];
         dynamic-workspaces = true;
         workspaces-only-on-primary = false;
         edge-tiling = false;

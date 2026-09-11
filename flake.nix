@@ -170,6 +170,22 @@
           ${pkgs.alejandra}/bin/alejandra --check --quiet ${self}
           touch "$out"
         '';
+
+        actionlint =
+          pkgs.runCommand "check-actionlint" {
+            nativeBuildInputs = [pkgs.actionlint pkgs.shellcheck];
+          } ''
+            actionlint -color ${self}/.github/workflows/*.yml
+            touch "$out"
+          '';
+
+        zizmor =
+          pkgs.runCommand "check-zizmor" {
+            nativeBuildInputs = [pkgs.zizmor];
+          } ''
+            zizmor --offline --persona=regular --no-progress ${self}/.github/workflows
+            touch "$out"
+          '';
       };
 
     formatter.${system} = pkgs.alejandra;

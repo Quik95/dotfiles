@@ -1,10 +1,9 @@
 {
   config,
   lib,
-  hostname,
   ...
 }: let
-  isLegion = hostname == "sebastian-laptop-legion";
+  isGnome = (import ../../shared/desktop.nix).desktop == "gnome";
 in {
   services.flatpak = {
     enable = true;
@@ -26,7 +25,7 @@ in {
         "org.nickvision.money"
         "page.tesk.Refine"
       ]
-      ++ lib.optionals (!isLegion) [
+      ++ lib.optionals isGnome [
         "be.alexandervanhee.gradia"
         "com.mattjakeman.ExtensionManager"
         "org.gnome.Papers"

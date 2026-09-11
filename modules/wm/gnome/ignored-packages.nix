@@ -1,29 +1,30 @@
 {
-  config,
   pkgs,
   lib,
   ...
-}:
-lib.mkIf (config.networking.hostName != "sebastian-laptop-legion") {
-  environment.gnome.excludePackages = with pkgs; [
-    atomix
-    cheese
-    epiphany
-    evince
-    geary
-    gnome-console
-    gnome-contacts
-    gnome-extension-manager
-    gnome-maps
-    gnome-music
-    gnome-system-monitor
-    gnome-terminal
-    gnome-tour
-    gnome-weather
-    hitori
-    iagno
-    tali
-    totem
-    yelp
-  ];
-}
+}: let
+  isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
+in
+  lib.mkIf isGnome {
+    environment.gnome.excludePackages = with pkgs; [
+      atomix
+      cheese
+      epiphany
+      evince
+      geary
+      gnome-console
+      gnome-contacts
+      gnome-extension-manager
+      gnome-maps
+      gnome-music
+      gnome-system-monitor
+      gnome-terminal
+      gnome-tour
+      gnome-weather
+      hitori
+      iagno
+      tali
+      totem
+      yelp
+    ];
+  }

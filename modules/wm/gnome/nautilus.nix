@@ -1,9 +1,9 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
+  isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
   nautilusBookmarks = [
     {
       path = "${config.home.homeDirectory}/Documents";
@@ -26,10 +26,6 @@
       name = "Videos";
     }
     {
-      path = "${config.home.homeDirectory}/Projects/Studia/Magisterka/Semestr III";
-      name = "Semestr III";
-    }
-    {
       path = "/tmp";
       name = "Temp Dir";
     }
@@ -38,9 +34,10 @@
   bookmarksFileContents = lib.concatStringsSep "\n" (
     lib.map formatBookmark nautilusBookmarks
   );
-in {
-  xdg.configFile."gtk-3.0/bookmarks" = {
-    force = true;
-    text = bookmarksFileContents;
-  };
-}
+in
+  lib.mkIf isGnome {
+    xdg.configFile."gtk-3.0/bookmarks" = {
+      force = true;
+      text = bookmarksFileContents;
+    };
+  }

@@ -2,9 +2,10 @@
   pkgs,
   config,
   lib,
-  hostname,
   ...
-}: {
+}: let
+  isPlasma = (import ../../shared/desktop.nix).desktop == "plasma";
+in {
   imports = [
     ./gpg-preseed.nix
   ];
@@ -43,11 +44,13 @@
     services.gpg-agent = {
       enable = true;
       enableFishIntegration = true;
-      enableSshSupport = hostname != "sebastian-laptop-legion";
+      # Plasma runs OpenSSH's own agent with ksshaskpass (modules/wm/plasma/nixos.nix);
+      # GNOME lets gpg-agent serve SSH keys.
+      enableSshSupport = !isPlasma;
       defaultCacheTtl = 28800;
       maxCacheTtl = 28800;
       pinentry.package =
-        if hostname == "sebastian-laptop-legion"
+        if isPlasma
         then pkgs.pinentry-qt
         else pkgs.pinentry-gnome3;
     };

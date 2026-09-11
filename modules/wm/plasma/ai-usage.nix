@@ -1,10 +1,10 @@
 {
   lib,
   pkgs,
-  hostname,
   inputs,
   ...
 }: let
+  isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
   aiUsage = inputs.kde-ai-usage.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
     postPatch =
       (old.postPatch or "")
@@ -27,7 +27,7 @@
       '';
   });
 in {
-  config = lib.mkIf (hostname == "sebastian-laptop-legion") {
+  config = lib.mkIf isPlasma {
     home.packages = [aiUsage];
   };
 }

@@ -2,21 +2,20 @@
   config,
   lib,
   pkgs,
-  hostname,
   ...
 }: let
-  isLegion = hostname == "sebastian-laptop-legion";
+  isPlasma = (import ../../shared/desktop.nix).desktop == "plasma";
   browser = ["firefox.desktop"];
   fileManager =
-    if isLegion
+    if isPlasma
     then ["org.kde.dolphin.desktop"]
     else ["org.gnome.Nautilus.desktop"];
   imageViewer =
-    if isLegion
+    if isPlasma
     then ["org.kde.gwenview.desktop"]
     else ["org.gnome.Loupe.desktop"];
   pdfViewer =
-    if isLegion
+    if isPlasma
     then ["org.kde.okular.desktop"]
     else ["org.gnome.Papers.desktop"];
   mediaPlayer = ["mpv.desktop"];
@@ -90,7 +89,7 @@ in {
       };
   };
 
-  programs.plasma.configFile.kdeglobals.General = lib.mkIf isLegion {
+  programs.plasma.configFile.kdeglobals.General = lib.mkIf isPlasma {
     BrowserApplication = "firefox.desktop";
   };
 }

@@ -1,9 +1,7 @@
-{
-  lib,
-  hostname,
-  ...
-}: {
-  config = lib.mkIf (hostname == "sebastian-laptop-legion") {
+{lib, ...}: let
+  isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
+in {
+  config = lib.mkIf isPlasma {
     programs.plasma = {
       shortcuts = {
         kwin = {

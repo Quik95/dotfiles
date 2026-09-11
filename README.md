@@ -14,9 +14,16 @@ sprzętu w module NixOS. Flake automatycznie udostępni konfigurację NixOS,
 profil `sebastian@<hostname>` i check Home Managera (obecnie dla `x86_64-linux`).
 
 Wspólne ustawienia pozostają w `modules/`, a wyjątki dla maszyny w plikach
-hosta. Przy dodawaniu innego środowiska graficznego sprawdź warunki zależne
-od `hostname` w modułach — obecnie hosty inne niż Legion domyślnie używają GNOME.
-Nowe pliki dodaj do Git, aby flake je widział.
+hosta. Nowe pliki dodaj do Git, aby flake je widział.
+
+### Wybór środowiska graficznego
+
+Środowisko graficzne wybiera `shared/desktop.nix` (`"plasma"` albo `"gnome"`).
+Wszystkie moduły zależne od pulpitu — `modules/wm/plasma/*`, `modules/wm/gnome/*`
+oraz miejsca, które instalują inne aplikacje per pulpit (`modules/default-apps`,
+`modules/flatpak`, `modules/ssh`, `modules/multimedia/mpv.nix`) — sprawdzają tę
+wartość zamiast `hostname`. Po zmianie potrzebny jest rebuild NixOS i Home
+Managera oraz ponowne zalogowanie (nowa sesja wybierana w GDM/SDDM).
 
 ## Unified modules (nixfiles)
 

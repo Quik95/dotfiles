@@ -1,11 +1,8 @@
-{
-  lib,
-  hostname,
-  ...
-}: let
+{lib, ...}: let
+  isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
   purpleRainAccent = "128,91,181";
 in {
-  config = lib.mkIf (hostname == "sebastian-laptop-legion") {
+  config = lib.mkIf isPlasma {
     programs.plasma = {
       workspace = {
         clickItemTo = "select";

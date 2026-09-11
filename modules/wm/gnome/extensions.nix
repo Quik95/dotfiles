@@ -1,9 +1,9 @@
 {
   pkgs,
   lib,
-  hostname,
   ...
 }: let
+  isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
   extensions = with pkgs.gnomeExtensions; [
     {
       pkg = activate-window-by-title;
@@ -92,7 +92,7 @@
     ) {}
     exts;
 in
-  lib.mkIf (hostname != "sebastian-laptop-legion") {
+  lib.mkIf isGnome {
     dconf.settings =
       mkDconfSettings extensions
       // {

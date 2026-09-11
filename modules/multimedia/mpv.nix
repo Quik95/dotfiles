@@ -3,7 +3,9 @@
   lib,
   hostname,
   ...
-}: {
+}: let
+  isGnome = (import ../../shared/desktop.nix).desktop == "gnome";
+in {
   programs.mpv = {
     enable = true;
     bindings = {
@@ -177,7 +179,7 @@
         thumbfast
         uosc
       ]
-      ++ lib.optionals (hostname != "sebastian-laptop-legion") [
+      ++ lib.optionals isGnome [
         inhibit-gnome
       ];
     scriptOpts = {

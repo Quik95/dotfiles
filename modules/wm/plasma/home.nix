@@ -1,10 +1,10 @@
 {
-  config,
   lib,
   pkgs,
-  hostname,
   ...
-}: {
+}: let
+  isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
+in {
   imports = [
     ./appearance.nix
     ./behavior.nix
@@ -13,7 +13,7 @@
     ./syspeek.nix
   ];
 
-  config = lib.mkIf (hostname == "sebastian-laptop-legion") {
+  config = lib.mkIf isPlasma {
     programs.plasma = {
       enable = true;
       session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";

@@ -2,9 +2,10 @@
   pkgs,
   lib,
   inputs,
-  hostname,
   ...
-}: {
+}: let
+  isGnome = (import ../shared/desktop.nix).desktop == "gnome";
+in {
   imports = [
     inputs.lazyvim.homeManagerModules.default
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
@@ -45,7 +46,7 @@
       devenv
       sops
     ]
-    ++ lib.optionals (hostname != "sebastian-laptop-legion") [
+    ++ lib.optionals isGnome [
       # required for the gnome-system-monitor extension to work
       gnome-system-monitor
     ];

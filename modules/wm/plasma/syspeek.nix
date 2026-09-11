@@ -2,9 +2,9 @@
   lib,
   pkgs,
   inputs,
-  hostname,
   ...
 }: let
+  isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
   sysPeek = pkgs.stdenvNoCC.mkDerivation {
     pname = "syspeek";
     version = (builtins.fromJSON (builtins.readFile "${inputs.syspeek}/metadata.json")).KPlugin.Version;
@@ -21,7 +21,7 @@
     '';
   };
 in {
-  config = lib.mkIf (hostname == "sebastian-laptop-legion") {
+  config = lib.mkIf isPlasma {
     home.packages = [sysPeek];
   };
 }

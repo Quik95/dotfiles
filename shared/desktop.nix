@@ -7,5 +7,5 @@
 #
 # Supported values: "plasma", "gnome".
 {
-  desktop = "plasma";
+  desktop = "gnome";
 }

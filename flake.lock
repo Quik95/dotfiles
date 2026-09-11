@@ -490,28 +490,10 @@
         "nur": "nur",
         "picard-plugins": "picard-plugins",
         "plasma-manager": "plasma-manager",
-        "rtk-source": "rtk-source",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "syspeek": "syspeek",
         "typst-skills": "typst-skills"
-      }
-    },
-    "rtk-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788566057,
-        "narHash": "sha256-hEGrA+IuL1wJtEAFqEd5GRlbQnxXrZMxy99a9uefDXE=",
-        "owner": "rtk-ai",
-        "repo": "rtk",
-        "rev": "e53ec1cf180d801f33121855dce37b393ede258c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rtk-ai",
-        "repo": "rtk",
-        "rev": "e53ec1cf180d801f33121855dce37b393ede258c",
-        "type": "github"
       }
     },
     "sops-nix": {

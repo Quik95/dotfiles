@@ -86,11 +86,6 @@
       flake = false;
     };
 
-    rtk-source = {
-      url = "github:rtk-ai/rtk/e53ec1cf180d801f33121855dce37b393ede258c";
-      flake = false;
-    };
-
     picard-plugins = {
       url = "github:metabrainz/picard-plugins";
       flake = false;

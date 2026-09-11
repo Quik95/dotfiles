@@ -54,7 +54,6 @@ in {
               },
           },
           agent = {
-              rtk = true,
           },
           provider = {
               default_model = "openai/gpt-5.6-terra",

@@ -29,6 +29,5 @@ in {
     ./lsp.nix
     ./maki.nix
     ./mcp.nix
-    ./rtk.nix
   ];
 }

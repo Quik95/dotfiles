@@ -3,7 +3,6 @@
   lib,
   config,
   aiAgentsSystemInstruction,
-  rtkSource,
   inputs,
   ...
 }: let
@@ -50,10 +49,6 @@ in {
         ];
       };
     };
-    context = ''
-      ${aiAgentsSystemInstruction}
-
-      ${builtins.readFile "${rtkSource}/hooks/codex/rtk-awareness.md"}
-    '';
+    context = aiAgentsSystemInstruction;
   };
 }

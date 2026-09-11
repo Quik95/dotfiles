@@ -7,6 +7,7 @@
     ./bat.nix
     ./btop.nix
     ./eza.nix
+    ./gh.nix
     ./git.nix
     ./powerline-go.nix
     ./starship.nix

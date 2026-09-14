@@ -1,21 +1,14 @@
 {...}: {
   sops = {
-    defaultSopsFile = ../../../home-manager/secrets/eduroam-certificate.bin;
+    defaultSopsFile = ../../../home-manager/secrets/wifi-plus-rpB8.env;
     # System-level key (root-owned); HM uses a separate user-level key
     # at $XDG_CONFIG_HOME/sops/age/keys.txt (see modules/security/sops/home.nix)
     age.keyFile = "/var/lib/sops-nix/key.txt";
 
     secrets = {
-      eduroam-certificate = {
-        format = "binary";
-        sopsFile = ../../../home-manager/secrets/eduroam-certificate.bin;
-        mode = "0400";
-        owner = "wpa_supplicant";
-      };
-
-      eduroam-credentials = {
+      wifi-plus-rpB8 = {
         format = "dotenv";
-        sopsFile = ../../../home-manager/secrets/eduroam-credentials.env;
+        sopsFile = ../../../home-manager/secrets/wifi-plus-rpB8.env;
         mode = "0400";
       };
     };

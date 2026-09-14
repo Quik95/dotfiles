@@ -37,7 +37,6 @@
 
   networking.hostName = "sebastian-laptop-legion";
   networking.networkmanager.ethernet.macAddress = "38:a7:46:3b:16:ed";
-  nixfiles.eduroam.interfaceName = "wlp4s0";
 
   nixfiles.i2c.enable = true;
   nixfiles.passwordless-sudo.enable = false;

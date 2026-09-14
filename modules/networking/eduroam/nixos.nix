@@ -1,40 +1,25 @@
-{config, ...}: let
-  interfaceName = config.nixfiles.eduroam.interfaceName;
-in {
+{config, ...}: {
   networking.networkmanager.ensureProfiles = {
     environmentFiles = [
-      config.sops.secrets.eduroam-credentials.path
+      config.sops.secrets.wifi-plus-rpB8.path
     ];
 
-    profiles.eduroam = {
+    profiles.plus-rpB8 = {
       connection = {
-        id = "eduroam";
+        id = "PLUS-rpB8";
         type = "wifi";
-        interface-name = interfaceName;
+        interface-name = "wlp4s0";
       };
       wifi = {
         mode = "infrastructure";
-        ssid = "eduroam";
+        ssid = "PLUS-rpB8";
       };
       wifi-security = {
-        key-mgmt = "wpa-eap";
-      };
-      "802-1x" = {
-        eap = "tls;";
-        identity = "$EDUROAM_IDENTITY";
-        client-cert = "file://${config.sops.secrets.eduroam-certificate.path}";
-        private-key = "file://${config.sops.secrets.eduroam-certificate.path}";
-        private-key-password = "$EDUROAM_P12_PASSWORD";
+        key-mgmt = "wpa-psk";
+        psk = "$WIFI_PASSWORD";
       };
       ipv4.method = "auto";
       ipv6.method = "auto";
     };
   };
-
-  # The wpa_supplicant service runs in a sandbox (chroot) where /run/secrets
-  # is not visible. We need to explicitly bind-mount the certificate file
-  # so the service can access it.
-  systemd.services.wpa_supplicant.serviceConfig.BindReadOnlyPaths = [
-    config.sops.secrets.eduroam-certificate.path
-  ];
 }

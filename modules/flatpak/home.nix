@@ -28,7 +28,6 @@ in {
       ++ lib.optionals isGnome [
         "be.alexandervanhee.gradia"
         "com.mattjakeman.ExtensionManager"
-        "org.gnome.Papers"
       ];
     uninstallUnmanaged = true;
 

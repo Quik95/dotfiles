@@ -4,6 +4,31 @@
   ...
 }: let
   isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
+
+  # Upstream gives every stat 6px of side padding and a 3em label, so five stats
+  # crowd the panel and the download figure ends up clipped. The numbers only
+  # live in the extension's stylesheet, so rewrite them in a copy instead of
+  # overriding the package, which would rebuild all of gnome-shell-extensions.
+  compactSystemMonitor = let
+    base = pkgs.gnomeExtensions.system-monitor;
+  in
+    pkgs.runCommand "${base.name}-compact" {
+      inherit (base) meta;
+      passthru = base.passthru or {} // {inherit (base) extensionUuid;};
+    } ''
+      cp -r ${base} $out
+      chmod -R u+w $out
+      css=$out/share/gnome-shell/extensions/${base.extensionUuid}/stylesheet.css
+      substituteInPlace $css \
+        --replace-fail "padding: 0 6px;" "padding: 0 3px;" \
+        --replace-fail "min-width: 3.0em;" "min-width: 2.2em;"
+      cat >>$css <<'EOF'
+
+      /* Keep the icon from touching its number now that sections sit closer. */
+      .system-monitor-stat-section-label {margin-left: 0.25em;}
+      EOF
+    '';
+
   extensions = with pkgs.gnomeExtensions; [
     {
       pkg = activate-window-by-title;
@@ -25,6 +50,16 @@
     {
       pkg = brightness-control-using-ddcutil;
       enabled = true;
+      dconfPath = "display-brightness-ddcutil";
+      settings = {
+        # As its own panel button the extension inserts itself at index 0 of the
+        # right box, exactly like system-monitor, so their relative order depends
+        # on which one happens to be enabled first. Living in the Quick Settings
+        # indicator cluster instead keeps it right of the resource monitor for
+        # good, and position-system-indicator pins it to the end of that cluster.
+        button-location = 1;
+        position-system-indicator = 15.0;
+      };
     }
     {
       pkg = blur-my-shell;
@@ -90,7 +125,7 @@
       enabled = true;
     }
     {
-      pkg = system-monitor;
+      pkg = compactSystemMonitor;
       enabled = true;
     }
   ];

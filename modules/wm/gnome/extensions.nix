@@ -23,7 +23,7 @@
       };
     }
     {
-      pkg = control-monitor-brightness-and-volume-with-ddcutil;
+      pkg = brightness-control-using-ddcutil;
       enabled = true;
     }
     {

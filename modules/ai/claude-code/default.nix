@@ -140,11 +140,6 @@
     };
   };
 in {
-  home.file = import ../skills {
-    inherit inputs;
-    basePath = "${config.programs.claude-code.configDir}/skills";
-  };
-
   xdg.configFile."ccstatusline/settings.json".text = builtins.toJSON ccstatuslineSettings;
   xdg.configFile."mimeapps.list".force = true; # idk, I don't care that much
 
@@ -153,9 +148,8 @@ in {
     package = claudeWrapped;
     configDir = "${config.xdg.configHome}/claude-code";
     enableMcpIntegration = true;
-    context = ''
-      ${aiAgentsSystemInstruction}
-    '';
+    context = aiAgentsSystemInstruction;
+    skills = import ../skills {inherit inputs;};
     lspServers =
       lib.mapAttrs (_: s: {
         command = builtins.head s.command;

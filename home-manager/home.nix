@@ -45,7 +45,6 @@ in {
       lm_sensors
       smartmontools
 
-      devenv
       sops
     ]
     ++ lib.optionals isGnome [

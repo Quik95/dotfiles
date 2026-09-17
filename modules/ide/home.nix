@@ -1,5 +1,6 @@
 {
   imports = [
+    ./devenv.nix
     ./direnv.nix
     ./helix.nix
     ./jetbrains.nix

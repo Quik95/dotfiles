@@ -42,24 +42,38 @@ in {
     profiles.default = {
       isDefault = true;
       name = "default";
-      search = import ./firefox-bookmarks.nix;
+      search = import ./firefox-search.nix;
 
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        bitwarden
-        consent-o-matic
-        gesturefy
-        raindropio
-        refined-github
-        sponsorblock
-        ublock-origin
-        videospeed
-        violentmonkey
-        youtube-recommended-videos
-      ];
+      extensions = {
+        force = true;
+
+        packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          bitwarden
+          consent-o-matic
+          gesturefy
+          raindropio
+          refined-github
+          sponsorblock
+          ublock-origin
+          videospeed
+          violentmonkey
+          youtube-recommended-videos
+        ];
+
+        settings."uBlock0@raymondhill.net".settings = {
+          selectedFilterLists = [
+            "ublock-filters"
+            "ublock-badware"
+            "ublock-privacy"
+            "ublock-unbreak"
+            "ublock-quick-fixes"
+          ];
+        };
+      };
 
       settings = {
         # General settings
-        "browser.shell.checkDefaultBrowser" = false;
+        "extensions.autoDisableScopes" = 0;
         "browser.startup.homepage" = "about:blank";
         "browser.urlbar.trimURLs" = true;
         "browser.search.suggest.enabled" = true;
@@ -90,8 +104,6 @@ in {
         "browser.tabs.closeWindowWithLastTab" = true;
         "browser.tabs.warnOnClose" = false;
         "browser.tabs.warnOnCloseOtherTabs" = false;
-        "browser.download.dir" = "/tmp";
-        "browser.download.folderList" = 2;
         "browser.download.useDownloadDir" = false;
         "browser.toolbars.bookmarks.showOtherBookmarks" = false;
         "sidebar.visibility" = "hide-sidebar-button";
@@ -176,7 +188,6 @@ in {
         };
 
         # Mouse gestures
-        "dom.event.contextmenu.enabled" = true;
         "ui.context_menus.after_mouseup" = true;
 
         # Spellcheck
@@ -186,8 +197,6 @@ in {
         # Dark theme
         "ui.systemUsesDarkTheme" = 1;
         "browser.theme.dark-private-windows" = true;
-        "browser.theme.toolbar-theme" = 0;
-        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "layout.css.prefers-color-scheme.content-override" = 0;
       };
     };

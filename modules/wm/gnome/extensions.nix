@@ -178,6 +178,7 @@
         show-activities = false;
         show-date-time = true;
         show-indicator = false;
+        show-overview-on-extended-monitors = false;
         show-dock-on-extended-monitors = false;
       };
     }

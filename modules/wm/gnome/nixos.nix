@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
 in {
   imports = [
@@ -14,6 +18,15 @@ in {
     programs.dconf.enable = true;
 
     xdg.portal.enable = true;
+
+    # GSConnect is the GNOME-native KDE Connect implementation. Enabling the
+    # kdeconnect module with the extension as its package is what opens the
+    # TCP/UDP 1714-1764 range the protocol needs; the shell extension on its own
+    # installs fine but never discovers a phone.
+    programs.kdeconnect = {
+      enable = true;
+      package = pkgs.gnomeExtensions.gsconnect;
+    };
 
     services.xserver.autoRepeatDelay = 200;
     services.xserver.autoRepeatInterval = 15;

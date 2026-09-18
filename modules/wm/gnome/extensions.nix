@@ -5,6 +5,20 @@
 }: let
   isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
 
+  gsconnectDeviceId = "509f37abcafb46e6bb3dde9fc301c07d";
+  gsconnectDisabledPlugins = [
+    "clipboard"
+    "contacts"
+    "mpris"
+    "notification"
+    "ping"
+    "runcommand"
+    "sftp"
+    "sms"
+    "systemvolume"
+    "telephony"
+  ];
+
   # Upstream gives every stat 6px of side padding and a 3em label, so five stats
   # crowd the panel and the download figure ends up clipped. The numbers only
   # live in the extension's stylesheet, so rewrite them in a copy instead of
@@ -82,6 +96,23 @@
       enabled = true;
     }
     {
+      # The package itself comes from programs.kdeconnect in
+      # modules/wm/gnome/nixos.nix, which is also what opens the firewall ports;
+      # the entry here only enables and configures the shell extension.
+      pkg = gsconnect;
+      enabled = true;
+      dconfPath = "gsconnect";
+      settings = {
+        # Keep GSConnect available for the existing pairing, but make it inert
+        # unless its functionality is explicitly enabled again below.
+        show-indicators = false;
+        keep-alive-when-locked = false;
+        create-native-messaging-hosts = false;
+        debug = false;
+        discoverable = false;
+      };
+    }
+    {
       pkg = just-perfection;
       enabled = true;
       dconfPath = "just-perfection";
@@ -143,6 +174,10 @@ in
     dconf.settings =
       mkDconfSettings extensions
       // {
+        "org/gnome/shell/extensions/gsconnect/device/${gsconnectDeviceId}" = {
+          disabled-plugins = gsconnectDisabledPlugins;
+          menu-actions = [];
+        };
         "org/gnome/shell" = {
           disable-user-extensions = false;
           disabled-extensions = [];

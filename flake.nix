@@ -76,6 +76,11 @@
       flake = false;
     };
 
+    gnome-claude-codex-usage = {
+      url = "github:IanBraga96/gnome-claude-codex-usage/7c1ed28c51e224ae9cb5130c054a176978172f07";
+      flake = false;
+    };
+
     makiconf = {
       url = "github:tontinton/makiconf";
       flake = false;

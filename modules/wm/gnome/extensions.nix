@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   isGnome = (import ../../../shared/desktop.nix).desktop == "gnome";
@@ -42,6 +43,39 @@
       .system-monitor-stat-section-label {margin-left: 0.25em;}
       EOF
     '';
+
+  claudeCodexUsage = pkgs.stdenvNoCC.mkDerivation {
+    pname = "gnome-shell-extension-claude-codex-usage";
+    version = "0.1.0-unstable-2026-06-18";
+
+    src = inputs.gnome-claude-codex-usage;
+
+    nativeBuildInputs = [pkgs.glib];
+
+    buildPhase = ''
+      runHook preBuild
+      glib-compile-schemas --strict src/schemas
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      extensionDir=$out/share/gnome-shell/extensions/claude-codex-usage@IanBraga96
+      mkdir -p "$extensionDir"
+      cp -r src/. "$extensionDir/"
+      install -Dm644 LICENSE THIRD_PARTY_NOTICES.md -t "$extensionDir"
+      runHook postInstall
+    '';
+
+    passthru.extensionUuid = "claude-codex-usage@IanBraga96";
+
+    meta = {
+      description = "Show Claude Code and Codex CLI usage in the GNOME top bar";
+      homepage = "https://github.com/IanBraga96/gnome-claude-codex-usage";
+      license = lib.licenses.gpl2Plus;
+      platforms = lib.platforms.linux;
+    };
+  };
 
   extensions = with pkgs.gnomeExtensions; [
     {
@@ -86,6 +120,10 @@
       settings = {
         show-notifications = false;
       };
+    }
+    {
+      pkg = claudeCodexUsage;
+      enabled = true;
     }
     {
       pkg = clipboard-indicator;

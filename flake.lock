@@ -192,6 +192,23 @@
         "type": "github"
       }
     },
+    "gnome-claude-codex-usage": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781756224,
+        "narHash": "sha256-2rKi/qE0kCTmW8f2vF78ZFwB4on90k4JuBuqSa0R0Mc=",
+        "owner": "IanBraga96",
+        "repo": "gnome-claude-codex-usage",
+        "rev": "7c1ed28c51e224ae9cb5130c054a176978172f07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "IanBraga96",
+        "repo": "gnome-claude-codex-usage",
+        "rev": "7c1ed28c51e224ae9cb5130c054a176978172f07",
+        "type": "github"
+      }
+    },
     "gnome-shell": {
       "flake": false,
       "locked": {
@@ -477,6 +494,7 @@
     },
     "root": {
       "inputs": {
+        "gnome-claude-codex-usage": "gnome-claude-codex-usage",
         "home-manager": "home-manager",
         "kde-ai-usage": "kde-ai-usage",
         "lazyvim": "lazyvim",

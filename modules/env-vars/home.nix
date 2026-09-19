@@ -15,6 +15,8 @@ in {
     # xdg-ninja
     HISTFILE = "${config.xdg.stateHome}/bash/history";
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
+    CODEX_HOME = "${config.xdg.configHome}/codex";
+    CLAUDE_CONFIG_DIR = env.claudeConfigDir config;
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
     NUGET_PACKAGES = "${config.xdg.cacheHome}/NuGetPackages";

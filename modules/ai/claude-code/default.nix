@@ -10,6 +10,7 @@
   wrapWithSecrets = import ../wrap-with-secrets.nix {
     inherit pkgs lib;
   };
+  env = import ../../../shared/env.nix;
 
   llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
@@ -134,7 +135,7 @@ in {
   programs.claude-code = {
     enable = true;
     package = claudeWrapped;
-    configDir = "${config.xdg.configHome}/claude-code";
+    configDir = env.claudeConfigDir config;
     enableMcpIntegration = true;
     context = aiAgentsSystemInstruction;
     skills = import ../skills {inherit inputs;};

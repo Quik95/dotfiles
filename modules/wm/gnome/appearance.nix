@@ -39,12 +39,10 @@ in
       gtk4.extraConfig.gtk-decoration-layout = "appmenu:minimize,maximize,close";
     };
 
-    # Same cursor for XWayland and Qt clients, which do not read gsettings.
     home.pointerCursor = {
       enable = true;
       package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
       size = 24;
-      x11.enable = true;
     };
   }

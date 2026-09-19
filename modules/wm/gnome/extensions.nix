@@ -50,6 +50,8 @@
 
     src = inputs.gnome-claude-codex-usage;
 
+    patches = [./patches/claude-codex-usage-config-dir.patch];
+
     nativeBuildInputs = [pkgs.glib];
 
     buildPhase = ''

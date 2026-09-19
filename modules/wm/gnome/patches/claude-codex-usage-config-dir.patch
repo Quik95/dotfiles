@@ -1,0 +1,25 @@
+Look for Claude Code credentials in $CLAUDE_CONFIG_DIR and
+$XDG_CONFIG_HOME/claude-code before the upstream ~/.claude default.
+
+--- a/src/lib/claudeUsageClient.js
++++ b/src/lib/claudeUsageClient.js
+@@ -25,7 +25,18 @@
+ const DEFAULT_EXPIRES_IN = 8 * 3600
+ 
+ function credentialsPath() {
+-  return GLib.build_filenamev([GLib.get_home_dir(), '.claude', '.credentials.json'])
++  const home = GLib.get_home_dir()
++  const dirs = [
++    GLib.getenv('CLAUDE_CONFIG_DIR'),
++    GLib.build_filenamev([GLib.get_user_config_dir(), 'claude-code']),
++    GLib.build_filenamev([home, '.claude']),
++  ]
++  for (const dir of dirs) {
++    if (!dir) continue
++    const path = GLib.build_filenamev([dir, '.credentials.json'])
++    if (GLib.file_test(path, GLib.FileTest.EXISTS)) return path
++  }
++  return GLib.build_filenamev([home, '.claude', '.credentials.json'])
+ }
+ 
+ // Reads and parses Claude Code's credentials file asynchronously (shell code

@@ -124,6 +124,10 @@
     {
       pkg = claudeCodexUsage;
       enabled = true;
+      dconfPath = "claude-codex-usage";
+      settings = {
+        show-provider-labels = false;
+      };
     }
     {
       pkg = clipboard-indicator;

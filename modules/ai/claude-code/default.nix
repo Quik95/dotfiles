@@ -21,27 +21,6 @@
     };
   };
 
-  ccstatusline = pkgs.stdenv.mkDerivation {
-    pname = "ccstatusline";
-    version = "2.2.19";
-
-    src = pkgs.fetchurl {
-      url = "https://registry.npmjs.org/ccstatusline/-/ccstatusline-2.2.19.tgz";
-      hash = "sha512-Z0AHBr1kMLYTJE5wYHp7GR4mOer6TGfa+ze0jj96vOVs9zwx1DMG4zqxFYY84lT03w4WM+notHs6JanrOZ0LFw==";
-    };
-
-    nativeBuildInputs = [pkgs.makeWrapper];
-    dontConfigure = true;
-    dontBuild = true;
-
-    installPhase = ''
-      runHook preInstall
-      install -Dm644 dist/ccstatusline.js $out/lib/ccstatusline.js
-      makeWrapper ${pkgs.nodejs}/bin/node $out/bin/ccstatusline \
-        --add-flags "$out/lib/ccstatusline.js"
-      runHook postInstall
-    '';
-  };
   ccstatuslineSettings = {
     version = 3;
     colorLevel = 3;
@@ -139,8 +118,17 @@
       continueThemeAcrossLines = false;
     };
   };
+  ccstatuslineSettingsFile = pkgs.writeText "ccstatusline-settings.json" (builtins.toJSON ccstatuslineSettings);
+  ccstatuslineSettingsPath = "${config.xdg.configHome}/ccstatusline/settings.json";
 in {
-  xdg.configFile."ccstatusline/settings.json".text = builtins.toJSON ccstatuslineSettings;
+  # ccstatusline updates its settings file, so keep it outside the Nix store.
+  home.activation.installCcstatuslineSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [[ ! -v DRY_RUN ]]; then
+      install -d -m 0755 "$(dirname "${ccstatuslineSettingsPath}")"
+      rm -f "${ccstatuslineSettingsPath}"
+      install -m 0644 "${ccstatuslineSettingsFile}" "${ccstatuslineSettingsPath}"
+    fi
+  '';
   xdg.configFile."mimeapps.list".force = true; # idk, I don't care that much
 
   programs.claude-code = {
@@ -170,7 +158,7 @@ in {
       };
       statusLine = {
         type = "command";
-        command = "${ccstatusline}/bin/ccstatusline";
+        command = "${llmAgentsPkgs.ccstatusline}/bin/ccstatusline";
         refreshInterval = 10;
       };
       permissions = {

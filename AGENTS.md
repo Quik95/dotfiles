@@ -105,6 +105,16 @@ sops home-manager/secrets/<file>.yaml
 - Aggregate module imports in `default.nix` files.
 - Format with `alejandra` via `nix fmt`.
 
+## Commit Message Conventions
+
+- Write commit subjects in English.
+- Keep the subject concise, single-line, and focused on the change.
+- Start with a capitalized change verb, such as `Add`, `Enable`, `Fix`, `Update`, `Remove`, `Use`, or `Move`.
+- Do not add a trailing period.
+- This repository's history does not use Conventional Commit prefixes or scopes.
+- If `omp commit` adds its required type prefix, keep the summary in this style and leave the scope empty unless clearly useful.
+- Use `fixup!` only for intentional autosquash commits.
+
 ## Common Patterns
 
 ### Module signature

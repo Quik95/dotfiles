@@ -28,8 +28,6 @@
   environment.systemPackages = with pkgs;
     [
       git
-      clang
-      llvmPackages.bintools
 
       # terminal essentials
       bat
@@ -66,7 +64,6 @@
 
       # nix stuff
       nixd
-      nil
       alejandra
       nix-output-monitor
       nvd

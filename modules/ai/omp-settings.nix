@@ -18,8 +18,10 @@
     astGrep.enabled = true;
     composer.tokenRate = true;
     defaultThinkingLevel = "low";
+    advisor.enabled = true;
+    modelRoles.advisor = "google-antigravity/gemini-3.8-flash";
     modelRoles.default = "openai-codex/gpt-5.6-luna:xhigh";
-    providers.openai-codex.codeMode = "off";
+    providers.openai-codex.codeMode = "auto";
     setupVersion = 2;
     startup.quiet = true;
     statusLine = {

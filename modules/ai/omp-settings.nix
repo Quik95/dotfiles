@@ -15,12 +15,16 @@
     '';
   };
   ompSettingsOverlay = (pkgs.formats.yaml {}).generate "omp-home-manager.yml" {
+    memory.backend = "mnemopi";
     astGrep.enabled = true;
     composer.tokenRate = true;
     defaultThinkingLevel = "low";
     advisor.enabled = true;
-    modelRoles.advisor = "google-antigravity/gemini-3.8-flash";
-    modelRoles.default = "openai-codex/gpt-5.6-luna:xhigh";
+    modelRoles = {
+      advisor = "google-antigravity/gemini-3.8-flash";
+      commit = "google-antigravity/gemini-3.8-flash:low";
+      default = "openai-codex/gpt-5.6-luna:xhigh";
+    };
     providers.openai-codex.codeMode = "auto";
     setupVersion = 2;
     startup.quiet = true;

@@ -39,6 +39,24 @@
           color = "cyan";
         }
         {
+          id = "21";
+          type = "custom-text";
+          customText = " (";
+          color = "cyan";
+        }
+        {
+          id = "20";
+          type = "thinking-effort";
+          rawValue = true;
+          color = "cyan";
+        }
+        {
+          id = "22";
+          type = "custom-text";
+          customText = ")";
+          color = "cyan";
+        }
+        {
           id = "2";
           type = "separator";
         }

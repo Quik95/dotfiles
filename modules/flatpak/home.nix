@@ -14,7 +14,6 @@ in {
         "com.github.marhkb.Pods"
         "com.github.rafostar.Clapper"
         "com.github.tchx84.Flatseal"
-        "com.google.Chrome"
         "com.spotify.Client"
         "dev.vencord.Vesktop"
         "garden.jamie.Morphosis"

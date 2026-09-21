@@ -1,5 +1,5 @@
 {
-  config,
+  pkgs,
   lib,
   hostname,
   ...
@@ -20,24 +20,21 @@
       "VulkanFromANGLE"
       "DefaultANGLEVulkan"
     ];
-  flags = ''
-    --gtk-version=4
-    --ignore-gpu-blocklist
-    --enable-features=${lib.concatStringsSep "," features}
-    --disable-features=GlobalShortcutsPortal
-    --ozone-platform=wayland
-    --enable-gpu-rasterization
-    --enable-experimental-web-platform-features
-    --ozone-platform-hint=auto
-    --use-gl=angle
-    ${lib.optionalString (!isLoq) "--use-angle=vulkan"}
-  '';
+
+  chromeWrapped = pkgs.google-chrome.override {
+    commandLineArgs = lib.concatStringsSep " " ([
+        "--gtk-version=4"
+        "--ignore-gpu-blocklist"
+        "--enable-features=${lib.concatStringsSep "," features}"
+        "--disable-features=GlobalShortcutsPortal"
+        "--ozone-platform=wayland"
+        "--ozone-platform-hint=auto"
+        "--enable-gpu-rasterization"
+        "--enable-experimental-web-platform-features"
+        "--use-gl=angle"
+      ]
+      ++ lib.optionals (!isLoq) ["--use-angle=vulkan"]);
+  };
 in {
-  # We have to do this that way, because chrome doesn't have access to files in the nix store
-  home.activation.createChromeFlags = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [[ ! -v DRY_RUN ]]; then
-      mkdir -p "${config.home.homeDirectory}/.var/app/com.google.Chrome/config"
-      echo "${flags}" > ${config.home.homeDirectory}/.var/app/com.google.Chrome/config/chrome-flags.conf
-    fi
-  '';
+  home.packages = [chromeWrapped];
 }

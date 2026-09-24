@@ -57,6 +57,28 @@
   ompModelPresetsFile = (pkgs.formats.json {}).generate "omp-model-presets.json" ompModelPresetsData;
   ompModelPresetsPath = "${config.home.homeDirectory}/.omp/agent/model-presets.json";
   ompModelPresetsActivePath = "${config.home.homeDirectory}/.omp/agent/model-presets.active";
+  ompMcpServers = lib.mapAttrs (
+    _: server:
+      if server.url != null
+      then {
+        type = "http";
+        inherit (server) url headers;
+      }
+      else {
+        inherit (server) command args env;
+      }
+  ) (builtins.removeAttrs config.programs.mcp.servers ["agent-browser"]);
+  ompMcpConfig = (pkgs.formats.json {}).generate "omp-mcp.json" {
+    mcpServers =
+      ompMcpServers
+      // {
+        context7 =
+          ompMcpServers.context7
+          // {
+            headers.Authorization = "!printf 'Bearer %s' \"$(cat ${lib.escapeShellArg config.sops.secrets."CONTEXT7_API_KEY".path})\"";
+          };
+      };
+  };
   ompSettingsOverlay = (pkgs.formats.yaml {}).generate "omp-home-manager.yml" {
     memory.backend = "mnemopi";
     astGrep.enabled = true;
@@ -102,8 +124,8 @@ in {
   };
 
   xdg.configFile."omp/home-manager.yml".source = ompSettingsOverlay;
+  home.file.".omp/agent/mcp.json".source = ompMcpConfig;
   home.file.".omp/browser-relay/extension".source = ompRelayExtension;
-
 
   home.file.".omp/plugins/node_modules/@ahrzb/omp-model-presets".source = inputs.omp-model-presets;
   home.file.".omp/plugins/package.json".text = builtins.toJSON {

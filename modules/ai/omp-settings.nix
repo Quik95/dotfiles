@@ -9,10 +9,23 @@
   ompWrapped = pkgs.symlinkJoin {
     name = "${ompPackage.pname}-with-home-manager-config";
     paths = [ompPackage];
-    nativeBuildInputs = [pkgs.makeWrapper];
+    nativeBuildInputs = [
+      pkgs.makeWrapper
+      pkgs.installShellFiles
+    ];
     postBuild = ''
       wrapProgram "$out/bin/omp" \
         --set PI_CONFIG_FILES "${config.xdg.configHome}/omp/home-manager.yml"
+
+      ${lib.optionalString (pkgs.stdenv.buildPlatform.canExecute pkgs.stdenv.hostPlatform) ''
+        HOME=$TMPDIR $out/bin/omp completions fish > omp.fish
+        HOME=$TMPDIR $out/bin/omp completions bash > omp.bash
+        HOME=$TMPDIR $out/bin/omp completions zsh > _omp
+        installShellCompletion --cmd omp \
+          --bash --name omp omp.bash \
+          --fish --name omp.fish omp.fish \
+          --zsh --name _omp _omp
+      ''}
     '';
   };
   ompModelPresetsData = {

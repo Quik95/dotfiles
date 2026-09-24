@@ -39,7 +39,6 @@
   networking.networkmanager.ethernet.macAddress = "38:a7:46:3b:16:ed";
 
   nixfiles.i2c.enable = true;
-  nixfiles.passwordless-sudo.enable = false;
   nixfiles.power.lenovo-conservation = {
     enable = true;
     mode = 1;

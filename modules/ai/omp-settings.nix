@@ -19,13 +19,14 @@
     astGrep.enabled = true;
     composer.tokenRate = true;
     defaultThinkingLevel = "low";
-    advisor.enabled = true;
+    advisor.enabled = false;
     modelRoles = {
-      advisor = "google-antigravity/gemini-3.8-flash";
+      advisor = "anthropic/claude-haiku-4-5:medium";
       commit = "google-antigravity/gemini-3.8-flash:low";
-      default = "openai-codex/gpt-5.6-luna:xhigh";
+      default = "openai-codex/gpt-6-luna:xhigh";
+      slow = "openai-codex/gpt-6-sol:high";
     };
-    providers.openai-codex.codeMode = "auto";
+    providers.openai-codex.codeMode = "off";
     setupVersion = 2;
     startup.quiet = true;
     statusLine = {

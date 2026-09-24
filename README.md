@@ -1,6 +1,6 @@
 # dotfiles
 
-NixOS + Home Manager flake for Sebastian's laptops.
+NixOS + Home Manager flake dla laptopa Sebastiana.
 
 Available configurations: `sebastian-laptop-legion`.
 
@@ -60,44 +60,37 @@ install -Dm600 "<sciezka-z-backupu>/keys.txt" "$HOME/.config/sops/age/keys.txt"
 
 ### 3) Wygeneruj `hardware-configuration.nix` dla nowej maszyny
 
+Po dodaniu katalogu nowego hosta (tu: `nowy-host`) wygeneruj jego konfigurację
+sprzętową. Nie zastępuj ręcznie pliku istniejącego hosta.
+
 ```bash
-sudo nixos-generate-config --show-hardware-config > /tmp/hardware-configuration.nix
-cp /tmp/hardware-configuration.nix ./nixos/hosts/<hostname>/hardware-configuration.nix
+sudo nixos-generate-config --show-hardware-config > nixos/hosts/nowy-host/hardware-configuration.nix
 ```
 
-Upewnij się, że `nixos/hosts/<hostname>/configuration.nix` importuje ten plik.
+Upewnij się, że `nixos/hosts/nowy-host/configuration.nix` importuje ten plik.
 
 ### 4) Walidacja i aktywacja
 
-Zastąp `<hostname>` odpowiednią nazwą konfiguracji (np. `sebastian-laptop-legion`):
+Poniższe polecenia dotyczą istniejącego hosta `sebastian-laptop-legion`;
+dla nowej maszyny zastąp tę nazwę identyfikatorem wpisu w `hosts` w `flake.nix`:
 
 ```bash
 nix flake show --no-write-lock-file
-nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel --dry-run --quiet
-nix build .#homeConfigurations."sebastian@<hostname>".activationPackage --dry-run --quiet
-sudo nixos-rebuild switch --flake .#<hostname> --quiet
-home-manager switch --flake .#"sebastian@<hostname>"
+nix build '.#nixosConfigurations.sebastian-laptop-legion.config.system.build.toplevel' --dry-run --quiet
+nix build '.#homeConfigurations."sebastian@sebastian-laptop-legion".activationPackage' --dry-run --quiet
+sudo nixos-rebuild switch --flake .#sebastian-laptop-legion --quiet
+home-manager switch --flake '.#sebastian@sebastian-laptop-legion'
 ```
 
-## Flatpaki (ręcznie, jeśli automatyczna instalacja jest wyłączona)
+## Flatpaki
+
+Lista aplikacji jest w `modules/flatpak/home.nix`. Część pakietów zależy od
+środowiska wybranego w `shared/desktop.nix`; Home Manager zarządza instalacją
+przez `services.flatpak`. Przy ręcznej instalacji (gdy automatyczna jest
+wyłączona) dodaj Flathub i zainstaluj potrzebny identyfikator z tego modułu,
+np. `org.libreoffice.LibreOffice`:
 
 ```bash
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install -y flathub \
-  be.alexandervanhee.gradia \
-  com.github.flxzt.rnote \
-  com.github.marhkb.Pods \
-  com.github.rafostar.Clapper \
-  com.github.tchx84.Flatseal \
-  com.google.Chrome \
-  com.mattjakeman.ExtensionManager \
-  com.spotify.Client \
-  dev.vencord.Vesktop \
-  garden.jamie.Morphosis \
-  org.gnome.Fractal \
-  org.gnome.Papers \
-  org.gnome.gitlab.somas.Apostrophe \
-  org.libreoffice.LibreOffice \
-  org.nickvision.money \
-  page.tesk.Refine
+flatpak install -y flathub org.libreoffice.LibreOffice
 ```

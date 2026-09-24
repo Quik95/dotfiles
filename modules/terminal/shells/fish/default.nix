@@ -94,6 +94,7 @@
       bind -M insert \ce end-of-line         # Ctrl+e: move to end
       bind -M insert \ck kill-line           # Ctrl+k: delete to end of line
       bind -M insert \cw backward-kill-word  # Ctrl+w: delete word backwards
+      bind -M insert ctrl-backspace backward-kill-word # Terminals that report modified keys
       bind -M insert \r __enter_or_ls        # Enter: run ls on an empty command line
 
       # Completion function for detach - suggest commands from PATH

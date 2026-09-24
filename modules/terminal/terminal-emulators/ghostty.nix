@@ -10,6 +10,7 @@
       confirm-close-surface = false;
       copy-on-select = false;
       fullscreen = false;
+      keybind = "ctrl+backspace=text:\\x17";
       link-previews = true;
       link-url = true;
       linux-cgroup = "always";

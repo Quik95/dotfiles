@@ -607,6 +607,19 @@
         "type": "github"
       }
     },
+    "omp-model-presets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 499162500,
+        "narHash": "sha256-G4pYLWVrO6nA1jTloGp9wmhfXyLwSBzecDxtSDgEPXI=",
+        "type": "tarball",
+        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz"
+      }
+    },
     "picard-plugins": {
       "flake": false,
       "locked": {
@@ -661,6 +674,7 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "omp": "omp",
+        "omp-model-presets": "omp-model-presets",
         "picard-plugins": "picard-plugins",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",

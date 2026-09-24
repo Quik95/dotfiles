@@ -101,6 +101,10 @@
       flake = false;
     };
 
+    omp-model-presets = {
+      url = "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz";
+      flake = false;
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs = {

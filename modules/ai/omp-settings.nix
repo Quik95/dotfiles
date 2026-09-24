@@ -6,6 +6,9 @@
   ...
 }: let
   ompPackage = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.omp;
+  ompRelayExtension = pkgs.runCommand "omp-browser-relay-extension" {} ''
+    ${ompPackage}/bin/omp browser-relay install --dir "$out"
+  '';
   ompWrapped = pkgs.symlinkJoin {
     name = "${ompPackage.pname}-with-home-manager-config";
     paths = [ompPackage];
@@ -57,6 +60,10 @@
   ompSettingsOverlay = (pkgs.formats.yaml {}).generate "omp-home-manager.yml" {
     memory.backend = "mnemopi";
     astGrep.enabled = true;
+    browser = {
+      headless = false;
+      relay = true;
+    };
     composer.tokenRate = true;
     defaultThinkingLevel = "low";
     advisor.enabled = false;
@@ -95,6 +102,8 @@ in {
   };
 
   xdg.configFile."omp/home-manager.yml".source = ompSettingsOverlay;
+  home.file.".omp/browser-relay/extension".source = ompRelayExtension;
+
 
   home.file.".omp/plugins/node_modules/@ahrzb/omp-model-presets".source = inputs.omp-model-presets;
   home.file.".omp/plugins/package.json".text = builtins.toJSON {

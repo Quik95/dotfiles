@@ -175,6 +175,13 @@ in {
       env = {
         "CLAUDE_CODE_DISABLE_1M_CONTEXT" = 1;
       };
+      pluginConfigs = {
+        "agents-md@builtin" = {
+          options = {
+            instructionFiles = "claude-md-and-agents-md";
+          };
+        };
+      };
       statusLine = {
         type = "command";
         command = "${llmAgentsPkgs.ccstatusline}/bin/ccstatusline";

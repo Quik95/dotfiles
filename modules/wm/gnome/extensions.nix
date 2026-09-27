@@ -162,6 +162,8 @@
       dconfPath = "just-perfection";
       settings = {
         activities-button = false;
+        clock-menu-position = 1;
+        clock-menu-position-offset = 20;
         search = false;
         workspace-wrap-around = false;
         window-demands-attention-focus = true;

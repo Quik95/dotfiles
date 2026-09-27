@@ -6,7 +6,6 @@
   imports = [
     ./hardware-configuration.nix
     ./gpu.nix
-    ./gpu-specialisations.nix
     ./bluetooth.nix
     ./joystick-overrides.nix
     ./swap.nix

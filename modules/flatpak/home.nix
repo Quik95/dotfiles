@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   isGnome = (import ../../shared/desktop.nix).desktop == "gnome";
 in {
   services.flatpak = {
@@ -19,7 +15,6 @@ in {
         "garden.jamie.Morphosis"
         "org.gnome.Fractal"
         "org.gnome.gitlab.somas.Apostrophe"
-        "org.jdownloader.JDownloader"
         "org.libreoffice.LibreOffice"
         "org.nickvision.money"
         "page.tesk.Refine"
@@ -31,12 +26,6 @@ in {
     uninstallUnmanaged = true;
 
     overrides = {
-      "org.jdownloader.JDownloader".Context = {
-        filesystems = [
-          "${config.home.homeDirectory}/Videos:rw"
-        ];
-      };
-
       "org.libreoffice.LibreOffice".Context = {
         filesystems = [
           "/tmp:rw"

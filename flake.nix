@@ -105,6 +105,11 @@
       url = "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz";
       flake = false;
     };
+    debrid-downloader = {
+      url = "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.0/DebridDownloader_1.7.0_amd64.deb";
+      flake = false;
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs = {

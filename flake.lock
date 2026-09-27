@@ -332,6 +332,23 @@
         "type": "gitlab"
       }
     },
+    "gnome-wisp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790235381,
+        "narHash": "sha256-VUxyyIupSV33YrObxdmdyNP4LvmweZrVg0l7C1LOYcY=",
+        "owner": "epogonii",
+        "repo": "wisp",
+        "rev": "d211587ce009a02a426f25b62345f3168f9cdcbb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "epogonii",
+        "ref": "v1.0.10",
+        "repo": "wisp",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -675,6 +692,7 @@
       "inputs": {
         "debrid-downloader": "debrid-downloader",
         "gnome-claude-codex-usage": "gnome-claude-codex-usage",
+        "gnome-wisp": "gnome-wisp",
         "home-manager": "home-manager",
         "kde-ai-usage": "kde-ai-usage",
         "lazyvim": "lazyvim",

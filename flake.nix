@@ -86,6 +86,11 @@
       flake = false;
     };
 
+    gnome-wisp = {
+      url = "github:epogonii/wisp/v1.0.10";
+      flake = false;
+    };
+
     makiconf = {
       url = "github:tontinton/makiconf";
       flake = false;

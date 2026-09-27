@@ -79,6 +79,40 @@
     };
   };
 
+  wisp = pkgs.stdenvNoCC.mkDerivation {
+    pname = "gnome-shell-extension-wisp";
+    version = "1.0.10";
+
+    src = inputs.gnome-wisp;
+
+    nativeBuildInputs = [pkgs.glib];
+
+    buildPhase = ''
+      runHook preBuild
+      glib-compile-schemas --strict schemas
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      extensionDir=$out/share/gnome-shell/extensions/wisp@epogonii.github.io
+      grep -v '^\s*\(#\|$\)' tools/files.txt | while read -r file; do
+        install -Dm644 "$file" "$extensionDir/$file"
+      done
+      install -Dm644 schemas/gschemas.compiled -t "$extensionDir/schemas"
+      runHook postInstall
+    '';
+
+    passthru.extensionUuid = "wisp@epogonii.github.io";
+
+    meta = {
+      description = "Browse, compare and restore snapper snapshots from the GNOME top bar";
+      homepage = "https://github.com/epogonii/wisp";
+      license = lib.licenses.gpl2Plus;
+      platforms = lib.platforms.linux;
+    };
+  };
+
   extensions = with pkgs.gnomeExtensions; [
     {
       pkg = activate-window-by-title;
@@ -204,6 +238,10 @@
     }
     {
       pkg = compactSystemMonitor;
+      enabled = true;
+    }
+    {
+      pkg = wisp;
       enabled = true;
     }
   ];

@@ -33,8 +33,8 @@
   };
   ompModelPresetsData = {
     gpt = {
-      default = "openai-codex/gpt-6-luna:xhigh";
-      task = "openai-codex/gpt-6-luna:xhigh";
+      default = "openai-codex/gpt-6-sol:low";
+      task = "openai-codex/gpt-6-sol:low";
       smol = "openai-codex/gpt-6-luna:medium";
       tiny = "openai-codex/gpt-6-luna:low";
       slow = "openai-codex/gpt-6-sol:high";
@@ -87,12 +87,13 @@
       relay = true;
     };
     composer.tokenRate = true;
+    display.cacheMissMarker = true;
     defaultThinkingLevel = "low";
     advisor.enabled = false;
     modelRoles = {
       advisor = "anthropic/claude-haiku-4-5:medium";
       commit = "google-antigravity/gemini-3.8-flash:low";
-      default = "openai-codex/gpt-6-luna:xhigh";
+      default = "openai-codex/gpt-6-sol:low";
       slow = "openai-codex/gpt-6-sol:high";
     };
     providers.openai-codex.codeMode = "off";

@@ -105,6 +105,11 @@ sops home-manager/secrets/<file>.yaml
 - Aggregate module imports in `default.nix` files.
 - Format with `alejandra` via `nix fmt`.
 
+## External Package Sources
+
+- Prefer pinned `flake.nix` inputs (`flake = false` for non-flake sources, including binary release assets) over `fetchurl` in modules. Pass inputs through `extraSpecialArgs` and commit the resulting `flake.lock` update.
+- Before packaging an upstream application from source, check for an existing Nix package and a usable binary release; on NixOS, patch or wrap prebuilt binaries to resolve their runtime dependencies.
+
 ## Commit Message Conventions
 
 - Write commit subjects in English.

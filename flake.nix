@@ -134,6 +134,7 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    env = import ./shared/env.nix;
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
@@ -173,7 +174,7 @@
     nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos hosts;
     homeConfigurations =
       nixpkgs.lib.mapAttrs' (
-        hostname: host: nixpkgs.lib.nameValuePair "sebastian@${hostname}" (mkHome hostname host)
+        hostname: host: nixpkgs.lib.nameValuePair "${env.username}@${hostname}" (mkHome hostname host)
       )
       hosts;
 
@@ -181,7 +182,7 @@
       nixpkgs.lib.mapAttrs' (
         hostname: _:
           nixpkgs.lib.nameValuePair "home-manager-${nixpkgs.lib.removePrefix "sebastian-laptop-" hostname}"
-          self.homeConfigurations."sebastian@${hostname}".activationPackage
+          self.homeConfigurations."${env.username}@${hostname}".activationPackage
       )
       hosts
       // {

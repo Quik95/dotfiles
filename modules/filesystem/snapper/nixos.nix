@@ -1,4 +1,6 @@
-{
+let
+  env = import ../../../shared/env.nix;
+in {
   systemd.tmpfiles.rules = [
     "v /home/.snapshots 0750 root root -"
   ];
@@ -10,7 +12,7 @@
       SUBVOLUME = "/home";
       FSTYPE = "btrfs";
 
-      ALLOW_USERS = ["sebastian"];
+      ALLOW_USERS = [env.username];
       # Grants ALLOW_USERS an ACL on .snapshots, without which the snapshots are
       # listed but their files cannot be opened.
       SYNC_ACL = true;

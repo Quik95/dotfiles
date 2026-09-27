@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -41,7 +42,7 @@ in {
            <GroupState-SearchFor-IsHidden>false</GroupState-SearchFor-IsHidden>
           </metadata>
          </info>
-         <bookmark href="file:///home/sebastian">
+         <bookmark href="file://${config.home.homeDirectory}">
           <title>Home</title>
           <info>
            <metadata owner="http://freedesktop.org">
@@ -53,7 +54,7 @@ in {
            </metadata>
           </info>
          </bookmark>
-         <bookmark href="file:///home/sebastian/Desktop">
+         <bookmark href="file://${config.home.homeDirectory}/Desktop">
           <title>Desktop</title>
           <info>
            <metadata owner="http://freedesktop.org">
@@ -65,7 +66,7 @@ in {
            </metadata>
           </info>
          </bookmark>
-         <bookmark href="file:///home/sebastian/Documents">
+         <bookmark href="file://${config.home.homeDirectory}/Documents">
           <title>Documents</title>
           <info>
            <metadata owner="http://freedesktop.org">
@@ -77,7 +78,7 @@ in {
            </metadata>
           </info>
          </bookmark>
-         <bookmark href="file:///home/sebastian/Downloads">
+         <bookmark href="file://${config.home.homeDirectory}/Downloads">
           <title>Downloads</title>
           <info>
            <metadata owner="http://freedesktop.org">
@@ -89,7 +90,7 @@ in {
            </metadata>
           </info>
          </bookmark>
-         <bookmark href="file:///home/sebastian/Music">
+         <bookmark href="file://${config.home.homeDirectory}/Music">
           <title>Music</title>
           <info>
            <metadata owner="http://freedesktop.org">
@@ -101,7 +102,7 @@ in {
            </metadata>
           </info>
          </bookmark>
-         <bookmark href="file:///home/sebastian/Pictures">
+         <bookmark href="file://${config.home.homeDirectory}/Pictures">
           <title>Pictures</title>
           <info>
            <metadata owner="http://freedesktop.org">
@@ -113,7 +114,7 @@ in {
            </metadata>
           </info>
          </bookmark>
-         <bookmark href="file:///home/sebastian/Videos">
+         <bookmark href="file://${config.home.homeDirectory}/Videos">
           <title>Videos</title>
           <info>
            <metadata owner="http://freedesktop.org">

@@ -50,7 +50,7 @@ in {
   };
 
   # Define a user account. Don't forget to set a password with 'passwd'.
-  users.users.sebastian = {
+  users.users.${env.username} = {
     isNormalUser = true;
     description = "Sebastian Bartoszewicz";
     extraGroups = ["networkmanager" "wheel" "i2c"];
@@ -62,7 +62,7 @@ in {
   };
 
   nix.extraOptions = ''
-    trusted-users = root sebastian
+    trusted-users = root ${env.username}
     extra-substituters = https://devenv.cachix.org https://cache.numtide.com
     extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
   '';

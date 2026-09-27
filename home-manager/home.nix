@@ -4,6 +4,7 @@
   inputs,
   ...
 }: let
+  env = import ../shared/env.nix;
   desktop = (import ../shared/desktop.nix).desktop;
   isGnome = desktop == "gnome";
   isPlasma = desktop == "plasma";
@@ -21,8 +22,7 @@ in {
   systemd.user.startServices = "sd-switch";
 
   home = {
-    username = "sebastian";
-    homeDirectory = "/home/sebastian";
+    inherit (env) username homeDirectory;
     stateVersion = "24.11";
     preferXdgDirectories = true;
   };

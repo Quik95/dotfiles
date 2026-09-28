@@ -17,6 +17,7 @@ in {
   config = lib.mkIf isPlasma {
     programs.plasma = {
       enable = true;
+      overrideConfig = true;
       session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
     };
 

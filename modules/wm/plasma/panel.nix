@@ -57,17 +57,12 @@ in {
           }
           "org.kde.plasma.weather"
           {
-            battery.showPercentage = true;
-          }
-          {
             systemTray.items = {
               shown = [
+                "org.kde.plasma.battery"
                 "org.kde.plasma.bluetooth"
                 "org.kde.plasma.networkmanagement"
                 "org.kde.plasma.volume"
-              ];
-              hidden = [
-                "org.kde.plasma.battery"
               ];
             };
           }

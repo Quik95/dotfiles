@@ -23,6 +23,12 @@ in {
 
     home.packages = [pkgs.kdePackages.kcalc];
 
+    # The NVIDIA driver's hardware cursor plane glitches for a frame or two on
+    # every cursor shape change. KWin runs as plasma-kwin_wayland.service, so
+    # the variable has to reach the systemd user manager (environment.d), not
+    # just login shells as home.sessionVariables would.
+    systemd.user.sessionVariables.KWIN_FORCE_SW_CURSOR = "1";
+
     home.file.".local/share/user-places.xbel" = {
       force = true;
       text = ''

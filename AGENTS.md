@@ -53,6 +53,12 @@ sudo nixos-rebuild test --flake .#sebastian-laptop-legion --quiet
 
 # Home Manager switch
 home-manager switch --flake .#sebastian@sebastian-laptop-legion
+
+# nh equivalents (`build` builds without activating)
+nh os build . -H sebastian-laptop-legion
+nh os switch . -H sebastian-laptop-legion
+nh home build . -c sebastian@sebastian-laptop-legion
+nh home switch . -c sebastian@sebastian-laptop-legion
 ```
 
 ### Update inputs
@@ -62,7 +68,10 @@ home-manager switch --flake .#sebastian@sebastian-laptop-legion
 nix flake update
 
 # Update one input
-nix flake lock --update-input <input-name>
+nix flake update <input-name>
+
+# Update one input and build in one step
+nh os build . -H sebastian-laptop-legion -U <input-name>
 ```
 
 ### Secret management

@@ -29,9 +29,8 @@ in
 
     environment.systemPackages = [
       pkgs.kdePackages.ksshaskpass
-      # KDE's native on-screen virtual keyboard (new in Plasma 6.7).
-      # Selected as KWin's input method in modules/wm/plasma/behavior.nix.
       pkgs.kdePackages.plasma-keyboard
+      pkgs.kdePackages.kio-snapshot
     ];
     environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
   }

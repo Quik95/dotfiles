@@ -52,12 +52,11 @@ in {
       gnome-system-monitor
     ];
 
-  # The display is HiDPI, so the 32x32 sprites need doubling.
   # Plasma only: nekors draws through zwlr_layer_shell_v1, which mutter does not
   # implement, and it is fed cursor positions by a KWin script
   # (Plugins.nekorsEnabled in modules/wm/plasma/behavior.nix).
   services.nekors = {
     enable = isPlasma;
-    extraArgs = ["--scale" "2"];
+    extraArgs = ["--scale" "1"];
   };
 }

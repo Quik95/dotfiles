@@ -1,9 +1,30 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
+
+  # 1.0.0 misses /home/.snapshots with the @/@home layout; see the
+  # kio-snapshot input in flake.nix. Once nixpkgs ships a newer release, use
+  # it and warn that the override and the flake input can go.
+  upstreamKioSnapshot = pkgs.kdePackages.kio-snapshot;
+  kioSnapshotReleased = lib.versionOlder "1.0.0" upstreamKioSnapshot.version;
+  kio-snapshot =
+    lib.warnIf kioSnapshotReleased ''
+      kdePackages.kio-snapshot ${upstreamKioSnapshot.version} is now in nixpkgs: remove the
+      kio-snapshot override in modules/wm/plasma/nixos.nix and the kio-snapshot input in flake.nix.
+    ''
+    (
+      if kioSnapshotReleased
+      then upstreamKioSnapshot
+      else
+        upstreamKioSnapshot.overrideAttrs {
+          version = "1.0.0-unstable-2026-09-28";
+          src = inputs.kio-snapshot;
+        }
+    );
 in
   lib.mkIf isPlasma {
     services.displayManager.sddm.enable = true;
@@ -30,7 +51,7 @@ in
     environment.systemPackages = [
       pkgs.kdePackages.ksshaskpass
       pkgs.kdePackages.plasma-keyboard
-      pkgs.kdePackages.kio-snapshot
+      kio-snapshot
     ];
     environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
   }

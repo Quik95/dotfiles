@@ -91,6 +91,14 @@
       flake = false;
     };
 
+    # Unreleased master: 1.0.0 only finds snapshots under the subvolume mounted
+    # at /, so it misses /home/.snapshots with the @/@home layout (fixed
+    # upstream in 147eeaa1 "Handle more complex mount setups").
+    kio-snapshot = {
+      url = "gitlab:system/kio-snapshot/5058ed42d1f62f8ca2f2e8095f0644650bfbe8f1?host=invent.kde.org";
+      flake = false;
+    };
+
     makiconf = {
       url = "github:tontinton/makiconf";
       flake = false;
@@ -150,6 +158,7 @@
     mkNixos = _: host:
       nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = {inherit inputs;};
         modules = [
           sops-nix.nixosModules.sops
           nix-index-database.nixosModules.default

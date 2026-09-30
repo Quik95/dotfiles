@@ -9,15 +9,10 @@
     postPatch =
       (old.postPatch or "")
       + ''
-        # Respect the same config directories as the installed coding agents.
-        substituteInPlace contents/tools/aiusage/providers/claude_credentials.py \
-          contents/tools/aiusage/collect.py \
+        # Upstream honors CLAUDE_CONFIG_DIR everywhere except the stats/settings reads.
+        substituteInPlace package/contents/tools/aiusage/collect.py \
           --replace-fail 'os.path.expanduser("~/.claude/' \
-            'os.path.join(os.environ.get("CLAUDE_CONFIG_DIR", os.path.expanduser("~/.claude")), "'
-        substituteInPlace contents/tools/aiusage/providers/openai_credentials.py \
-          contents/tools/aiusage/providers/codex_stats.py \
-          --replace-fail 'os.path.expanduser("~/.codex/' \
-            'os.path.join(os.environ.get("CODEX_HOME", os.path.expanduser("~/.codex")), "'
+            'os.path.join(os.environ.get("CLAUDE_CONFIG_DIR") or os.path.expanduser("~/.claude"), "'
       '';
 
     postInstall =

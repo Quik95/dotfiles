@@ -153,13 +153,13 @@
     "debrid-downloader": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-nomG0A9bnFYbW83jxRT48bnTcUJAg5t2yEcSkKE4E+k=",
+        "narHash": "sha256-N+UKQh46nx/P9VEGKMox8Te89Wdx9sRnTwrz12zShBY=",
         "type": "file",
-        "url": "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.0/DebridDownloader_1.7.0_amd64.deb"
+        "url": "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.1/DebridDownloader_1.7.1_amd64.deb"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.0/DebridDownloader_1.7.0_amd64.deb"
+        "url": "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.1/DebridDownloader_1.7.1_amd64.deb"
       }
     },
     "firefox-gnome-theme": {
@@ -309,7 +309,6 @@
       "original": {
         "owner": "IanBraga96",
         "repo": "gnome-claude-codex-usage",
-        "rev": "7c1ed28c51e224ae9cb5130c054a176978172f07",
         "type": "github"
       }
     },
@@ -356,11 +355,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790365885,
-        "narHash": "sha256-iQ0ebhiVo64NktTnwft9hNxlFu4j5cvljVxyJaEVIP4=",
+        "lastModified": 1790779675,
+        "narHash": "sha256-wswYlVaovcex/IMSqGrN/GLlvHN29bgoIXMBoMyLmTI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7b4c5ec4bedaf1e062bbc1bcaeddbc6bd242aa1b",
+        "rev": "b75a0703c9ef757386ec3807a55106c2ca64f770",
         "type": "github"
       },
       "original": {
@@ -377,16 +376,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1789039529,
-        "narHash": "sha256-0krxEqh0WGnTlBgryoCM8NwIUWX/UTJono4KWRWZWk0=",
+        "lastModified": 1790613209,
+        "narHash": "sha256-hn+m8Bc3Wk2l6oxVrFLjYT193UgWA6kO5YOKGiGj9DI=",
         "owner": "Muddyblack",
         "repo": "kde-ai-usage",
-        "rev": "b36bf5a1632f8f3dd8cdaabd6fd964057a804a56",
+        "rev": "fb99cf624a4ed02912fc5018e4f532606c1d1965",
         "type": "github"
       },
       "original": {
         "owner": "Muddyblack",
-        "ref": "v2.2.0",
+        "ref": "v3.2.0",
         "repo": "kde-ai-usage",
         "type": "github"
       }
@@ -395,18 +394,17 @@
       "flake": false,
       "locked": {
         "host": "invent.kde.org",
-        "lastModified": 1790602817,
-        "narHash": "sha256-otsRCOf2/dEgIUgZG6qY42B+jA2kwuvy3LJZfH1w5gI=",
+        "lastModified": 1790692256,
+        "narHash": "sha256-hmtXazgkVRvzYjuJ3A4veZ+HPZe8N4cMPxtj6j1CQKs=",
         "owner": "system",
         "repo": "kio-snapshot",
-        "rev": "5058ed42d1f62f8ca2f2e8095f0644650bfbe8f1",
+        "rev": "de20489a3da06911dd488d96ed18183acf11e2db",
         "type": "gitlab"
       },
       "original": {
         "host": "invent.kde.org",
         "owner": "system",
         "repo": "kio-snapshot",
-        "rev": "5058ed42d1f62f8ca2f2e8095f0644650bfbe8f1",
         "type": "gitlab"
       }
     },
@@ -418,17 +416,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1773709048,
-        "narHash": "sha256-NahhJ5RxV7cOA6ISf56FUmw3ELpxtSPpiF8zPTIhzTk=",
+        "lastModified": 1788971242,
+        "narHash": "sha256-XGWQ4CtmuRH+4NijKC5OlMMd32Au7plsIaiaCWuM4to=",
         "owner": "pfassina",
         "repo": "lazyvim-nix",
-        "rev": "1d4fe049ef1ccfc2b0ad2ce2b01fb8f92c3e51ef",
+        "rev": "21893371738a6734c2a8ca455d92d57cc8accf83",
         "type": "github"
       },
       "original": {
         "owner": "pfassina",
         "repo": "lazyvim-nix",
-        "rev": "1d4fe049ef1ccfc2b0ad2ce2b01fb8f92c3e51ef",
         "type": "github"
       }
     },
@@ -443,11 +440,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790570005,
-        "narHash": "sha256-+o/d1qwS8bHNwuiDevl+EKYGJ0IjdzroMxpmoY0JmRg=",
+        "lastModified": 1790746077,
+        "narHash": "sha256-I4O5GSbZgmvzV7dj8fZN8furV2UdEpahh4rvsZOfs/Q=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "e28ea84e78517e5d05ae0c399da00e848e207261",
+        "rev": "af40d966859ec4075ecc172dbb39e53f474dc5d9",
         "type": "github"
       },
       "original": {
@@ -576,11 +573,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1790578696,
-        "narHash": "sha256-ZoxIApko70jCdbH3l20HWXOBaT2HZd87orzd2yJ9dVE=",
+        "lastModified": 1790689126,
+        "narHash": "sha256-ilerN1WLSvF+HMjziC/Wv99J5y02maDH+6hZPwsORKg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7a0f122f5090cf4c2ade2a13a0e229d4e19ba71f",
+        "rev": "b4fd65b198c599cbe814fcb9f42d25d021595ec9",
         "type": "github"
       },
       "original": {
@@ -617,11 +614,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790627685,
-        "narHash": "sha256-T5qjfAiC8kJF9nkZ2yTzaB2QUfNRItWAtTb5pmaw33s=",
+        "lastModified": 1790787396,
+        "narHash": "sha256-8RMncJ/nykq7nNWo60NqKMCaqD2WWy5Qdy8/3TnSCCQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c709e2e89b0b7f835f935d509b4bf59e2615da2a",
+        "rev": "b05b83bbb37d27d04b338fbc8ba69b07e0df8005",
         "type": "github"
       },
       "original": {
@@ -642,11 +639,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1790622411,
-        "narHash": "sha256-RR+3pIbnxnk8dJZDIZltkBP5jR/9fCNbA03FazJXF+E=",
+        "lastModified": 1790784582,
+        "narHash": "sha256-BZIoc/MUe5T9Ky5kdmJvP4nO34eDduClbdM/8dHVmGw=",
         "owner": "can1357",
         "repo": "oh-my-pi",
-        "rev": "6dad5de125c2a508983c0f3e7ef9e79205ab71df",
+        "rev": "38bb1aa2fde9d89870c3d8231a5c4aabc0a83b60",
         "type": "github"
       },
       "original": {
@@ -659,13 +656,13 @@
       "flake": false,
       "locked": {
         "lastModified": 499162500,
-        "narHash": "sha256-G4pYLWVrO6nA1jTloGp9wmhfXyLwSBzecDxtSDgEPXI=",
+        "narHash": "sha256-lS6qFMTdmhoNbUjAskr2Y1aVCMeYUpmle5nY7zWdKDM=",
         "type": "tarball",
-        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz"
+        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz"
+        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz"
       }
     },
     "picard-plugins": {
@@ -816,16 +813,16 @@
     "syspeek": {
       "flake": false,
       "locked": {
-        "lastModified": 1779352232,
-        "narHash": "sha256-slpgxrz2O/Spgzv4SuI87vNkC7kpmqorTzqBFpGyImQ=",
+        "lastModified": 1789495350,
+        "narHash": "sha256-B5lK8J546QD9Whl19KZZe+gZjV7j5pWgxt5GqEtBRjY=",
         "owner": "prassamin",
         "repo": "SysPeek",
-        "rev": "638f844629c3fabff34a6313bd01eb452743d16d",
+        "rev": "8544b8adece1b96b113057417e9865170c397b71",
         "type": "github"
       },
       "original": {
         "owner": "prassamin",
-        "ref": "v2.0.0",
+        "ref": "v2.1.0",
         "repo": "SysPeek",
         "type": "github"
       }

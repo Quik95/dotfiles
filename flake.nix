@@ -17,7 +17,7 @@
     };
 
     lazyvim = {
-      url = "github:pfassina/lazyvim-nix/1d4fe049ef1ccfc2b0ad2ce2b01fb8f92c3e51ef";
+      url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.inputs.systems.follows = "llm-agents/systems";
     };
@@ -72,17 +72,17 @@
     };
 
     kde-ai-usage = {
-      url = "github:Muddyblack/kde-ai-usage/v2.2.0";
+      url = "github:Muddyblack/kde-ai-usage/v3.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     syspeek = {
-      url = "github:prassamin/SysPeek/v2.0.0";
+      url = "github:prassamin/SysPeek/v2.1.0";
       flake = false;
     };
 
     gnome-claude-codex-usage = {
-      url = "github:IanBraga96/gnome-claude-codex-usage/7c1ed28c51e224ae9cb5130c054a176978172f07";
+      url = "github:IanBraga96/gnome-claude-codex-usage";
       flake = false;
     };
 
@@ -95,7 +95,7 @@
     # at /, so it misses /home/.snapshots with the @/@home layout (fixed
     # upstream in 147eeaa1 "Handle more complex mount setups").
     kio-snapshot = {
-      url = "gitlab:system/kio-snapshot/5058ed42d1f62f8ca2f2e8095f0644650bfbe8f1?host=invent.kde.org";
+      url = "gitlab:system/kio-snapshot?host=invent.kde.org";
       flake = false;
     };
 
@@ -115,11 +115,11 @@
     };
 
     omp-model-presets = {
-      url = "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.10.0.tgz";
+      url = "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz";
       flake = false;
     };
     debrid-downloader = {
-      url = "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.0/DebridDownloader_1.7.0_amd64.deb";
+      url = "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.1/DebridDownloader_1.7.1_amd64.deb";
       flake = false;
     };
 

@@ -90,8 +90,15 @@
     display.cacheMissMarker = true;
     defaultThinkingLevel = "low";
     advisor.enabled = false;
+    enabledModels = [
+      "openai-codex/gpt-6-sol"
+      "openai-codex/gpt-6-luna"
+      "anthropic/claude-opus-5-5"
+      "google-antigravity/gemini-3.8-flash"
+    ];
+    hideThinkingBlock = false;
     modelRoles = {
-      advisor = "anthropic/claude-haiku-4-5:medium";
+      advisor = "openai-codex/gpt-6-luna:medium";
       commit = "google-antigravity/gemini-3.8-flash:low";
       default = "openai-codex/gpt-6-sol:low";
       slow = "openai-codex/gpt-6-sol:high";

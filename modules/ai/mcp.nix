@@ -16,34 +16,10 @@
     AGENT_BROWSER_HEADED = "1";
     AGENT_BROWSER_NO_XVFB = "1";
   };
-
-  # mcptoon reaches servers over its own catalog rather than the agent's native
-  # MCP wiring, so tool schemas never enter the context window. The native entry
-  # above stays on the lean "core" profile; the full toolset is only a
-  # `mcptoon call agent-browser <tool>` away and costs nothing until used.
-  mcptoonConfig = {
-    servers = {
-      agent-browser = {
-        transport = "stdio";
-        command = [(lib.getExe pkgs.agent-browser)];
-        args = ["mcp" "--tools" "all"];
-        env = agentBrowserEnv;
-      };
-      nixos = {
-        transport = "stdio";
-        command = ["nix"];
-        args = ["run" "github:utensils/mcp-nixos" "--"];
-      };
-    };
-  };
-
-  mcptoonConfigFile = pkgs.writeText "mcptoon-config.json" (builtins.toJSON mcptoonConfig);
-  mcptoonConfigPath = "${config.home.homeDirectory}/.mcptoon/config.json";
 in {
   home.packages = [
     llmAgentsPkgs.semble
     pkgs.agent-browser
-    llmAgentsPkgs.mcptoon
     pkgs.ast-grep
   ];
 
@@ -73,13 +49,4 @@ in {
   home.file.".agent-browser/config.json".text = builtins.toJSON {
     headed = true;
   };
-
-  # `mcptoon add` rewrites this file in place, so keep it outside the Nix store.
-  home.activation.installMcptoonConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [[ ! -v DRY_RUN ]]; then
-      install -d -m 0755 "$(dirname "${mcptoonConfigPath}")"
-      rm -f "${mcptoonConfigPath}"
-      install -m 0644 "${mcptoonConfigFile}" "${mcptoonConfigPath}"
-    fi
-  '';
 }

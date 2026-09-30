@@ -17,10 +17,8 @@
     # Save and restore VRAM across suspend/resume to prevent Xid 13
     # (shader corruption / missing textures after wake).
     powerManagement.enable = true;
-    # RTD3 disabled: aggressive D3 power cycling during s2idle causes two issues:
-    # (1) PCIe events on GPP0 (root port) trigger immediate spurious wakeup,
-    # (2) GSP firmware loses heartbeat after power-gating, blocking subsequent suspends.
-    powerManagement.finegrained = false;
+    # RTD3: power the dGPU off (D3cold) while idle.
+    powerManagement.finegrained = true;
 
     # Enable NVIDIA Dynamic Boost through nvidia-powerd.
     dynamicBoost.enable = true;

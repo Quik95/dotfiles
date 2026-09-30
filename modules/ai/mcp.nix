@@ -25,7 +25,7 @@
     servers = {
       agent-browser = {
         transport = "stdio";
-        command = [(lib.getExe llmAgentsPkgs.agent-browser)];
+        command = [(lib.getExe pkgs.agent-browser)];
         args = ["mcp" "--tools" "all"];
         env = agentBrowserEnv;
       };
@@ -42,7 +42,7 @@
 in {
   home.packages = [
     llmAgentsPkgs.semble
-    llmAgentsPkgs.agent-browser
+    pkgs.agent-browser
     llmAgentsPkgs.mcptoon
     pkgs.ast-grep
   ];
@@ -61,7 +61,7 @@ in {
         };
       };
       agent-browser = {
-        command = lib.getExe llmAgentsPkgs.agent-browser;
+        command = lib.getExe pkgs.agent-browser;
         args = ["mcp" "--tools" "core"];
         env = agentBrowserEnv;
       };

@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  ompPackage = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.omp;
+  ompPackage = pkgs.omp;
   ompRelayExtension = pkgs.runCommand "omp-browser-relay-extension" {} ''
     ${ompPackage}/bin/omp browser-relay install --dir "$out"
   '';

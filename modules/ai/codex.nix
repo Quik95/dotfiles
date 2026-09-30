@@ -10,10 +10,8 @@
     inherit pkgs lib;
   };
 
-  llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
-
   codexWrapped = wrapWithSecrets {
-    pkg = llmAgentsPkgs.codex;
+    pkg = pkgs.codex;
     binary = "codex";
     vars = {
       CODEX_ZAI_API_KEY = config.sops.secrets."CODEX_ZAI_API_KEY".path;

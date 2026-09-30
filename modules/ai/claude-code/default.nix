@@ -15,7 +15,7 @@
   llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
   claudeWrapped = wrapWithSecrets {
-    pkg = llmAgentsPkgs.claude-code;
+    pkg = pkgs.claude-code;
     binary = "claude";
     vars = {
       CONTEXT7_API_KEY = config.sops.secrets."CONTEXT7_API_KEY".path;

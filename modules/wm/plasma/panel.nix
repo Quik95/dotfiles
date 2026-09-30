@@ -64,6 +64,7 @@ in {
                 "org.kde.plasma.networkmanagement"
                 "org.kde.plasma.volume"
               ];
+              configs.battery.showPercentage = true;
             };
           }
           {

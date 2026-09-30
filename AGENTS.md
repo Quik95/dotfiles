@@ -38,6 +38,10 @@ nix build .#homeConfigurations.\"sebastian@sebastian-laptop-legion\".activationP
 # Dry-run NixOS system build (Legion)
 nix build .#nixosConfigurations.sebastian-laptop-legion.config.system.build.toplevel --dry-run --quiet
 
+# Full builds without creating a `./result` symlink
+nix build .#homeConfigurations.\"sebastian@sebastian-laptop-legion\".activationPackage --no-link --print-out-paths --quiet
+nix build .#nixosConfigurations.sebastian-laptop-legion.config.system.build.toplevel --no-link --print-out-paths --quiet
+
 # Formatting check only
 nix fmt . -- --check
 ```
@@ -54,7 +58,7 @@ sudo nixos-rebuild test --flake .#sebastian-laptop-legion --quiet
 # Home Manager switch
 home-manager switch --flake .#sebastian@sebastian-laptop-legion
 
-# nh equivalents (`build` builds without activating)
+# nh equivalents (`build` builds without activating; result link goes to a temp dir, never pass `-o`/`--out-link`)
 nh os build . -H sebastian-laptop-legion
 nh os switch . -H sebastian-laptop-legion
 nh home build . -c sebastian@sebastian-laptop-legion
@@ -205,4 +209,5 @@ Do not inline secret values in Nix code or use `builtins.readFile` for secret co
 
 - Prefer quiet, non-interactive invocations for automation (`--quiet`, `--dry-run` where appropriate).
 - `NH_FLAKE` is typically set in shell env vars, but repo-local `.` flake references are preferred in this file.
+- Never leave a `result` symlink in the repo: use `nix build --no-link` (add `--print-out-paths` to inspect the output) or `nh ... build`, which links into a temp dir.
 - Use `jq` for JSON parsing, not `python3 -m json.tool` or inline Python.

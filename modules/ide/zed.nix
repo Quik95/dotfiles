@@ -28,6 +28,12 @@
         toggle_relative_line_numbers = false;
         highlight_on_yank_duration = 200;
       };
+      # IdeaVim: ignorecase + smartcase, which-key
+      use_smartcase_search = true;
+      which_key.enabled = true;
+      # IntelliJ defaults: sticky lines on, preview tab off
+      sticky_scroll.enabled = true;
+      preview_tabs.enabled = false;
       buffer_font_size = 14;
       theme = {
         mode = "dark";
@@ -145,13 +151,13 @@
       };
     };
 
+    # Base keymap: JetBrains. Vim-mode bindings mirror modules/ide/.ideavimrc.
     userKeymaps = [
       {
-        context = "Editor";
+        context = "Editor && vim_mode == insert";
         bindings = {
-          "ctrl-\\" = "assistant::InlineAssist";
-          "ctrl-u" = ["workspace::SendKeystrokes" "1 5 k z z"];
-          "ctrl-d" = ["workspace::SendKeystrokes" "1 5 j z z"];
+          # <S-A-Bslash> CallInlineCompletionAction (alt-l accept is a Zed default)
+          "alt-|" = "editor::ShowEditPrediction";
         };
       }
       {
@@ -171,33 +177,61 @@
       {
         context = "VimControl && !menu && vim_mode != operator";
         bindings = {
+          "ctrl-u" = ["workspace::SendKeystrokes" "1 5 k z z"];
+          "ctrl-d" = ["workspace::SendKeystrokes" "1 5 j z z"];
+
+          "space d d" = ["action::Sequence" ["workspace::ToggleCenteredLayout" "workspace::ToggleAllDocks"]];
+          "space d z" = ["action::Sequence" ["workspace::ToggleCenteredLayout" "workspace::ToggleAllDocks" "zed::ToggleFullScreen"]];
+          "space d f" = "zed::ToggleFullScreen";
+
           "tab" = "pane::ActivateNextItem";
           "shift-tab" = "pane::ActivatePreviousItem";
           "space b d" = "pane::CloseActiveItem";
           "space q a" = "pane::CloseAllItems";
           "space q o" = "pane::CloseOtherItems";
+
+          "[ [" = "vim::PreviousMethodStart";
+          "] ]" = "vim::NextMethodStart";
+
           "= =" = "editor::Format";
           "- -" = "editor::OrganizeImports";
+
+          "space h" = "git::FileHistory";
+
           "g e" = "editor::GoToDiagnostic";
           "g E" = "editor::GoToPreviousDiagnostic";
+
+          "ctrl-a" = "command_palette::Toggle";
+          "ctrl-f" = "file_finder::Toggle";
+          "ctrl-e" = "file_finder::Toggle";
           "space f u" = "editor::FindAllReferences";
           "space s u" = "editor::FindAllReferences";
           "space s s" = "editor::Hover";
           "space f s" = "outline::Toggle";
+
           "g i" = "editor::GoToImplementation";
-          "g d" = "editor::GoToDeclaration";
+          # IntelliJ GotoDeclaration = definition, or usages when already on it
+          # (Zed: go_to_definition_fallback = "find_all_references")
+          "g d" = "editor::GoToDefinition";
+          # IntelliJ gt = GotoTest (no Zed equivalent)
           "g t" = "editor::GoToTypeDefinition";
           "g b" = "pane::GoBack";
           "g n" = "pane::GoForward";
-          "e d" = "editor::Hover";
-          "space r e" = "editor::Rename";
+
+          "ctrl-x" = "workspace::ToggleAllDocks";
+
           "space r o" = "editor::ToggleCodeActions";
+          "space r e" = "editor::Rename";
+
+          "space e d" = "editor::Hover";
+          "space t i" = "editor::Hover";
+          "space p i" = "editor::ShowSignatureHelp";
+
           "enter enter" = "editor::ToggleCodeActions";
+
+          # IdeaVim [w / [b CamelCase humps
           "shift-l" = "vim::NextSubwordStart";
           "shift-h" = "vim::PreviousSubwordStart";
-          "ctrl-f" = "file_finder::Toggle";
-          "ctrl-a" = "command_palette::Toggle";
-          "shift shift" = "command_palette::Toggle";
         };
       }
       {

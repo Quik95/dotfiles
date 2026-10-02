@@ -53,6 +53,7 @@ in {
           gesturefy
           raindropio
           refined-github
+          search-by-image
           sponsorblock
           ublock-origin
           videospeed

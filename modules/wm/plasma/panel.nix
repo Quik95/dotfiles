@@ -38,6 +38,7 @@ in {
             config.General = {
               claudeEnabled = true;
               openaiEnabled = true;
+              sessionsEnabled = false;
               antigravityEnabled = false;
               kiroEnabled = false;
               grokEnabled = false;

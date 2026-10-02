@@ -55,6 +55,9 @@ in {
               useFixedWidth = false;
               fixedLabelWidth = true; # Fixed Value Width
               itemSpacing = 8;
+              # No GPU usage: NVIDIA usage comes from NVML (`nvidia-smi`), and any NVML
+              # client polling it keeps the dGPU out of D3cold (~7 W extra on battery).
+              panelLayout = "cpu|cpu_temp|ram|swap|upload|download";
             };
           }
           "org.kde.plasma.weather"

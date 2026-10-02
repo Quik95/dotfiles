@@ -11,6 +11,12 @@
 
     src = inputs.syspeek;
 
+    # libksysguard only unsubscribes a sensor when it is disabled or destroyed, never when
+    # its sensorId changes. Upstream's GPU probes (and the always-instantiated settings
+    # window's copies) therefore keep gpu/gpu0 subscribed, which on this host is the NVIDIA
+    # dGPU: `nvidia-smi dmon` keeps running and the dGPU never reaches D3cold.
+    patches = [./patches/syspeek-release-gpu-sensors.patch];
+
     dontBuild = true;
 
     installPhase = ''

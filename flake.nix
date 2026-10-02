@@ -99,11 +99,6 @@
       flake = false;
     };
 
-    makiconf = {
-      url = "github:tontinton/makiconf";
-      flake = false;
-    };
-
     typst-skills = {
       url = "github:apcamargo/typst-skills";
       flake = false;

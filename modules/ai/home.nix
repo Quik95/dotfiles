@@ -28,7 +28,6 @@ in {
 
     ./codex.nix
     ./lsp.nix
-    ./maki.nix
     ./mcp.nix
   ];
 }

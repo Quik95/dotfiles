@@ -8,6 +8,11 @@
     pkgs.grc
   ];
 
+  # env also launches interactive commands; grc would filter their terminal I/O.
+  xdg.configFile."fish/conf.d/00-grc-exclusions.fish".text = ''
+    contains -- env $grc_plugin_ignore_execs; or set -ga grc_plugin_ignore_execs env
+  '';
+
   programs.fish = {
     enable = true;
     generateCompletions = true;

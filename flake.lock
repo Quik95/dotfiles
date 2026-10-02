@@ -150,18 +150,6 @@
         "type": "github"
       }
     },
-    "debrid-downloader": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-N+UKQh46nx/P9VEGKMox8Te89Wdx9sRnTwrz12zShBY=",
-        "type": "file",
-        "url": "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.1/DebridDownloader_1.7.1_amd64.deb"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/CasaVargas/DebridDownloader/releases/download/v1.7.1/DebridDownloader_1.7.1_amd64.deb"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -706,7 +694,6 @@
     },
     "root": {
       "inputs": {
-        "debrid-downloader": "debrid-downloader",
         "gnome-claude-codex-usage": "gnome-claude-codex-usage",
         "gnome-wisp": "gnome-wisp",
         "home-manager": "home-manager",

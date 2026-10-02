@@ -1,6 +1,5 @@
 {
   imports = [
-    ./debrid-downloader.nix
     ./foliate.nix
     ./mpv.nix
     ./picard.nix

@@ -30,6 +30,13 @@ in {
       HardwareAcceleration = true;
       NoDefaultBookmarks = true;
       ExtensionUpdate = true;
+      ExtensionSettings = lib.listToAttrs (
+        map (extension: {
+          name = extension.addonId;
+          value.private_browsing = true;
+        })
+        config.programs.firefox.profiles.default.extensions.packages
+      );
       NetworkPrediction = true;
       DisableAppUpdate = true;
       DisplayBookmarksToolbar = "newtab";

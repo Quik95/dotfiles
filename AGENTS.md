@@ -15,7 +15,7 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 - **Terminal:** Ghostty with Fish shell
 - **Editor:** LazyVim (Neovim)
 - **Theme:** Stylix (`purple-rain` base24)
-- **Age key path:** `/var/lib/sops-nix/key.txt`
+- **Age key paths:** NixOS `/var/lib/sops-nix/key.txt`; Home Manager and `sops` CLI `~/.config/sops/age/keys.txt`
 
 ## Available Tools
 
@@ -29,7 +29,8 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 # Show flake outputs (no lockfile writes)
 nix flake show --no-write-lock-file
 
-# Validate flake checks
+# Validate flake checks: alejandra formatting, actionlint, zizmor, Home Manager activation
+# (CI in .github/workflows/check.yml also dry-runs the NixOS toplevel)
 nix flake check . --quiet
 
 # Dry-run Home Manager activation package build
@@ -81,41 +82,22 @@ nh os build . -H sebastian-laptop-legion -U <input-name>
 ### Secret management
 
 ```bash
-sops home-manager/secrets/<file>.yaml
+# Run from home-manager/: .sops.yaml lives there and creation rules are only found from cwd upward
+cd home-manager && sops secrets/<file>.yaml
 ```
 
-## Directory Structure
+## Module Loading
 
-```text
-.
-├── flake.nix
-├── flake.lock
-├── modules/
-│   ├── common.nix
-│   ├── nixos.nix
-│   ├── home-standalone.nix
-│   ├── core/
-│   │   └── nixos.nix
-│   └── ...
-├── nixos/
-│   ├── common.nix
-│   ├── hosts/
-│   │   └── sebastian-laptop-legion/
-│   │       └── configuration.nix
-├── home-manager/
-│   ├── home.nix
-│   ├── hosts/
-│   └── secrets/
-└── shared/
-    └── env.nix
-```
+- `modules/nixos.nix`, `modules/common.nix`, and `modules/home-standalone.nix` recursively auto-import every file under `modules/` ending in `nixos.nix`, `common.nix`, or `home.nix`. No manual registration needed.
+- Other files (e.g. `default.nix`, helpers) load only when imported from one of those; keep helpers off these suffixes to avoid accidental auto-import.
+- Host-specific config: `nixos/hosts/<host>/` and `home-manager/hosts/<host>.nix`, registered in `hosts` in `flake.nix`.
 
 ## Code Conventions
 
 - Use 2-space indentation.
 - Use double quotes for strings.
 - Use kebab-case filenames (example: `laptop-power.nix`).
-- Aggregate module imports in `default.nix` files.
+- Split a module into `nixos.nix` / `home.nix` / `common.nix` by target; use `default.nix` only for subtrees imported explicitly.
 - Format with `alejandra` via `nix fmt`.
 
 ## External Package Sources
@@ -127,10 +109,10 @@ sops home-manager/secrets/<file>.yaml
 
 - Write commit subjects in English.
 - Keep the subject concise, single-line, and focused on the change.
-- Start with a capitalized change verb, such as `Add`, `Enable`, `Fix`, `Update`, `Remove`, `Use`, or `Move`.
+- Plain subjects start with a capitalized change verb, such as `Add`, `Enable`, `Fix`, `Update`, `Remove`, `Use`, or `Move`.
 - Do not add a trailing period.
-- This repository's history does not use Conventional Commit prefixes or scopes.
-- If `omp commit` adds its required type prefix, keep the summary in this style and leave the scope empty unless clearly useful.
+- History mixes plain subjects and `type(scope): summary` from `omp commit`; both are accepted.
+- With a type prefix, use an area scope matching history (e.g. `ai`, `flake`, `plasma`, `nixos/legion`) and a past-tense lowercase summary.
 - Use `fixup!` only for intentional autosquash commits.
 
 ## Common Patterns
@@ -180,6 +162,7 @@ sops.secrets."API_KEY" = {
 };
 
 # 2) Wrap binaries and export at runtime (preferred for CLI tools)
+#    wrapWithSecrets = import ./wrap-with-secrets.nix {inherit pkgs lib;};  # modules/ai/
 toolWrapped = wrapWithSecrets {
   pkg = pkgs.some-cli;
   binary = "some-cli";

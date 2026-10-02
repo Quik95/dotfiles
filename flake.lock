@@ -1,5 +1,41 @@
 {
   "nodes": {
+    "agent-skills": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790154098,
+        "narHash": "sha256-SviEpvFefXCPOmQ2b41c4ujE7BzWYJ/h8p/HZNxD2B8=",
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "rev": "dc122af897ab9a685c20ae54c639021619dbbb52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "type": "github"
+      }
+    },
+    "ast-grep-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789268336,
+        "narHash": "sha256-dORqiMdFOUQVEF6wn1IZiTIcslzO+441A0GZP4KNcOQ=",
+        "owner": "ast-grep",
+        "repo": "agent-skill",
+        "rev": "f2175aff21f20cfb8e2db30c28febeb3a2d42b61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ast-grep",
+        "repo": "agent-skill",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -65,6 +101,22 @@
         "owner": "tinted-theming",
         "repo": "base16-vim",
         "rev": "577fe8125d74ff456cf942c733a85d769afe58b7",
+        "type": "github"
+      }
+    },
+    "bigboss-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782334197,
+        "narHash": "sha256-pUskpjvWFzGTwJSpMiyYo60V0kM8+dT4acK16nI4mII=",
+        "owner": "0xbigboss",
+        "repo": "claude-code",
+        "rev": "2921eb8a685a2589c4c3e6ecbc8eaa12ffadde73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xbigboss",
+        "repo": "claude-code",
         "type": "github"
       }
     },
@@ -637,6 +689,22 @@
         "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz"
       }
     },
+    "opencode-power-pack": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788360036,
+        "narHash": "sha256-KVPVkKq778UsNTkfgxJcw7gqUMricy3JAEfI9xjtgQE=",
+        "owner": "waybarrios",
+        "repo": "opencode-power-pack",
+        "rev": "4b476b88b5d92669a07d4c7c373a5529c3e24bce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "waybarrios",
+        "repo": "opencode-power-pack",
+        "type": "github"
+      }
+    },
     "picard-plugins": {
       "flake": false,
       "locked": {
@@ -678,6 +746,9 @@
     },
     "root": {
       "inputs": {
+        "agent-skills": "agent-skills",
+        "ast-grep-skill": "ast-grep-skill",
+        "bigboss-skills": "bigboss-skills",
         "gnome-claude-codex-usage": "gnome-claude-codex-usage",
         "gnome-wisp": "gnome-wisp",
         "home-manager": "home-manager",
@@ -693,12 +764,14 @@
         "nur": "nur",
         "omp": "omp",
         "omp-model-presets": "omp-model-presets",
+        "opencode-power-pack": "opencode-power-pack",
         "picard-plugins": "picard-plugins",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "syspeek": "syspeek",
-        "typst-skills": "typst-skills"
+        "typst-skills": "typst-skills",
+        "wshobson-agents": "wshobson-agents"
       }
     },
     "rust-overlay": {
@@ -1015,6 +1088,22 @@
       "original": {
         "owner": "apcamargo",
         "repo": "typst-skills",
+        "type": "github"
+      }
+    },
+    "wshobson-agents": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790642726,
+        "narHash": "sha256-LNDpYF5bOeG9GmDW3A2sZv88B00WmxxOAPkzCgkfj3Y=",
+        "owner": "wshobson",
+        "repo": "agents",
+        "rev": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wshobson",
+        "repo": "agents",
         "type": "github"
       }
     }

@@ -29,5 +29,6 @@ in {
     ./codex.nix
     ./lsp.nix
     ./mcp.nix
+    ./skills
   ];
 }

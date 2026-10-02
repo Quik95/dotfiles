@@ -104,6 +104,31 @@
       flake = false;
     };
 
+    opencode-power-pack = {
+      url = "github:waybarrios/opencode-power-pack";
+      flake = false;
+    };
+
+    ast-grep-skill = {
+      url = "github:ast-grep/agent-skill";
+      flake = false;
+    };
+
+    bigboss-skills = {
+      url = "github:0xbigboss/claude-code";
+      flake = false;
+    };
+
+    wshobson-agents = {
+      url = "github:wshobson/agents";
+      flake = false;
+    };
+
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     picard-plugins = {
       url = "github:metabrainz/picard-plugins";
       flake = false;

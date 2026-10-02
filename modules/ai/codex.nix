@@ -3,7 +3,6 @@
   lib,
   config,
   aiAgentsSystemInstruction,
-  inputs,
   ...
 }: let
   wrapWithSecrets = import ./wrap-with-secrets.nix {
@@ -23,7 +22,6 @@ in {
     enable = true;
     package = codexWrapped;
     enableMcpIntegration = true;
-    skills = import ./skills {inherit inputs;};
     settings = {
       model = "gpt-5.6-luna";
       model_reasoning_effort = "xhigh";

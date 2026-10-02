@@ -156,7 +156,6 @@ in {
     configDir = env.claudeConfigDir config;
     enableMcpIntegration = true;
     context = aiAgentsSystemInstruction;
-    skills = import ../skills {inherit inputs;};
     lspServers =
       lib.mapAttrs (_: s: {
         command = builtins.head s.command;

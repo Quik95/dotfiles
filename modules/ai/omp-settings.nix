@@ -3,6 +3,7 @@
   inputs,
   lib,
   pkgs,
+  aiAgentsLspServers,
   ...
 }: let
   ompPackage = pkgs.omp;
@@ -82,6 +83,7 @@
   ompSettingsOverlay = (pkgs.formats.yaml {}).generate "omp-home-manager.yml" {
     memory.backend = "mnemopi";
     astGrep.enabled = true;
+    python.interpreter = lib.getExe pkgs.python3;
     browser = {
       headless = false;
       relay = true;
@@ -133,6 +135,29 @@ in {
 
   xdg.configFile."omp/home-manager.yml".source = ompSettingsOverlay;
   home.file.".omp/agent/mcp.json".source = ompMcpConfig;
+  home.file.".omp/agent/lsp.json".source = (pkgs.formats.json {}).generate "omp-lsp.json" {
+    servers =
+      lib.mapAttrs (_: server:
+        {
+          command = builtins.head server.command;
+          args = builtins.tail server.command;
+          fileTypes = builtins.attrNames server.extensionToLanguage;
+          rootMarkers = ["."];
+        }
+        // lib.optionalAttrs (server ? settings) {
+          inherit (server) settings;
+        }
+        // lib.optionalAttrs (server ? isLinter) {
+          inherit (server) isLinter;
+        })
+      (lib.filterAttrs (_: server: server.extensionToLanguage != {}) aiAgentsLspServers)
+      // {
+        typescript-language-server.disabled = true;
+        typescript-native.disabled = true;
+        vscode-html-language-server.disabled = true;
+        omnisharp.disabled = true;
+      };
+  };
   home.file.".omp/browser-relay/extension".source = ompRelayExtension;
 
   home.file.".omp/plugins/node_modules/@ahrzb/omp-model-presets".source = inputs.omp-model-presets;

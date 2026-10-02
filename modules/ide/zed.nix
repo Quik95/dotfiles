@@ -1,6 +1,7 @@
 {
   pkgs,
-  config,
+  lib,
+  aiAgentsLspServers,
   ...
 }: {
   home.packages = with pkgs; [
@@ -60,55 +61,17 @@
           };
         };
       };
-      lsp = {
-        nixd = {
-          binary.path = "${pkgs.nixd}/bin/nixd";
-          settings = {
-            nixd = {
-              formatting = {
-                command = ["${pkgs.alejandra}/bin/alejandra" "--"];
-              };
+      lsp = lib.mapAttrs' (name: server:
+        lib.nameValuePair (server.zedName or name) ({
+            binary = {
+              path = builtins.head server.command;
+              arguments = builtins.tail server.command;
             };
-          };
-        };
-        json-language-server.binary = {
-          path = "${pkgs.vscode-json-languageserver}/bin/vscode-json-language-server";
-          arguments = ["--stdio"];
-        };
-        roslyn.binary = {
-          path = "${pkgs.roslyn-ls}/bin/Microsoft.CodeAnalysis.LanguageServer";
-          arguments = [
-            "--stdio"
-            "--logLevel"
-            "Information"
-            "--extensionLogDirectory"
-            "${config.xdg.stateHome}/lsp/roslyn"
-          ];
-        };
-        rust-analyzer.binary.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
-        basedpyright.binary = {
-          path = "${pkgs.basedpyright}/bin/basedpyright-langserver";
-          arguments = ["--stdio"];
-        };
-        ruff.binary = {
-          path = "${pkgs.ruff}/bin/ruff";
-          arguments = ["server"];
-        };
-        terraform-ls.binary = {
-          path = "${pkgs.terraform-ls}/bin/terraform-ls";
-          arguments = ["serve"];
-        };
-        tinymist.binary = {
-          path = "${pkgs.tinymist}/bin/tinymist";
-          arguments = ["lsp"];
-        };
-        package-version-server.binary.path = "${pkgs.package-version-server}/bin/package-version-server";
-        vtsls.binary = {
-          path = "${pkgs.vtsls}/bin/vtsls";
-          arguments = ["--stdio"];
-        };
-        zls.binary.path = "${pkgs.zls}/bin/zls";
-      };
+          }
+          // lib.optionalAttrs (server ? settings) {
+            inherit (server) settings;
+          }))
+      (lib.filterAttrs (_: server: (server.zedName or "") != null) aiAgentsLspServers);
       completions = {
         lsp_insert_mode = "replace";
       };

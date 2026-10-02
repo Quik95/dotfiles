@@ -163,7 +163,7 @@ in {
         args = builtins.tail s.command;
         extensionToLanguage = s.extensionToLanguage;
       })
-      aiAgentsLspServers;
+      (lib.filterAttrs (_: s: s.extensionToLanguage != {}) aiAgentsLspServers);
 
     settings = {
       includeCoAuthoredBy = false;

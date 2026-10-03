@@ -53,9 +53,28 @@
 
   boot.kernelParams = [
     "amd_pstate=active"
+    # Log the waking IRQ/GPE on every s2idle resume.
+    "pm_debug_messages"
   ];
 
   services.logind.settings.Login.HandleLidSwitch = "suspend";
+
+  # Diagnose spurious s2idle wakes via the EC (GPE 0x03, pm_wakeup_irq=9):
+  # log which EC query (_Qxx) fires. Queries are rare (EC transactions are not
+  # logged), so this stays cheap on the journal.
+  systemd.services.log-ec-queries = {
+    description = "Log ACPI EC query numbers for wakeup diagnostics";
+    after = ["sys-kernel-debug.mount"];
+    requires = ["sys-kernel-debug.mount"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "log-ec-queries" ''
+        echo 'file drivers/acpi/ec.c format Query +p' > /sys/kernel/debug/dynamic_debug/control
+      '';
+    };
+  };
 
   systemd.sleep.settings.Sleep = {
     AllowHibernation = "no";

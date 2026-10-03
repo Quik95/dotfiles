@@ -40,14 +40,6 @@
       url = "github:gmodena/nix-flatpak";
     };
 
-    nix-jetbrains-plugins = {
-      url = "github:nix-community/nix-jetbrains-plugins";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "llm-agents/systems";
-      };
-    };
-
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -33,7 +33,6 @@
   ];
 
   textMimes = [
-    "text/plain"
     "text/x-c"
     "text/x-c++"
     "text/x-python"
@@ -81,6 +80,8 @@ in {
       // (mkAssociations imageMimes imageViewer)
       // (mkAssociations videoMimes mediaPlayer)
       // {
+        # Open plain text files (.txt) in Kate; keep source files in Zed.
+        "text/plain" = ["org.kde.kate.desktop"];
         "web-browser" = browser;
         "x-scheme-handler/jetbrains" = ["jetbrains-toolbox.desktop"];
         "x-scheme-handler/fleet" = ["jetbrains-toolbox.desktop"];

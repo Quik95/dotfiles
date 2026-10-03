@@ -49,6 +49,9 @@ in
 
     programs.dconf.enable = true;
 
+    # Installs kdeconnect-kde and opens TCP/UDP 1714-1764 for the protocol.
+    programs.kdeconnect.enable = true;
+
     xdg.portal.enable = true;
 
     services.xserver.autoRepeatDelay = 200;

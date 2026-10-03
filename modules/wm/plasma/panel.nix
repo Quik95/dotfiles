@@ -69,6 +69,9 @@ in {
                 "org.kde.plasma.networkmanagement"
                 "org.kde.plasma.volume"
               ];
+              # Mirrors GSConnect's show-indicators = false: reachable from the
+              # tray overflow, never pinned in the panel.
+              hidden = ["org.kde.kdeconnect"];
               configs.battery.showPercentage = true;
             };
           }

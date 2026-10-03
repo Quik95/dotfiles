@@ -10,6 +10,7 @@ in {
     ./appearance.nix
     ./behavior.nix
     ./ai-usage.nix
+    ./kdeconnect.nix
     ./panel.nix
     ./syspeek.nix
   ];

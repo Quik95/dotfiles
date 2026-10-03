@@ -33,6 +33,20 @@ in
     services.packagekit.enable = false;
     environment.plasma6.excludePackages = [pkgs.kdePackages.discover];
 
+    # ksystemstats counts a client's repeated subscribe of one sensor twice but its single
+    # unsubscribe once, so the sensor stays subscribed after the client is done. libksysguard
+    # subscribes once per Sensor object; two SysPeek widgets probing gpu/gpu0 leave the NVIDIA
+    # sensors subscribed, keeping `nvidia-smi dmon` running and the dGPU out of D3cold.
+    nixpkgs.overlays = [
+      (_: prev: {
+        kdePackages = prev.kdePackages.overrideScope (_: kprev: {
+          ksystemstats = kprev.ksystemstats.overrideAttrs (old: {
+            patches = (old.patches or []) ++ [./patches/ksystemstats-refcount-client-subscriptions.patch];
+          });
+        });
+      })
+    ];
+
     programs.dconf.enable = true;
 
     xdg.portal.enable = true;

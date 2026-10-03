@@ -1,0 +1,54 @@
+--- a/src/client.h
++++ b/src/client.h
+@@ -34,6 +34,9 @@
+         QMetaObject::Connection valueChanged;
+         QMetaObject::Connection infoChanged;
+         QMetaObject::Connection destroyed;
++        // libksysguard sends one subscribe per Sensor object, so a client can subscribe
++        // the same path several times; the SensorProperty is subscribed only once.
++        int references = 1;
+     };
+ 
+     void sendValues(const KSysGuard::SensorDataList &updates);
+--- a/src/client.cpp
++++ b/src/client.cpp
+@@ -41,6 +41,11 @@
+ 
+     for (const QString &sensorPath : sensorPaths) {
+         if (auto sensor = m_daemon->findSensor(sensorPath)) {
++            if (m_subscribedSensors.value(sensorPath) == sensor) {
++                m_connections[sensor].references++;
++                continue;
++            }
++
+             Connections connections;
+             connections.valueChanged = connect(sensor, &KSysGuard::SensorProperty::valueChanged, this, [this, sensor]() {
+                 const QVariant value = sensor->value();
+@@ -69,13 +74,21 @@
+ void Client::unsubscribeSensors(const QStringList &sensorPaths)
+ {
+     for (const QString &sensorPath : sensorPaths) {
+-        if (auto sensor = m_subscribedSensors.take(sensorPath)) {
+-            auto connections = m_connections.take(sensor);
+-            disconnect(connections.valueChanged);
+-            disconnect(connections.infoChanged);
+-            disconnect(connections.destroyed);
+-            sensor->unsubscribe();
++        auto sensor = m_subscribedSensors.value(sensorPath);
++        if (!sensor) {
++            continue;
++        }
++
++        if (--m_connections[sensor].references > 0) {
++            continue;
+         }
++
++        m_subscribedSensors.remove(sensorPath);
++        const auto connections = m_connections.take(sensor);
++        disconnect(connections.valueChanged);
++        disconnect(connections.infoChanged);
++        disconnect(connections.destroyed);
++        sensor->unsubscribe();
+     }
+ }
+ 

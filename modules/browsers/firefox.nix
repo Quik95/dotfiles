@@ -75,7 +75,13 @@ in {
             "ublock-privacy"
             "ublock-unbreak"
             "ublock-quick-fixes"
+            "POL-0"
+            "POL-3"
           ];
+        };
+
+        settings."{506e023c-7f2b-40a3-8066-bc5deb40aebe}".settings = {
+          Settings.Gesture.Command.display = false;
         };
       };
 

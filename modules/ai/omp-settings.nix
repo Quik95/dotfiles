@@ -93,6 +93,7 @@
     defaultThinkingLevel = "low";
     advisor.enabled = false;
     enabledModels = [
+      "openai-codex/gpt-6-astra"
       "openai-codex/gpt-6.1-sol"
       "openai-codex/gpt-6-luna"
       "anthropic/claude-opus-5-5"

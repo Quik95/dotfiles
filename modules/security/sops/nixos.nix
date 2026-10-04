@@ -11,6 +11,11 @@
         sopsFile = ../../../home-manager/secrets/wifi-plus-rpB8.env;
         mode = "0400";
       };
+      wifi-tcl-2pt7 = {
+        format = "dotenv";
+        sopsFile = ../../../home-manager/secrets/wifi-tcl-2pt7.env;
+        mode = "0400";
+      };
     };
   };
 }

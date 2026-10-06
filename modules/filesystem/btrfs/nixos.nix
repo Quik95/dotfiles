@@ -10,7 +10,7 @@
   ];
 
   systemd.services.btrfs-quota = {
-    description = "Enable btrfs quota groups";
+    description = "Disable btrfs quota groups";
     wantedBy = ["multi-user.target"];
     after = ["home.mount"];
     requires = ["home.mount"];
@@ -20,7 +20,8 @@
     };
     path = [pkgs.btrfs-progs];
     script = ''
-      btrfs qgroup show /home >/dev/null 2>&1 || btrfs quota enable /home
+      # Avoid full qgroup accounting overhead with home snapshots.
+      btrfs quota disable /home
     '';
   };
 }

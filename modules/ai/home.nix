@@ -18,6 +18,7 @@ in {
     ./claude-code
     ./omp-settings.nix
 
+    ./agy.nix
     ./codex.nix
     ./lsp.nix
     ./mcp.nix

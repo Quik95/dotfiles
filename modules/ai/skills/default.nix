@@ -57,8 +57,8 @@
     };
   };
 in {
-  # Both modules link a skills directory recursively, so unmanaged entries
-  # (Codex `.system`, Claude `synced`) stay untouched.
+  # Modules link skills recursively, leaving unmanaged entries untouched.
   programs.claude-code.skills = bundle;
   programs.codex.skills = bundle;
+  programs.antigravity-cli.skills = bundle;
 }

@@ -86,7 +86,7 @@
     python.interpreter = lib.getExe pkgs.python3;
     browser = {
       headless = false;
-      relay = true;
+      relay = false;
     };
     composer.tokenRate = true;
     display.cacheMissMarker = true;

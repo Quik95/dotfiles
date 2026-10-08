@@ -202,6 +202,26 @@
         "type": "github"
       }
     },
+    "cloakbrowser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791485519,
+        "narHash": "sha256-sWFnex6alo/lh2+ywsaQWltXMXQmm1XYONVIVmKp2F8=",
+        "owner": "CloakHQ",
+        "repo": "CloakBrowser",
+        "rev": "37d81bce9bc79159b9adf189119ae9ee63ae67e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CloakHQ",
+        "repo": "CloakBrowser",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -708,6 +728,7 @@
         "agent-skills": "agent-skills",
         "ast-grep-skill": "ast-grep-skill",
         "bigboss-skills": "bigboss-skills",
+        "cloakbrowser": "cloakbrowser",
         "gnome-claude-codex-usage": "gnome-claude-codex-usage",
         "gnome-wisp": "gnome-wisp",
         "home-manager": "home-manager",

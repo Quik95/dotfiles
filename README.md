@@ -82,6 +82,34 @@ sudo nixos-rebuild switch --flake .#sebastian-laptop-legion --quiet
 home-manager switch --flake '.#sebastian@sebastian-laptop-legion'
 ```
 
+## Przeglądarka agentów AI
+
+`agent-browser` (CLI i wspólny serwer MCP) używa CloakBrowser zamiast zwykłego
+Chromium, w widocznym oknie. OMP również otrzymuje ten serwer MCP; jego
+wbudowana przeglądarka jest wyłączona (`browser.enabled = false`).
+
+Pakiet pochodzi z oficjalnego flake'a `github:CloakHQ/CloakBrowser`, przypiętego
+w `flake.lock` i korzystającego ze wspólnego inputu `nixpkgs`. Obecny pakiet
+udostępnia darmowy silnik Chromium 146; nowsze wydania wymagają klucza
+CloakBrowser i nie są w tej konfiguracji aktywowane.
+
+Konfiguracja jest w `modules/ai/mcp.nix`: `executablePath` dla CLI
+(`~/.agent-browser/config.json`) oraz `AGENT_BROWSER_EXECUTABLE_PATH` dla MCP.
+Wspólne globalne instrukcje w `modules/ai/home.nix` zawierają sekcję
+`Browser Automation` i trafiają do Codexa, Claude Code, agy oraz OMP
+(`~/.omp/agent/AGENTS.md`). Zmiany instrukcji i narzędzi wczytuje nowa sesja agenta.
+
+Po zmianie zamknij dotychczasową sesję przeglądarki albo utwórz nową:
+
+```bash
+agent-browser --session cloakbrowser open https://example.com
+agent-browser --session cloakbrowser snapshot
+agent-browser --session cloakbrowser close
+```
+
+Aktualizacja przypiętego flake'a: `nix flake update cloakbrowser`, następnie
+aktywacja Home Managera. Nie potrzeba `agent-browser install`.
+
 ## Flatpaki
 
 Lista aplikacji jest w `modules/flatpak/home.nix`. Część pakietów zależy od

@@ -45,6 +45,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    cloakbrowser = {
+      url = "github:CloakHQ/CloakBrowser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     omp = {
       url = "github:can1357/oh-my-pi";
       inputs.nixpkgs.follows = "nixpkgs";

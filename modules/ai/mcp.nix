@@ -7,19 +7,19 @@
 }: let
   llmAgentsPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
-  # The nixpkgs-side wrapper pins AGENT_BROWSER_EXECUTABLE_PATH to its own
-  # chromium with makeCWrapper --set, which wins over anything we export here.
-  # Overriding it means rebuilding the package (`agent-browser.override
-  # { chromium = ...; }` expects a ${chromium}/bin/chromium layout), so the
-  # bundled chromium stays and no dead executablePath setting is kept around.
+  cloakbrowser = inputs.cloakbrowser.packages.${pkgs.stdenv.hostPlatform.system}.cloakbrowserChromium;
+  agentBrowserProfile = "${config.xdg.stateHome}/agent-browser/profile";
   agentBrowserEnv = {
     AGENT_BROWSER_HEADED = "1";
     AGENT_BROWSER_NO_XVFB = "1";
+    AGENT_BROWSER_EXECUTABLE_PATH = lib.getExe cloakbrowser;
+    AGENT_BROWSER_PROFILE = agentBrowserProfile;
   };
 in {
   home.packages = [
     llmAgentsPkgs.semble
     pkgs.agent-browser
+    cloakbrowser
     pkgs.ast-grep
   ];
 
@@ -48,5 +48,7 @@ in {
   # behaves the same way as the server does.
   home.file.".agent-browser/config.json".text = builtins.toJSON {
     headed = true;
+    executablePath = lib.getExe cloakbrowser;
+    profile = agentBrowserProfile;
   };
 }

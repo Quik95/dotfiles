@@ -4,12 +4,10 @@
   lib,
   pkgs,
   aiAgentsLspServers,
+  aiAgentsSystemInstruction,
   ...
 }: let
   ompPackage = pkgs.omp;
-  ompRelayExtension = pkgs.runCommand "omp-browser-relay-extension" {} ''
-    ${ompPackage}/bin/omp browser-relay install --dir "$out"
-  '';
   ompWrapped = pkgs.symlinkJoin {
     name = "${ompPackage.pname}-with-home-manager-config";
     paths = [ompPackage];
@@ -58,17 +56,19 @@
   ompModelPresetsFile = (pkgs.formats.json {}).generate "omp-model-presets.json" ompModelPresetsData;
   ompModelPresetsPath = "${config.home.homeDirectory}/.omp/agent/model-presets.json";
   ompModelPresetsActivePath = "${config.home.homeDirectory}/.omp/agent/model-presets.active";
-  ompMcpServers = lib.mapAttrs (
-    _: server:
-      if server.url != null
-      then {
-        type = "http";
-        inherit (server) url headers;
-      }
-      else {
-        inherit (server) command args env;
-      }
-  ) (builtins.removeAttrs config.programs.mcp.servers ["agent-browser"]);
+  ompMcpServers =
+    lib.mapAttrs (
+      _: server:
+        if server.url != null
+        then {
+          type = "http";
+          inherit (server) url headers;
+        }
+        else {
+          inherit (server) command args env;
+        }
+    )
+    config.programs.mcp.servers;
   ompMcpConfig = (pkgs.formats.json {}).generate "omp-mcp.json" {
     mcpServers =
       ompMcpServers
@@ -84,10 +84,7 @@
     memory.backend = "mnemopi";
     astGrep.enabled = true;
     python.interpreter = lib.getExe pkgs.python3;
-    browser = {
-      headless = false;
-      relay = false;
-    };
+    browser.enabled = false;
     composer.tokenRate = true;
     display.cacheMissMarker = true;
     defaultThinkingLevel = "low";
@@ -136,6 +133,7 @@ in {
 
   xdg.configFile."omp/home-manager.yml".source = ompSettingsOverlay;
   home.file.".omp/agent/mcp.json".source = ompMcpConfig;
+  home.file.".omp/agent/AGENTS.md".text = aiAgentsSystemInstruction;
   home.file.".omp/agent/lsp.json".source = (pkgs.formats.json {}).generate "omp-lsp.json" {
     servers =
       lib.mapAttrs (_: server:
@@ -159,7 +157,6 @@ in {
         omnisharp.disabled = true;
       };
   };
-  home.file.".omp/browser-relay/extension".source = ompRelayExtension;
 
   home.file.".omp/plugins/node_modules/@ahrzb/omp-model-presets".source = inputs.omp-model-presets;
   home.file.".omp/plugins/package.json".text = builtins.toJSON {

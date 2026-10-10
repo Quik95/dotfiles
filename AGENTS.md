@@ -179,6 +179,14 @@ systemd.services.some-service.serviceConfig.EnvironmentFile =
 Do not put secret values in `home.sessionVariables`/`environment.variables`.
 Do not inline secret values in Nix code or use `builtins.readFile` for secret content.
 
+### Sudo access for AI agents
+
+The sudo password is encrypted in `home-manager/secrets/sudo-password.yaml`.
+Home Manager exposes it at `~/.config/sops-nix/secrets/sudo-password`, a symlink to the decrypted runtime secret with mode `0600`.
+Use `sudo -S -p "" -- <command> < "$HOME/.config/sops-nix/secrets/sudo-password"` for commands requiring root.
+Never print or expose the password in tool output, prompts, logs, command arguments, or environment variables.
+Access does not authorize destructive or unrelated actions. After changing the account password, update the SOPS secret from `home-manager/` with `sops secrets/sudo-password.yaml` and reactivate Home Manager.
+
 ## Guardrails
 
 1. Never edit `nixos/hosts/*/hardware-configuration.nix` manually.

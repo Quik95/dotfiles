@@ -1,9 +1,21 @@
-{hostname, ...}: let
+{
+  hostname,
+  config,
+  ...
+}: let
   aiAgentsSystemInstruction = ''
     Current system: ${hostname}
 
     Files under `/nix/store` are approved for read-only exploration and reference.
     Do not modify, replace, or attempt to write anywhere under `/nix/store`.
+
+    ## Sudo
+
+    SOPS provides the sudo password in `${config.sops.secrets.sudo-password.path}` (mode `0600`).
+    For commands requiring root, pass the file directly to sudo:
+    `sudo -S -p "" -- <command> < "${config.sops.secrets.sudo-password.path}"`
+    Never print the password, read it into tool output, or include its value in prompts, logs, arguments, or environment variables.
+    This access does not authorize destructive or unrelated actions.
 
     ## Browser Automation
 

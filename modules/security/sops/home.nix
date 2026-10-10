@@ -47,6 +47,12 @@ in {
         key = "CONTEXT7_API_KEY";
         format = "yaml";
       };
+
+      sudo-password = {
+        sopsFile = ../../../home-manager/secrets/sudo-password.yaml;
+        format = "yaml";
+        mode = "0600";
+      };
     };
   };
 }

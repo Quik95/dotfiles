@@ -109,6 +109,11 @@ in {
       audio-stream-silence = true;
       audio-file-auto = "fuzzy";
       audio-pitch-correction = "yes";
+      # Honor per-track loudness tags; leave untagged files at their original gain.
+      replaygain = "track";
+      replaygain-preamp = 0;
+      replaygain-clip = true;
+      replaygain-fallback = 0;
 
       profile = "high-quality";
       # nvdec avoids a Vulkan hwdec decoder bug on the Legion's RTX 5050 that
@@ -154,6 +159,25 @@ in {
       ytdl-format = "(bestvideo[height<=1080][vcodec*=h264]+bestaudio)/(bestvideo[height<=1080][vcodec!*=vp9]+bestaudio)/(bestvideo[height<=1080]+bestaudio)/best[height<=1080]";
     };
     profiles = {
+      music = {
+        replaygain = "track";
+        replaygain-preamp = 0;
+        replaygain-clip = false;
+        replaygain-fallback = 0;
+        gapless-audio = "weak";
+        # The global HDMI receiver workaround alters sync and underrun handling.
+        audio-stream-silence = false;
+        audio-display = "embedded-first";
+        force-window = true;
+
+        # Music starts from the beginning, without video-oriented playback state.
+        save-position-on-quit = false;
+        resume-playback = false;
+        keep-open = false;
+        video-sync = "audio";
+        interpolation = false;
+      };
+
       "protocol.http" = {
         hls-bitrate = "max";
       };

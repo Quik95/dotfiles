@@ -1,60 +1,39 @@
 {
   pkgs,
   inputs,
+  config,
   lib,
   ...
 }: let
-  aubio-python312 = pkgs.python312Packages.buildPythonPackage {
-    pname = "aubio";
-    version = "0.4.9";
-    format = "setuptools";
+  settingsPython = pkgs.python3.withPackages (ps: [ps.pyqt6]);
+  # Qt Multimedia resolves PipeWire dynamically for the audio preview backend.
+  picard = pkgs.picard.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [./picard-request-timeout.patch];
+    makeWrapperArgs =
+      (old.makeWrapperArgs or [])
+      ++ ["--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [pkgs.pipewire])];
+  });
+in {
+  home.packages = [
+    picard
+    pkgs.aubio
+    pkgs.ffmpeg-full
+  ];
 
-    src = pkgs.fetchurl {
-      url = "https://aubio.org/pub/aubio-0.4.9.tar.bz2";
-      sha256 = "1npks71ljc48w6858l9bq30kaf5nph8z0v61jkfb70xb9np850nl";
-    };
-
-    nativeBuildInputs = [pkgs.pkg-config];
-    buildInputs = with pkgs; [
-      aubio
-      fftw
-      libsndfile
-    ];
-    propagatedBuildInputs = [pkgs.python312Packages.numpy];
-    env.NIX_CFLAGS_COMPILE = "-Wno-incompatible-pointer-types";
+  xdg.dataFile = {
+    "MusicBrainz/Picard/plugins3/fanarttv".source = inputs."picard-plugin-fanarttv";
+    "MusicBrainz/Picard/plugins3/lrclib".source = inputs."picard-plugin-lrclib";
+    "MusicBrainz/Picard/plugins3/bpm".source = ./picard-plugins/bpm;
+    "MusicBrainz/Picard/plugins3/deezerart".source = ./picard-plugins/deezerart;
   };
 
-  python = pkgs.python312;
-  aubioSitePackages = "${aubio-python312}/${python.sitePackages}";
-  numpySitePackages = "${pkgs.python312Packages.numpy}/${python.sitePackages}";
-
-  picardWithAubio = pkgs.picard.overrideAttrs (old: {
-    propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [aubio-python312];
-    qtWrapperArgs =
-      (old.qtWrapperArgs or [])
-      ++ [
-        "--prefix PYTHONPATH : ${aubioSitePackages}:${numpySitePackages}"
-      ];
-  });
-
-  picardPlugins = inputs.picard-plugins;
-
-  pluginDirs = [
-    "lrclib_lyrics"
-    "bpm"
-    "replaygain2"
-    "deezerart"
-    "fanarttv"
-    "lastfm"
-  ];
-in {
-  home.packages = [pkgs.rsgain];
-
-  xdg.configFile = lib.listToAttrs (
-    map (name: {
-      name = "MusicBrainz/Picard/plugins/${name}";
-      value.source = "${picardPlugins}/plugins/${name}";
-    })
-    pluginDirs
-  );
+  # Keep Picard's settings writable; update only audited keys and retain
+  # credentials, profiles and window state in the existing Qt INI.
+  home.activation.picardSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    run ${settingsPython}/bin/python ${./configure-picard.py} \
+      ${lib.escapeShellArg "${config.xdg.configHome}/MusicBrainz/Picard.ini"} \
+      ${lib.escapeShellArg "${config.xdg.stateHome}/picard"} \
+      ${lib.escapeShellArg "${config.home.homeDirectory}/Music/some_shitty_music"} \
+      ${lib.escapeShellArg "${pkgs.chromaprint}/bin/fpcalc"}
+  '';
 }

@@ -1,0 +1,11 @@
+uuid = "8ee475c2-cdbe-49c0-9db2-6e45cd8103de"
+name = "Deezer cover art"
+description = "Fetches cover art from Deezer"
+authors = ["Fabio Forni"]
+api = ["3.0"]
+homepage = "https://github.com/metabrainz/picard-plugins/tree/master/plugins/deezerart"
+license = "GPL-3.0-or-later"
+license_url = "https://www.gnu.org/licenses/gpl-3.0.html"
+categories = ["coverart"]
+
+long_description = "Fetches front-cover artwork from Deezer using its public API."

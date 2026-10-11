@@ -1,0 +1,16 @@
+uuid = "16812cfb-5e3a-4db2-b8c7-f7a1fa04a075"
+name = "BPM Analyzer"
+description = "Analyze audio with aubio and write the detected tempo to the BPM tag"
+authors = ["Len Joubert", "Sambhav Kothari", "Philipp Wolfer"]
+api = ["3.0"]
+homepage = "https://github.com/metabrainz/picard-plugins/tree/efb04f6f9834a33573deb953ec3824f8bb828e15/plugins/bpm"
+license = "GPL-2.0"
+license_url = "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+categories = ["audio analysis", "metadata"]
+
+long_description = """
+A Picard 3 plugin port of the legacy BPM Analyzer. It decodes audio to a
+temporary WAV with FFmpeg, tracks beats with aubio's aubiotrack command, and
+writes the median detected beat rate to the BPM tag. Requires ffmpeg and
+aubio (aubiotrack) on PATH.
+"""

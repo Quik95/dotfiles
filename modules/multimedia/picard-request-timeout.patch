@@ -1,0 +1,18 @@
+--- a/picard/album.py
++++ b/picard/album.py
+@@ -321,12 +321,13 @@
+                     task_info.timeout,
+                     task_info.description,
+                 )
++                # Abort can re-enter finalization; remove the expired task first.
++                self._pending_tasks.pop(task_id, None)
+                 if task_info.request:
+                     try:
+-                        task_info.request.abort()
++                        self.tagger.webservice.abort_task(task_info.request)
+                     except RuntimeError:
+                         pass
+-                self._pending_tasks.pop(task_id, None)
+ 
+     def has_critical_tasks(self):
+         """Check if there are any critical tasks pending."""

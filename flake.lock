@@ -684,20 +684,38 @@
         "type": "github"
       }
     },
-    "picard-plugins": {
+    "picard-plugin-fanarttv": {
       "flake": false,
       "locked": {
-        "lastModified": 1780066471,
-        "narHash": "sha256-SzESA0LMGzpOJupTb2seGWBvmcZ/Dnwun4dTwXtgyXU=",
-        "owner": "metabrainz",
-        "repo": "picard-plugins",
-        "rev": "efb04f6f9834a33573deb953ec3824f8bb828e15",
-        "type": "github"
+        "lastModified": 1791551621,
+        "narHash": "sha256-mflM6o28jWxJzEeBtHLmH2iUUATVdLyg9r2WwC7NF7g=",
+        "ref": "main",
+        "rev": "861c08cd6555ff30191e1d612a75886e32a18f8c",
+        "revCount": 40,
+        "type": "git",
+        "url": "https://git.sr.ht/~phw/picard-plugin-fanarttv"
       },
       "original": {
-        "owner": "metabrainz",
-        "repo": "picard-plugins",
-        "type": "github"
+        "ref": "main",
+        "type": "git",
+        "url": "https://git.sr.ht/~phw/picard-plugin-fanarttv"
+      }
+    },
+    "picard-plugin-lrclib": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786655835,
+        "narHash": "sha256-mopCOo89xdWvit8x+1iSZmoS0v9OXqKjYevmlk7f3SM=",
+        "ref": "main",
+        "rev": "5e26cf01e297421ba5340e1670f456c6554609fa",
+        "revCount": 7,
+        "type": "git",
+        "url": "https://git.sr.ht/~phw/picard-plugin-lrclib"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://git.sr.ht/~phw/picard-plugin-lrclib"
       }
     },
     "plasma-manager": {
@@ -744,7 +762,8 @@
         "omp": "omp",
         "omp-model-presets": "omp-model-presets",
         "opencode-power-pack": "opencode-power-pack",
-        "picard-plugins": "picard-plugins",
+        "picard-plugin-fanarttv": "picard-plugin-fanarttv",
+        "picard-plugin-lrclib": "picard-plugin-lrclib",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "stylix": "stylix",

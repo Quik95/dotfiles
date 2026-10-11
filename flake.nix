@@ -39,6 +39,15 @@
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
     };
+    picard-plugin-fanarttv = {
+      url = "git+https://git.sr.ht/~phw/picard-plugin-fanarttv?ref=main";
+      flake = false;
+    };
+
+    picard-plugin-lrclib = {
+      url = "git+https://git.sr.ht/~phw/picard-plugin-lrclib?ref=main";
+      flake = false;
+    };
 
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
@@ -124,11 +133,6 @@
     agent-skills = {
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    picard-plugins = {
-      url = "github:metabrainz/picard-plugins";
-      flake = false;
     };
 
     omp-model-presets = {

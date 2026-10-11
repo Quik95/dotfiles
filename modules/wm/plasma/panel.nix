@@ -81,24 +81,5 @@ in {
         ];
       }
     ];
-    # plasma-manager currently ignores systemTray.items.configs because Plasma's
-    # widget API cannot reach nested tray applets. Configure their KConfig groups.
-    programs.plasma.startup.desktopScript."battery-percentage" = {
-      runAlways = true;
-      text = ''
-        function configureBatteries(group) {
-          if (group.readEntry("plugin", "") === "org.kde.plasma.battery") {
-            var configuration = new ConfigFile(group, "Configuration");
-            var general = new ConfigFile(configuration, "General");
-            general.writeEntry("showPercentage", true);
-          }
-          var children = group.groupList;
-          for (var i = 0; i < children.length; ++i) {
-            configureBatteries(new ConfigFile(group, children[i]));
-          }
-        }
-        configureBatteries(new ConfigFile("plasma-org.kde.plasma.desktop-appletsrc", "Containments"));
-      '';
-    };
   };
 }

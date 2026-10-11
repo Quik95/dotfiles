@@ -8,6 +8,13 @@
   ...
 }: let
   ompPackage = pkgs.omp;
+  # Install at launch rather than activation: PI_CODING_AGENT_DIR is a runtime choice.
+  ompInstallRules = pkgs.writeShellScript "omp-install-rules" ''
+    set -euo pipefail
+    rules_dir="''${PI_CODING_AGENT_DIR:-$HOME/.omp/agent}/rules"
+    ${pkgs.coreutils}/bin/mkdir -p -- "$rules_dir"
+    ${pkgs.coreutils}/bin/install -m 0644 -- ${./omp-rules}/*.md "$rules_dir/"
+  '';
   ompWrapped = pkgs.symlinkJoin {
     name = "${ompPackage.pname}-with-home-manager-config";
     paths = [ompPackage];
@@ -17,7 +24,8 @@
     ];
     postBuild = ''
       wrapProgram "$out/bin/omp" \
-        --set PI_CONFIG_FILES "${config.xdg.configHome}/omp/home-manager.yml"
+        --set PI_CONFIG_FILES "${config.xdg.configHome}/omp/home-manager.yml" \
+        --run '${ompInstallRules} || exit $?'
 
       ${lib.optionalString (pkgs.stdenv.buildPlatform.canExecute pkgs.stdenv.hostPlatform) ''
         HOME=$TMPDIR $out/bin/omp completions fish > omp.fish

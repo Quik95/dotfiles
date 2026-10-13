@@ -42,6 +42,9 @@ in {
       kondo
       appimage-run
 
+      # Global fallback for Nerd Fonts icons; keep the existing text fonts.
+      nerd-fonts.symbols-only
+
       lm_sensors
       smartmontools
 

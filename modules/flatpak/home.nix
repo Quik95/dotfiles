@@ -10,6 +10,7 @@ in {
         "com.github.marhkb.Pods"
         "com.github.rafostar.Clapper"
         "com.github.tchx84.Flatseal"
+        "com.modrinth.ModrinthApp"
         "com.spotify.Client"
         "dev.vencord.Vesktop"
         "garden.jamie.Morphosis"

@@ -19,6 +19,11 @@
     then ["org.kde.okular.desktop"]
     else ["org.gnome.Papers.desktop"];
   mediaPlayer = ["mpv.desktop"];
+  # Plain .txt files open in a lightweight editor; source files stay in Zed.
+  plainTextEditor =
+    if isPlasma
+    then ["org.kde.kate.desktop"]
+    else ["org.gnome.TextEditor.desktop"];
   textEditor = ["dev.zed.Zed.desktop"];
 
   browserMimes = [
@@ -80,8 +85,7 @@ in {
       // (mkAssociations imageMimes imageViewer)
       // (mkAssociations videoMimes mediaPlayer)
       // {
-        # Open plain text files (.txt) in Kate; keep source files in Zed.
-        "text/plain" = ["org.kde.kate.desktop"];
+        "text/plain" = plainTextEditor;
         "web-browser" = browser;
         "x-scheme-handler/jetbrains" = ["jetbrains-toolbox.desktop"];
         "x-scheme-handler/fleet" = ["jetbrains-toolbox.desktop"];

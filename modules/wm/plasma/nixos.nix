@@ -22,6 +22,26 @@ in
           ksystemstats = kprev.ksystemstats.overrideAttrs (old: {
             patches = (old.patches or []) ++ [./patches/ksystemstats-refcount-client-subscriptions.patch];
           });
+
+          # The greeter closes its views on LoginSucceeded and quits with the last window, so its
+          # kwin_wayland is torn down while sddm-helper switches to the session VT. When VT_ACTIVATE
+          # lands in that teardown, VT_WAITACTIVE hangs until waitForStarted() gives up after 30 s
+          # ("Session started false"); 60 s later sddm kills the helper and starts a second greeter
+          # next to the running session (sddm#1919, sddm#2129). Upstream da0b64d keeps the greeter
+          # alive until the session has started; it is unreleased in 0.21.0.
+          sddm = kprev.sddm.override {
+            sddm-unwrapped = kprev.sddm.unwrapped.overrideAttrs (old: {
+              patches =
+                (old.patches or [])
+                ++ [
+                  (lib.warnIf (old.version != "0.21.0") ''
+                      sddm ${old.version} may already include da0b64d ("greeter: Don't quit when the last window closes"):
+                      drop the sddm patch in modules/wm/plasma/nixos.nix if it does.
+                    ''
+                    ./patches/sddm-greeter-dont-quit-on-last-window.patch)
+                ];
+            });
+          };
         });
       })
     ];

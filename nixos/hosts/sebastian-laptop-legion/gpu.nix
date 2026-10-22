@@ -11,13 +11,6 @@
     # right after entering s2idle and wakes the system immediately. Keep the
     # runtime interrupt, drop only its wake capability.
     "gpiolib_acpi.ignore_wake=AMDI0030:00@4"
-
-    # Without vblank support nvidia-drm stamps page-flip events with the time
-    # the event is sent (sequence 0), not the real vblank. KWin schedules from
-    # those times and loses phase on HDMI; see
-    # docs/plasma-hdmi-nvidia-frame-pacing.md. Testing whether real vblank
-    # timestamps fix the frame pacing; watch for D3cold/suspend regressions.
-    "nvidia_drm.vblank=1"
   ];
 
   hardware.nvidia = {

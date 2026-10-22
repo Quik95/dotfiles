@@ -1,4 +1,20 @@
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  # Ghostty <= 1.3.1 sends READY=1 before installing its SIGUSR2 handler; systemd >= 262
+  # then refuses the Type=notify-reload unit, so the first D-Bus launch fails.
+  # Fixed upstream in https://github.com/ghostty-org/ghostty/pull/14399.
+  xdg.configFile."systemd/user/app-com.mitchellh.ghostty.service.d/notify-race.conf" = lib.mkIf (lib.versionOlder config.programs.ghostty.package.version "1.3.2") {
+    text = ''
+      [Service]
+      Type=dbus
+      ExecReload=${pkgs.coreutils}/bin/kill -USR2 $MAINPID
+    '';
+  };
+
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;

@@ -92,11 +92,6 @@
       flake = false;
     };
 
-    gnome-wisp = {
-      url = "github:epogonii/wisp/v1.0.10";
-      flake = false;
-    };
-
     typst-skills = {
       url = "github:apcamargo/typst-skills";
       flake = false;

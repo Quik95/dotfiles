@@ -20,10 +20,13 @@
     "telephony"
   ];
 
-  # Upstream gives every stat 6px of side padding and a 3em label, so five stats
-  # crowd the panel and the download figure ends up clipped. The numbers only
-  # live in the extension's stylesheet, so rewrite them in a copy instead of
-  # overriding the package, which would rebuild all of gnome-shell-extensions.
+  # GNOME caps the right panel box at half the bar, and with every indicator
+  # there the network figures got squeezed into "0.1 …". Upstream always adds
+  # the monitor to the right box, so place it in the left one, right after the
+  # hidden Activities button. Upstream also gives every stat 6px of side
+  # padding and a 3em label; tighten those too. Both edits rewrite a
+  # copy instead of overriding the package, which would rebuild all of
+  # gnome-shell-extensions.
   compactSystemMonitor = let
     base = pkgs.gnomeExtensions.system-monitor;
   in
@@ -33,7 +36,11 @@
     } ''
       cp -r ${base} $out
       chmod -R u+w $out
-      css=$out/share/gnome-shell/extensions/${base.extensionUuid}/stylesheet.css
+      dir=$out/share/gnome-shell/extensions/${base.extensionUuid}
+      substituteInPlace $dir/extension.js \
+        --replace-fail "Main.panel.addToStatusArea(this.uuid, this._indicator);" \
+          "Main.panel.addToStatusArea(this.uuid, this._indicator, 1, 'left');"
+      css=$dir/stylesheet.css
       substituteInPlace $css \
         --replace-fail "padding: 0 6px;" "padding: 0 3px;" \
         --replace-fail "min-width: 3.0em;" "min-width: 2.2em;"
@@ -74,40 +81,6 @@
     meta = {
       description = "Show Claude Code and Codex CLI usage in the GNOME top bar";
       homepage = "https://github.com/IanBraga96/gnome-claude-codex-usage";
-      license = lib.licenses.gpl2Plus;
-      platforms = lib.platforms.linux;
-    };
-  };
-
-  wisp = pkgs.stdenvNoCC.mkDerivation {
-    pname = "gnome-shell-extension-wisp";
-    version = "1.0.10";
-
-    src = inputs.gnome-wisp;
-
-    nativeBuildInputs = [pkgs.glib];
-
-    buildPhase = ''
-      runHook preBuild
-      glib-compile-schemas --strict schemas
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-      extensionDir=$out/share/gnome-shell/extensions/wisp@epogonii.github.io
-      grep -v '^\s*\(#\|$\)' tools/files.txt | while read -r file; do
-        install -Dm644 "$file" "$extensionDir/$file"
-      done
-      install -Dm644 schemas/gschemas.compiled -t "$extensionDir/schemas"
-      runHook postInstall
-    '';
-
-    passthru.extensionUuid = "wisp@epogonii.github.io";
-
-    meta = {
-      description = "Browse, compare and restore snapper snapshots from the GNOME top bar";
-      homepage = "https://github.com/epogonii/wisp";
       license = lib.licenses.gpl2Plus;
       platforms = lib.platforms.linux;
     };
@@ -196,11 +169,16 @@
       dconfPath = "just-perfection";
       settings = {
         activities-button = false;
-        clock-menu-position = 1;
-        clock-menu-position-offset = 20;
+        # Keep the clock in the center box (0): moved into the right box it
+        # pushes that box past the half-bar limit GNOME allows it.
+        clock-menu-position = 0;
+        clock-menu-position-offset = 0;
         search = false;
         workspace-wrap-around = false;
         window-demands-attention-focus = true;
+        # Stored as pixels + 1 (0 keeps the shell's default padding), so 5 means
+        # 4px per side, which closes the wide gaps between top-bar buttons.
+        panel-button-padding-size = 5;
         background-menu = false;
         window-preview-caption = false;
         workspace-switcher-should-show = true;
@@ -238,10 +216,6 @@
     }
     {
       pkg = compactSystemMonitor;
-      enabled = true;
-    }
-    {
-      pkg = wisp;
       enabled = true;
     }
   ];

@@ -22,7 +22,7 @@
       rm = "rm -I";
       cp = "cp -riv";
       du = "du -sh";
-      copy = "wl-copy <";
+      wl-copy = "wl-copy --trim-newline";
       drsync = "rsync --archive --verbose --progress --partial --info=progress2 --human-readable";
       fP = "fish --private";
       icat = "kitty +kitten icat";
@@ -41,7 +41,6 @@
       lg = "lazygit";
       sudo = "run0";
       nix-shell = "nix-shell --run fish";
-      wlc = "wl-copy";
       wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
     };
 

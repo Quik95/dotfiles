@@ -97,14 +97,6 @@
       flake = false;
     };
 
-    # Unreleased master: 1.0.0 only finds snapshots under the subvolume mounted
-    # at /, so it misses /home/.snapshots with the @/@home layout (fixed
-    # upstream in 147eeaa1 "Handle more complex mount setups").
-    kio-snapshot = {
-      url = "gitlab:system/kio-snapshot?host=invent.kde.org";
-      flake = false;
-    };
-
     typst-skills = {
       url = "github:apcamargo/typst-skills";
       flake = false;

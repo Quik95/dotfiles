@@ -1,30 +1,9 @@
 {
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   isPlasma = (import ../../../shared/desktop.nix).desktop == "plasma";
-
-  # 1.0.0 misses /home/.snapshots with the @/@home layout; see the
-  # kio-snapshot input in flake.nix. Once nixpkgs ships a newer release, use
-  # it and warn that the override and the flake input can go.
-  upstreamKioSnapshot = pkgs.kdePackages.kio-snapshot;
-  kioSnapshotReleased = lib.versionOlder "1.0.0" upstreamKioSnapshot.version;
-  kio-snapshot =
-    lib.warnIf kioSnapshotReleased ''
-      kdePackages.kio-snapshot ${upstreamKioSnapshot.version} is now in nixpkgs: remove the
-      kio-snapshot override in modules/wm/plasma/nixos.nix and the kio-snapshot input in flake.nix.
-    ''
-    (
-      if kioSnapshotReleased
-      then upstreamKioSnapshot
-      else
-        upstreamKioSnapshot.overrideAttrs {
-          version = "1.0.0-unstable-2026-09-28";
-          src = inputs.kio-snapshot;
-        }
-    );
 in
   lib.mkIf isPlasma {
     services.displayManager.sddm.enable = true;
@@ -47,6 +26,20 @@ in
       })
     ];
 
+    # baloo_file_extractor is a QGuiApplication and aborts without a display. kde-baloo.service
+    # starts alongside kwin_wayland, before WAYLAND_DISPLAY/DISPLAY reach the systemd user
+    # environment, so every extractor it forks crashes until the service restarts. Upstream
+    # baloo commits 096b0d3f and a5431882 add this ordering after 6.31.0.
+    # The upstream unit ships via environment.systemPackages, not systemd.packages, so NixOS
+    # would otherwise generate a full replacement unit without ExecStart.
+    systemd.user.services.kde-baloo = {
+      overrideStrategy = "asDropin";
+      after = lib.warnIf (lib.versionAtLeast pkgs.kdePackages.baloo.version "6.32") ''
+        baloo ${pkgs.kdePackages.baloo.version} orders kde-baloo.service after the graphical session:
+        remove the kde-baloo ordering override in modules/wm/plasma/nixos.nix.
+      '' ["plasma-workspace.target" "graphical-session.target"];
+    };
+
     programs.dconf.enable = true;
 
     # Installs kdeconnect-kde and opens TCP/UDP 1714-1764 for the protocol.
@@ -68,7 +61,7 @@ in
     environment.systemPackages = [
       pkgs.kdePackages.ksshaskpass
       pkgs.kdePackages.plasma-keyboard
-      kio-snapshot
+      pkgs.kdePackages.kio-snapshot
     ];
     environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
   }

@@ -434,24 +434,6 @@
         "type": "github"
       }
     },
-    "kio-snapshot": {
-      "flake": false,
-      "locked": {
-        "host": "invent.kde.org",
-        "lastModified": 1792288913,
-        "narHash": "sha256-86U3WPBaOQj8EBSYUc9wV+jCRXbzpcaBe/hq7Yi2Ozc=",
-        "owner": "system",
-        "repo": "kio-snapshot",
-        "rev": "cbafbd39bdb12c06d90c4c3d6a0e1403e5fddd15",
-        "type": "gitlab"
-      },
-      "original": {
-        "host": "invent.kde.org",
-        "owner": "system",
-        "repo": "kio-snapshot",
-        "type": "gitlab"
-      }
-    },
     "lazyvim": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -751,7 +733,6 @@
         "gnome-wisp": "gnome-wisp",
         "home-manager": "home-manager",
         "kde-ai-usage": "kde-ai-usage",
-        "kio-snapshot": "kio-snapshot",
         "lazyvim": "lazyvim",
         "llm-agents": "llm-agents",
         "neko-rs": "neko-rs",

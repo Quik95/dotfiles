@@ -1,4 +1,39 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  nvidiaUpstream = config.boot.kernelPackages.nvidiaPackages.latest;
+
+  # patchelf 0.19.2 breaks non-PIE binaries when --interpreter and --set-rpath run in one
+  # invocation: .dynamic lands in a read-only LOAD segment and ld.so segfaults in dl_main
+  # (nvidia-smi, nvidia-powerd). Split the call as upstream does in nixpkgs#576397.
+  # Self-expiring: once the pinned builder no longer contains the combined call, the override
+  # is a no-op and evaluation warns to delete it.
+  # https://github.com/NixOS/nixpkgs/issues/576412
+  brokenPatchelfCall = ''
+    patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+                        --set-rpath $out/lib:$libPath $bin/bin/$i'';
+  splitPatchelfCall = ''
+    patchelf --set-rpath "$out/lib:$libPath" "$bin/bin/$i"
+                    patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$bin/bin/$i"'';
+
+  nvidiaPackage = nvidiaUpstream.overrideAttrs (old: let
+    # `old.builder` is the pre-mkDerivation ./builder.sh path; the final drv's `builder` is bash.
+    upstreamBuilder = builtins.readFile old.builder;
+  in
+    if lib.hasInfix brokenPatchelfCall upstreamBuilder
+    then {
+      builder = pkgs.writeText "nvidia-x11-builder.sh" (
+        builtins.replaceStrings [brokenPatchelfCall] [splitPatchelfCall] upstreamBuilder
+      );
+    }
+    else
+      lib.warn
+      "gpu.nix: nixpkgs now splits the nvidia-x11 patchelf call (nixpkgs#576412); remove the nvidiaPackage override"
+      {});
+in {
   # RTX 5050 Mobile (Blackwell) + AMD Ryzen 7 hybrid graphics
 
   services.xserver.videoDrivers = ["nvidia"];
@@ -17,7 +52,7 @@
     # Required for Blackwell (GB***) and newer architectures
     open = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = nvidiaPackage;
     modesetting.enable = true;
 
     nvidiaSettings = false;

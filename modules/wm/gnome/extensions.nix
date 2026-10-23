@@ -143,6 +143,80 @@
       enabled = true;
     }
     {
+      pkg = dash-to-panel;
+      enabled = true;
+      dconfPath = "dash-to-panel";
+      settings = {
+        # Global fallback for every monitor; per-monitor panel-positions stays
+        # empty so it applies to the laptop panel and the HDMI one alike.
+        panel-position = "TOP";
+        # Global fallback like panel-position; the default 48px is much taller
+        # than the stock GNOME bar.
+        panel-size = 32;
+        # One button per open window with its title, no pinned launchers.
+        group-apps = false;
+        show-favorites = false;
+        # Dash to Panel hides the overview dash by default, expecting favorites
+        # on its taskbar; keep the stock one since the taskbar omits them.
+        stockgs-keep-dash = true;
+        # Middle click closes that one window, like a browser tab: with
+        # group-apps off, QUIT deletes only the clicked window. Shift+middle
+        # still launches a new instance.
+        middle-click-action = "QUIT";
+        # Window list top-left, clock centered, every indicator box on the
+        # right, matching the stock bar. Keyed by monitor index (eDP-1 and
+        # HDMI-1); Dash to Panel falls back to the index when no serial entry
+        # exists.
+        panel-element-positions = builtins.toJSON (lib.genAttrs ["0" "1"] (_: [
+          {
+            element = "showAppsButton";
+            visible = false;
+            position = "stackedTL";
+          }
+          {
+            element = "activitiesButton";
+            visible = false;
+            position = "stackedTL";
+          }
+          {
+            element = "taskbar";
+            visible = true;
+            position = "stackedTL";
+          }
+          {
+            element = "dateMenu";
+            visible = true;
+            position = "centerMonitor";
+          }
+          {
+            element = "leftBox";
+            visible = true;
+            position = "stackedBR";
+          }
+          {
+            element = "centerBox";
+            visible = true;
+            position = "stackedBR";
+          }
+          {
+            element = "rightBox";
+            visible = true;
+            position = "stackedBR";
+          }
+          {
+            element = "systemMenu";
+            visible = true;
+            position = "stackedBR";
+          }
+          {
+            element = "desktopButton";
+            visible = false;
+            position = "stackedBR";
+          }
+        ]));
+      };
+    }
+    {
       pkg = fullscreen-hot-corner;
       enabled = true;
     }
@@ -169,10 +243,6 @@
       dconfPath = "just-perfection";
       settings = {
         activities-button = false;
-        # Keep the clock in the center box (0): moved into the right box it
-        # pushes that box past the half-bar limit GNOME allows it.
-        clock-menu-position = 0;
-        clock-menu-position-offset = 0;
         search = false;
         workspace-wrap-around = false;
         window-demands-attention-focus = true;
@@ -190,8 +260,9 @@
       enabled = true;
     }
     {
+      # Dash to Panel draws its own panel on every monitor.
       pkg = multi-monitor-bar;
-      enabled = true;
+      enabled = false;
       dconfPath = "multi-monitors-bar";
       settings = {
         show-panel = true;

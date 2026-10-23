@@ -32,6 +32,16 @@ in {
           "/tmp:rw"
         ];
       };
+      # WebKitGTK's DMABUF renderer on the NVIDIA driver dies with Wayland
+      # "Error 71" under explicit sync. Flathub's metadata works around it with
+      # WEBKIT_DISABLE_DMABUF_RENDERER=1, which disables GPU rendering in the
+      # web process and makes the UI lag. Re-enable it and fall back to
+      # implicit sync instead. The environment is inherited by Minecraft, so it
+      # must not restrict GL vendors or devices.
+      "com.modrinth.ModrinthApp".Environment = {
+        WEBKIT_DISABLE_DMABUF_RENDERER = "0";
+        __NV_DISABLE_EXPLICIT_SYNC = "1";
+      };
     };
 
     update.auto = {

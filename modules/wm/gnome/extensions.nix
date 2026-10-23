@@ -156,6 +156,8 @@
         # One button per open window with its title, no pinned launchers.
         group-apps = false;
         show-favorites = false;
+        # Each monitor's taskbar lists only the windows on that monitor.
+        isolate-monitors = true;
         # Dash to Panel hides the overview dash by default, expecting favorites
         # on its taskbar; keep the stock one since the taskbar omits them.
         stockgs-keep-dash = true;

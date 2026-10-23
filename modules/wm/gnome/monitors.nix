@@ -13,7 +13,7 @@
   # looping.
   restore = pkgs.writeShellScript "gnome-monitors-restore" ''
     target="$HOME/.config/monitors.xml"
-    ${pkgs.coreutils}/bin/cmp -s ${monitorsXml} "$target" && exit 0
+    ${pkgs.diffutils}/bin/cmp -s ${monitorsXml} "$target" && exit 0
     ${pkgs.coreutils}/bin/install -m 0644 ${monitorsXml} "$target"
   '';
 in

@@ -186,7 +186,10 @@ in {
   };
 
   home.file.".omp/agent/models.yml".source = (pkgs.formats.yaml {}).generate "omp-models.yml" {
-    providers.anthropic.modelOverrides.claude-opus-5-5.contextWindow = 350000;
+    providers.anthropic.modelOverrides.claude-opus-5-5 = {
+      contextWindow = 350000;
+      maxContextWindow = 1000000;
+    };
   };
 
   home.activation.installOmpModelPresets = lib.hm.dag.entryAfter ["writeBoundary"] ''

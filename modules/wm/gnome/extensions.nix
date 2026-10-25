@@ -86,6 +86,17 @@
     };
   };
 
+  # Super+P "Join Displays" otherwise puts the primary HDMI monitor left of
+  # the laptop; see stored-display-switcher/extension.js.
+  storedDisplaySwitcher = let
+    uuid = "stored-display-switcher@sebastian";
+  in
+    pkgs.runCommand "gnome-shell-extension-stored-display-switcher" {
+      passthru.extensionUuid = uuid;
+    } ''
+      install -Dm644 -t $out/share/gnome-shell/extensions/${uuid} ${./stored-display-switcher}/*
+    '';
+
   extensions = with pkgs.gnomeExtensions; [
     {
       pkg = activate-window-by-title;
@@ -289,6 +300,10 @@
     }
     {
       pkg = compactSystemMonitor;
+      enabled = true;
+    }
+    {
+      pkg = storedDisplaySwitcher;
       enabled = true;
     }
   ];

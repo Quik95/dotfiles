@@ -1,0 +1,6 @@
+{
+  "uuid": "stored-display-switcher@sebastian",
+  "name": "Stored Display Switcher",
+  "description": "Super+P \"Join Displays\" restores the layout saved in monitors.xml instead of a fresh linear one.",
+  "shell-version": ["50"]
+}

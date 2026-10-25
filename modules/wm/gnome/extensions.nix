@@ -51,41 +51,6 @@
       EOF
     '';
 
-  claudeCodexUsage = pkgs.stdenvNoCC.mkDerivation {
-    pname = "gnome-shell-extension-claude-codex-usage";
-    version = "0.1.0-unstable-2026-06-18";
-
-    src = inputs.gnome-claude-codex-usage;
-
-    patches = [./patches/claude-codex-usage-config-dir.patch];
-
-    nativeBuildInputs = [pkgs.glib];
-
-    buildPhase = ''
-      runHook preBuild
-      glib-compile-schemas --strict src/schemas
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-      extensionDir=$out/share/gnome-shell/extensions/claude-codex-usage@IanBraga96
-      mkdir -p "$extensionDir"
-      cp -r src/. "$extensionDir/"
-      install -Dm644 LICENSE THIRD_PARTY_NOTICES.md -t "$extensionDir"
-      runHook postInstall
-    '';
-
-    passthru.extensionUuid = "claude-codex-usage@IanBraga96";
-
-    meta = {
-      description = "Show Claude Code and Codex CLI usage in the GNOME top bar";
-      homepage = "https://github.com/IanBraga96/gnome-claude-codex-usage";
-      license = lib.licenses.gpl2Plus;
-      platforms = lib.platforms.linux;
-    };
-  };
-
   # Super+P "Join Displays" otherwise puts the primary HDMI monitor left of
   # the laptop; see stored-display-switcher/extension.js.
   storedDisplaySwitcher = let
@@ -101,6 +66,20 @@
     {
       pkg = activate-window-by-title;
       enabled = false;
+    }
+    {
+      pkg = inputs.gnome-ai-usage.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      enabled = true;
+      dconfPath = "ai-usage";
+      settings = {
+        # Same as the Plasma widget had: both providers fetched and pinned,
+        # polled every minute.
+        enabled-providers = ["claude" "openai"];
+        panel-providers = ["claude" "openai"];
+        poll-interval = lib.hm.gvariant.mkUint32 60;
+        show-overview = false;
+        show-spend = false;
+      };
     }
     {
       pkg = appindicator;
@@ -139,14 +118,6 @@
       dconfPath = "caffeine";
       settings = {
         show-notifications = false;
-      };
-    }
-    {
-      pkg = claudeCodexUsage;
-      enabled = true;
-      dconfPath = "claude-codex-usage";
-      settings = {
-        show-provider-labels = false;
       };
     }
     {

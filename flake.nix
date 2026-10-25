@@ -82,13 +82,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    syspeek = {
-      url = "github:prassamin/SysPeek/v2.1.0";
-      flake = false;
+    gnome-ai-usage = {
+      url = "github:Quik95/gnome-ai-usage";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.kde-ai-usage.follows = "kde-ai-usage";
     };
 
-    gnome-claude-codex-usage = {
-      url = "github:IanBraga96/gnome-claude-codex-usage";
+    syspeek = {
+      url = "github:prassamin/SysPeek/v2.1.0";
       flake = false;
     };
 

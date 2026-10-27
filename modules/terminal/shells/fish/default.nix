@@ -39,6 +39,7 @@
       ls = "eza -ahm -F --git --icons --no-permissions --no-user";
       g = "git";
       lg = "lazygit";
+      icat = "kitten icat";
       sudo = "run0";
       nix-shell = "nix-shell --run fish";
       wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";

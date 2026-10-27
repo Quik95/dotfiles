@@ -7,7 +7,7 @@ This repository manages NixOS hosts and Home Manager profiles via a single flake
 - **System configs:** `nixosConfigurations.sebastian-laptop-legion`
 - **Home configs:** `homeConfigurations."sebastian@sebastian-laptop-legion"`
 - **Platform:** `x86_64-linux` on NixOS unstable
-- **Desktop:** selected in `shared/desktop.nix` (`"plasma"` or `"gnome"`); both module trees are kept in sync
+- **Desktop:** selected in `shared/desktop.nix` (`"plasma"` or `"gnome"`); `modules/wm/{plasma,gnome}` are kept in sync, and desktop-specific modules gate on this value, never on the hostname
 - **Adding hosts:** register NixOS and Home Manager module paths in `hosts` in `flake.nix`; outputs and Home Manager checks are generated automatically
 
 ## Environment Details

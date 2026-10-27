@@ -107,39 +107,80 @@ function parseConfigurations(xml) {
 
 const specKey = spec => spec.join('\u0000');
 
+function findMode(connectedMonitor, monitor) {
+    const mode = connectedMonitor.modes.find(([, width, height, refresh]) =>
+        width === monitor.width && height === monitor.height &&
+        Math.abs(refresh - monitor.rate) < 0.001);
+    if (!mode)
+        throw new Error(`No ${monitor.width}x${monitor.height}@${monitor.rate} mode on ${connectedMonitor.connector}`);
+
+    return mode[0];
+}
+
+function joinedLayout(configurations, connected) {
+    const configuration = configurations.find(candidate =>
+        candidate.specs.length === connected.size &&
+        candidate.specs.every(spec => connected.has(specKey(spec))));
+    if (!configuration)
+        return null;
+
+    return configuration.logicalMonitors.map(logical => [
+        logical.x, logical.y, logical.scale, logical.transform, logical.primary,
+        logical.monitors.map(monitor => {
+            const connectedMonitor = connected.get(specKey(monitor.spec));
+            return [connectedMonitor.connector, findMode(connectedMonitor, monitor), {}];
+        }),
+    ]);
+}
+
+// A single monitor keeps the mode, scale and rotation it has in any stored
+// layout; mutter's own "Built-in Only" would fall back to its default scale.
+function singleLayout(configurations, connectedMonitor) {
+    for (const configuration of configurations) {
+        for (const logical of configuration.logicalMonitors) {
+            const monitor = logical.monitors.find(candidate =>
+                specKey(candidate.spec) === connectedMonitor.key);
+            if (monitor) {
+                return [[0, 0, logical.scale, logical.transform, true,
+                    [[connectedMonitor.connector, findMode(connectedMonitor, monitor), {}]]]];
+            }
+        }
+    }
+    return null;
+}
+
 /**
- * Applies the stored configuration matching the connected monitors.
+ * Applies the stored layout for the connected monitors.
  *
- * @returns {Promise<boolean>} false when monitors.xml has no matching layout
+ * @param {'joined'|'builtin'|'external'} target which monitors to enable
+ * @returns {Promise<boolean>} false when monitors.xml has no usable layout
  */
-export async function applyStoredLayout() {
+export async function applyStoredLayout(target) {
     const reply = await callDisplayConfig('GetCurrentState', null,
         '(ua((ssss)a(siiddada{sv})a{sv})a(iiduba(ssss)a{sv})a{sv})');
     const [serial, monitors, , properties] = reply.recursiveUnpack();
     const layoutMode = properties['layout-mode'] ?? 1;
 
-    const connected = new Map(monitors.map(([spec, modes]) => [specKey(spec), {connector: spec[0], modes}]));
+    const connected = new Map(monitors.map(([spec, modes, monitorProperties]) => [specKey(spec), {
+        key: specKey(spec),
+        connector: spec[0],
+        modes,
+        builtin: monitorProperties['is-builtin'] === true,
+    }]));
     const path = GLib.build_filenamev([GLib.get_user_config_dir(), 'monitors.xml']);
-    const configuration = parseConfigurations(await loadFile(path)).find(candidate =>
-        candidate.layoutMode === layoutMode &&
-        candidate.specs.length === connected.size &&
-        candidate.specs.every(spec => connected.has(specKey(spec))));
-    if (!configuration)
+    const configurations = parseConfigurations(await loadFile(path))
+        .filter(configuration => configuration.layoutMode === layoutMode);
+
+    let logicalMonitors;
+    if (target === 'joined') {
+        logicalMonitors = joinedLayout(configurations, connected);
+    } else {
+        const wantBuiltin = target === 'builtin';
+        const candidates = [...connected.values()].filter(monitor => monitor.builtin === wantBuiltin);
+        logicalMonitors = candidates.length === 1 ? singleLayout(configurations, candidates[0]) : null;
+    }
+    if (!logicalMonitors)
         return false;
-
-    const logicalMonitors = configuration.logicalMonitors.map(logical => [
-        logical.x, logical.y, logical.scale, logical.transform, logical.primary,
-        logical.monitors.map(monitor => {
-            const {connector, modes} = connected.get(specKey(monitor.spec));
-            const mode = modes.find(([, width, height, refresh]) =>
-                width === monitor.width && height === monitor.height &&
-                Math.abs(refresh - monitor.rate) < 0.001);
-            if (!mode)
-                throw new Error(`No ${monitor.width}x${monitor.height}@${monitor.rate} mode on ${connector}`);
-
-            return [connector, mode[0], {}];
-        }),
-    ]);
 
     await callDisplayConfig('ApplyMonitorsConfig',
         new GLib.Variant('(uua(iiduba(ssa{sv}))a{sv})',

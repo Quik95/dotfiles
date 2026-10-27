@@ -3,11 +3,14 @@
   config,
   ...
 }: let
+  inherit (import ../../shared/desktop.nix) desktop;
   aiAgentsSystemInstruction = ''
-    Current system: ${hostname}
+    Current system: ${hostname} (NixOS unstable, x86_64-linux)
+    Desktop environment: ${desktop}
 
-    Files under `/nix/store` are approved for read-only exploration and reference.
-    Do not modify, replace, or attempt to write anywhere under `/nix/store`.
+    ## Missing Programs
+
+    If a command is not installed, run it ad hoc from nixpkgs with comma: `, <command> [args...]` (e.g. `, cowsay hi`).
 
     ## Sudo
 

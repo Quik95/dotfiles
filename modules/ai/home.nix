@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (import ../../shared/desktop.nix) desktop;
-  aiAgentsSystemInstruction = ''
+  aiAgentsBaseInstruction = ''
     Current system: ${hostname} (NixOS unstable, x86_64-linux)
     Desktop environment: ${desktop}
 
@@ -19,7 +19,9 @@
     `sudo -S -p "" -- <command> < "${config.sops.secrets.sudo-password.path}"`
     Never print the password, read it into tool output, or include its value in prompts, logs, arguments, or environment variables.
     This access does not authorize destructive or unrelated actions.
-
+  '';
+  aiAgentsSystemInstruction = ''
+    ${aiAgentsBaseInstruction}
     ## Browser Automation
 
     Use `agent-browser` for web automation. Run `agent-browser --help` for all commands.
@@ -39,7 +41,8 @@ in {
     }
   ];
 
-  _module.args.aiAgentsSystemInstruction = aiAgentsSystemInstruction;
+  # omp uses its built-in Eval browser instead of agent-browser.
+  _module.args = {inherit aiAgentsBaseInstruction aiAgentsSystemInstruction;};
   imports = [
     ./claude-code
     ./omp-settings.nix

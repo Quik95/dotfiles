@@ -4,10 +4,19 @@
   lib,
   pkgs,
   aiAgentsLspServers,
-  aiAgentsSystemInstruction,
+  aiAgentsBaseInstruction,
   ...
 }: let
   ompPackage = pkgs.omp;
+  # Puppeteer's downloaded Chromium is not patched for NixOS; reuse CloakBrowser.
+  ompBrowserPackage = inputs.cloakbrowser.packages.${pkgs.stdenv.hostPlatform.system}.cloakbrowserChromium;
+  ompBrowserProfile = "${config.xdg.stateHome}/omp-browser/profile";
+  # omp exposes no profile setting; the trailing switch wins over omp's own
+  # --user-data-dir, so every launch reuses one persistent profile.
+  ompBrowser = pkgs.writeShellScript "omp-browser" ''
+    ${pkgs.coreutils}/bin/mkdir -p -- ${lib.escapeShellArg ompBrowserProfile}
+    exec ${lib.getExe ompBrowserPackage} "$@" --user-data-dir=${lib.escapeShellArg ompBrowserProfile}
+  '';
   # Install at launch rather than activation: PI_CODING_AGENT_DIR is a runtime choice.
   ompInstallRules = pkgs.writeShellScript "omp-install-rules" ''
     set -euo pipefail
@@ -25,6 +34,7 @@
     postBuild = ''
       wrapProgram "$out/bin/omp" \
         --set PI_CONFIG_FILES "${config.xdg.configHome}/omp/home-manager.yml" \
+        --set-default PUPPETEER_EXECUTABLE_PATH "${ompBrowser}" \
         --run '${ompInstallRules} || exit $?'
 
       ${lib.optionalString (pkgs.stdenv.buildPlatform.canExecute pkgs.stdenv.hostPlatform) ''
@@ -76,7 +86,7 @@
           inherit (server) command args env;
         }
     )
-    config.programs.mcp.servers;
+    (removeAttrs config.programs.mcp.servers ["agent-browser"]);
   ompMcpConfig = (pkgs.formats.json {}).generate "omp-mcp.json" {
     mcpServers =
       ompMcpServers
@@ -91,8 +101,12 @@
   ompSettingsOverlay = (pkgs.formats.yaml {}).generate "omp-home-manager.yml" {
     memory.backend = "mnemopi";
     astGrep.enabled = true;
+    browser = {
+      headless = false;
+      freezeOnTurnEnd = false;
+      idleCloseSec = 0;
+    };
     python.interpreter = lib.getExe pkgs.python3;
-    browser.enabled = false;
     composer.tokenRate = true;
     display.cacheMissMarker = true;
     defaultThinkingLevel = "low";
@@ -141,7 +155,7 @@ in {
 
   xdg.configFile."omp/home-manager.yml".source = ompSettingsOverlay;
   home.file.".omp/agent/mcp.json".source = ompMcpConfig;
-  home.file.".omp/agent/AGENTS.md".text = aiAgentsSystemInstruction;
+  home.file.".omp/agent/AGENTS.md".text = aiAgentsBaseInstruction;
   home.file.".omp/agent/lsp.json".source = (pkgs.formats.json {}).generate "omp-lsp.json" {
     servers =
       lib.mapAttrs (_: server:

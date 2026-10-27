@@ -135,13 +135,14 @@
         # Global fallback like panel-position; the default 48px is much taller
         # than the stock GNOME bar.
         panel-size = 32;
-        # One button per open window with its title, no pinned launchers.
+        # Pinned favorite launchers first, then one button per open window
+        # with its title.
         group-apps = false;
-        show-favorites = false;
+        show-favorites = true;
         # Each monitor's taskbar lists only the windows on that monitor.
         isolate-monitors = true;
-        # Dash to Panel hides the overview dash by default, expecting favorites
-        # on its taskbar; keep the stock one since the taskbar omits them.
+        # Dash to Panel hides the overview dash by default; keep the stock one
+        # in the overview as well.
         stockgs-keep-dash = true;
         # Middle click closes that one window, like a browser tab: with
         # group-apps off, QUIT deletes only the clicked window. Shift+middle

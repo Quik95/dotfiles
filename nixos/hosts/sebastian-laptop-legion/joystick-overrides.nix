@@ -1,43 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  # nixpkgs signs out-of-tree modules via kmodigest only in `make modules_install`
-  # (`cmd_sign` in kernel/common-flags.nix), and the module aggregator requires a
-  # `<module>.ko.cer` per external module. xpad-noone installs its .ko by hand, so
-  # it ships unsigned and breaks the `linux-*-modules` build. Sign it ourselves
-  # until nixpkgs stops copying the .ko by hand or signs it, then warn that the
-  # override can go.
-  upstreamXpadNoone = config.boot.kernelPackages.xpad-noone;
-  xpadNooneBuild = lib.concatStringsSep "\n" [
-    (upstreamXpadNoone.installPhase or "")
-    (upstreamXpadNoone.postInstall or "")
-    (toString (upstreamXpadNoone.nativeBuildInputs or []))
-  ];
-  xpadNooneFixed =
-    !(lib.hasInfix "install *.ko" xpadNooneBuild)
-    || lib.hasInfix "kmodigest" xpadNooneBuild;
-in {
+{pkgs, ...}: {
   hardware.xone.enable = true;
-
-  hardware.xpad-noone.enable =
-    lib.warnIf xpadNooneFixed ''
-      nixpkgs xpad-noone no longer installs its .ko unsigned by hand: remove the
-      xpad-noone signing override in nixos/hosts/sebastian-laptop-legion/joystick-overrides.nix.
-    ''
-    xpadNooneFixed;
-  boot.extraModulePackages = lib.optional (!xpadNooneFixed) (upstreamXpadNoone.overrideAttrs (old: {
-    nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.buildPackages.kmodigest];
-    postInstall =
-      (old.postInstall or "")
-      + ''
-        for ko in "$out"/lib/modules/*/kernel/drivers/xpad-noone/*.ko; do
-          kmodigest "$ko"
-        done
-      '';
-  }));
+  hardware.xpad-noone.enable = true;
 
   services.udev.packages = [pkgs.game-devices-udev-rules];
 

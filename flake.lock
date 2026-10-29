@@ -486,20 +486,20 @@
     "gnome-ai-usage": {
       "inputs": {
         "devenv": "devenv",
-        "kde-ai-usage": [
-          "kde-ai-usage"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems"
+        "systems": "systems",
+        "tidesi": [
+          "tidesi"
+        ]
       },
       "locked": {
-        "lastModified": 1792965847,
-        "narHash": "sha256-EsNRAwR1mpRWp7WnK8lTVA6Y5ThYhC5XsU0cAVVj80g=",
+        "lastModified": 1793308131,
+        "narHash": "sha256-mb8FJyIGJY2yCTZiTWxzEiwaL5nWYvIrYDlI/1lKIkk=",
         "owner": "Quik95",
         "repo": "gnome-ai-usage",
-        "rev": "4f905066065a4e17af16ef7a92c473ab657ea353",
+        "rev": "8b8070235e46c29853d4db5b5bb515ac4d0d166d",
         "type": "github"
       },
       "original": {
@@ -545,27 +545,6 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "kde-ai-usage": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790613209,
-        "narHash": "sha256-hn+m8Bc3Wk2l6oxVrFLjYT193UgWA6kO5YOKGiGj9DI=",
-        "owner": "Muddyblack",
-        "repo": "kde-ai-usage",
-        "rev": "fb99cf624a4ed02912fc5018e4f532606c1d1965",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Muddyblack",
-        "ref": "v3.2.0",
-        "repo": "kde-ai-usage",
         "type": "github"
       }
     },
@@ -928,7 +907,6 @@
         "cloakbrowser": "cloakbrowser",
         "gnome-ai-usage": "gnome-ai-usage",
         "home-manager": "home-manager",
-        "kde-ai-usage": "kde-ai-usage",
         "lazyvim": "lazyvim",
         "llm-agents": "llm-agents",
         "neko-rs": "neko-rs",
@@ -943,6 +921,7 @@
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
+        "tidesi": "tidesi",
         "typst-skills": "typst-skills",
         "wshobson-agents": "wshobson-agents"
       }
@@ -1136,6 +1115,26 @@
         "owner": "nix-systems",
         "ref": "future-26.11",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tidesi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793179357,
+        "narHash": "sha256-VjhCiJNlOempEMXSCHQczZDNiHuPdkOxmO05IndDiL4=",
+        "owner": "Muddyblack",
+        "repo": "tidesi",
+        "rev": "9ae364a0c63efe8cea57997edc2d6b62f0dba1c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Muddyblack",
+        "repo": "tidesi",
         "type": "github"
       }
     },

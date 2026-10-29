@@ -34,7 +34,7 @@ in {
             };
           }
           {
-            name = "org.muddyblack.aiUsageWidget";
+            name = "org.muddyblack.tidesi";
             config.General = {
               claudeEnabled = true;
               openaiEnabled = true;

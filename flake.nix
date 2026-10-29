@@ -77,15 +77,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    kde-ai-usage = {
-      url = "github:Muddyblack/kde-ai-usage/v3.2.0";
+    tidesi = {
+      url = "github:Muddyblack/tidesi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     gnome-ai-usage = {
       url = "github:Quik95/gnome-ai-usage";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.kde-ai-usage.follows = "kde-ai-usage";
+      inputs.tidesi.follows = "tidesi";
     };
 
     typst-skills = {

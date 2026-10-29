@@ -20,6 +20,35 @@
     "telephony"
   ];
 
+  # The gcampax extensions on extensions.gnome.org track the next shell
+  # release (51 while nixpkgs ships shell 50), so GNOME marks them out of
+  # date. Until nixpkgs ships shell 51, take the copies bundled with
+  # gnome-shell-extensions, which match the shell, one directory at a time so
+  # the others stay out of the profile. From 51 on this falls back to the
+  # extensions.gnome.org package by itself and a warning asks to drop it.
+  gcampaxFromBundle = lib.versionOlder pkgs.gnome-shell.version "51";
+  gcampaxExtension = name: fallback:
+    if gcampaxFromBundle
+    then let
+      uuid = "${name}@gnome-shell-extensions.gcampax.github.com";
+      base = pkgs.gnome-shell-extensions;
+    in
+      pkgs.runCommand "gnome-shell-extension-${name}-${base.version}" {
+        inherit (base) meta;
+        passthru.extensionUuid = uuid;
+      } ''
+        mkdir -p $out/share/gnome-shell/extensions
+        cp -r ${base}/share/gnome-shell/extensions/${uuid} $out/share/gnome-shell/extensions/
+      ''
+    else fallback;
+
+  # Blur my Shell 75 added popup blur, on by default. Without a blur effect
+  # that supports rounded corners (rounded-blur-found=false; GNOME 51's
+  # Shell.BlurEffect has none either) it paints a square blurred box behind
+  # the rounded quick settings and menus. Keep it off only on 75: any other
+  # version turns it back on and a warning asks to check the corners.
+  popupBlurBroken = pkgs.gnomeExtensions.blur-my-shell.version == "75";
+
   # GNOME caps the right panel box at half the bar, and with every indicator
   # there the network figures got squeezed into "0.1 …". Upstream always adds
   # the monitor to the right box, so place it in the left one, right after the
@@ -28,7 +57,7 @@
   # copy instead of overriding the package, which would rebuild all of
   # gnome-shell-extensions.
   compactSystemMonitor = let
-    base = pkgs.gnomeExtensions.system-monitor;
+    base = gcampaxExtension "system-monitor" pkgs.gnomeExtensions.system-monitor;
   in
     pkgs.runCommand "${base.name}-compact" {
       inherit (base) meta;
@@ -111,6 +140,8 @@
     {
       pkg = blur-my-shell;
       enabled = true;
+      dconfPath = "blur-my-shell/popup";
+      settings.blur = !popupBlurBroken;
     }
     {
       pkg = caffeine;
@@ -241,7 +272,7 @@
       };
     }
     {
-      pkg = launch-new-instance;
+      pkg = gcampaxExtension "launch-new-instance" launch-new-instance;
       enabled = true;
     }
     {
@@ -263,7 +294,7 @@
       enabled = false;
     }
     {
-      pkg = removable-drive-menu;
+      pkg = gcampaxExtension "drive-menu" removable-drive-menu;
       enabled = true;
     }
     {
@@ -290,6 +321,10 @@
     exts;
 in
   lib.mkIf isGnome {
+    warnings =
+      lib.optional (!gcampaxFromBundle) "extensions.nix: GNOME Shell is now ${pkgs.gnome-shell.version}; the gcampax extensions come from extensions.gnome.org again, remove `gcampaxFromBundle`/`gcampaxExtension`."
+      ++ lib.optional (!popupBlurBroken) "extensions.nix: Blur my Shell is now ${pkgs.gnomeExtensions.blur-my-shell.version} and popup blur is back on; if quick settings show no square box behind them, remove `popupBlurBroken` and the blur-my-shell/popup setting.";
+
     dconf.settings =
       mkDconfSettings extensions
       // {

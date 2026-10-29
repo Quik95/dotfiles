@@ -3,6 +3,7 @@
   inputs,
   lib,
   pkgs,
+  sources,
   aiAgentsLspServers,
   aiAgentsBaseInstruction,
   ...
@@ -180,18 +181,18 @@ in {
       };
   };
 
-  home.file.".omp/plugins/node_modules/@ahrzb/omp-model-presets".source = inputs.omp-model-presets;
+  home.file.".omp/plugins/node_modules/@ahrzb/omp-model-presets".source = sources.omp-model-presets.src;
   home.file.".omp/plugins/package.json".text = builtins.toJSON {
     name = "omp-plugins";
     private = true;
     dependencies = {
-      "@ahrzb/omp-model-presets" = "^0.10.0";
+      "@ahrzb/omp-model-presets" = "^${sources.omp-model-presets.version}";
     };
   };
   home.file.".omp/plugins/omp-plugins.lock.json".text = builtins.toJSON {
     plugins = {
       "@ahrzb/omp-model-presets" = {
-        version = "0.10.0";
+        version = sources.omp-model-presets.version;
         enabledFeatures = null;
         enabled = true;
       };

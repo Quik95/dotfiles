@@ -1,0 +1,30 @@
+{
+    "omp-model-presets": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "omp-model-presets",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-wDYIO5UkgCI9+kYFrlzEIqlPCUs1enRvlSTt8Xo5aqA=",
+            "type": "tarball",
+            "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.12.0.tgz"
+        },
+        "version": "0.12.0"
+    },
+    "syspeek": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "syspeek",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-sjN3j3JQq0RYEF+HVk3b7pDeJNaiFqQ7BZSqpidVolQ=",
+            "type": "tarball",
+            "url": "https://github.com/prassamin/SysPeek/archive/refs/tags/v2.1.1.tar.gz"
+        },
+        "version": "2.1.1"
+    }
+}

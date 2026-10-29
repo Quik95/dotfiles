@@ -1,0 +1,12 @@
+# Sources pinned to upstream releases, which `nix flake update` cannot bump.
+# Regenerate _sources/ with `nvfetcher`, then `nix fmt`.
+
+[omp-model-presets]
+src.cmd = "curl -fsL https://registry.npmjs.org/@ahrzb/omp-model-presets/latest | jq -r .version"
+fetch.tarball = "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-$ver.tgz"
+
+[syspeek]
+src.github_tag = "prassamin/SysPeek"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.prefix = "v"
+fetch.tarball = "https://github.com/prassamin/SysPeek/archive/refs/tags/v$ver.tar.gz"

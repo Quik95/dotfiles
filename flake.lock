@@ -847,19 +847,6 @@
         "type": "github"
       }
     },
-    "omp-model-presets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 499162500,
-        "narHash": "sha256-lS6qFMTdmhoNbUjAskr2Y1aVCMeYUpmle5nY7zWdKDM=",
-        "type": "tarball",
-        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz"
-      }
-    },
     "opencode-power-pack": {
       "flake": false,
       "locked": {
@@ -950,14 +937,12 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "omp": "omp",
-        "omp-model-presets": "omp-model-presets",
         "opencode-power-pack": "opencode-power-pack",
         "picard-plugin-fanarttv": "picard-plugin-fanarttv",
         "picard-plugin-lrclib": "picard-plugin-lrclib",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
-        "syspeek": "syspeek",
         "typst-skills": "typst-skills",
         "wshobson-agents": "wshobson-agents"
       }
@@ -1060,23 +1045,6 @@
       "original": {
         "owner": "danth",
         "repo": "stylix",
-        "type": "github"
-      }
-    },
-    "syspeek": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1789495350,
-        "narHash": "sha256-B5lK8J546QD9Whl19KZZe+gZjV7j5pWgxt5GqEtBRjY=",
-        "owner": "prassamin",
-        "repo": "SysPeek",
-        "rev": "8544b8adece1b96b113057417e9865170c397b71",
-        "type": "github"
-      },
-      "original": {
-        "owner": "prassamin",
-        "ref": "v2.1.0",
-        "repo": "SysPeek",
         "type": "github"
       }
     },

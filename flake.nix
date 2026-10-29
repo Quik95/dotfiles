@@ -88,11 +88,6 @@
       inputs.kde-ai-usage.follows = "kde-ai-usage";
     };
 
-    syspeek = {
-      url = "github:prassamin/SysPeek/v2.1.0";
-      flake = false;
-    };
-
     typst-skills = {
       url = "github:apcamargo/typst-skills";
       flake = false;
@@ -121,11 +116,6 @@
     agent-skills = {
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    omp-model-presets = {
-      url = "https://registry.npmjs.org/@ahrzb/omp-model-presets/-/omp-model-presets-0.11.0.tgz";
-      flake = false;
     };
 
     plasma-manager = {
@@ -182,6 +172,7 @@
         ];
         extraSpecialArgs = {
           inherit inputs hostname;
+          sources = pkgs.callPackage ./_sources/generated.nix {};
         };
       };
   in {
@@ -223,5 +214,20 @@
       };
 
     formatter.${system} = pkgs.alejandra;
+
+    # `nix flake update` has no hooks, so nvfetcher sources are bumped alongside it here.
+    apps.${system}.update = {
+      type = "app";
+      program = nixpkgs.lib.getExe (pkgs.writeShellApplication {
+        name = "update";
+        runtimeInputs = [pkgs.git pkgs.nvfetcher pkgs.alejandra];
+        text = ''
+          cd "$(git rev-parse --show-toplevel)"
+          nix flake update
+          nvfetcher
+          alejandra --quiet _sources
+        '';
+      });
+    };
   };
 }

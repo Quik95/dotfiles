@@ -69,6 +69,9 @@ nh home switch . -c sebastian@sebastian-laptop-legion
 ### Update inputs
 
 ```bash
+# Update all flake inputs and nvfetcher sources, then reformat _sources/
+nix run .#update
+
 # Update all inputs
 nix flake update
 
@@ -77,6 +80,16 @@ nix flake update <input-name>
 
 # Update one input and build in one step
 nh os build . -H sebastian-laptop-legion -U <input-name>
+
+# Bump release-pinned sources from nvfetcher.toml (rewrites _sources/), then reformat
+nix run nixpkgs#nvfetcher && nix fmt .
+```
+
+Sources tracked by upstream release or version rather than branch live in `nvfetcher.toml`, not flake inputs; modules receive them as the `sources` Home Manager special arg (`sources.<name>.{src,version}`). Add a new one there only when it is not itself a flake whose outputs are consumed.
+
+```bash
+# Bump one nvfetcher source
+nix run nixpkgs#nvfetcher -- --filter '^<name>$' && nix fmt .
 ```
 
 ### Secret management
